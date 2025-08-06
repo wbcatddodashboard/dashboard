@@ -1,8 +1,8 @@
 import type { FilterSection } from './Sidebar.d';
 
-export const SIDEBAR_LOGO_IMAGE = "/logo-world-bank.svg";
+export const SIDEBAR_LOGO_IMAGE = "/sidebar-logo.png";
 export const FILTER_ICON_GROUP = "/filter-icon-group.svg";
-export const FILTER_ICON_IMAGE = "/filter-icon.svg";
+export const FILTER_ICON_IMAGE = "/filter-icon-figma.svg";
 
 export const FILTER_SECTIONS: FilterSection[] = [
   {
