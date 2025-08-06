@@ -3,6 +3,7 @@ export { default as Image } from './Image/Image';
 export { default as Input } from './Input/Input';
 export { default as Select } from './Select/Select';
 export { default as StepModal } from './StepModal/StepModal';
+export { default as Tabs } from './Tab/Tab';
 export { default as When } from './When';
 
 export type { ButtonProps } from './Button/Button.d';
@@ -29,4 +30,5 @@ export type {
   StepModalContextValue
 } from './StepModal/StepModal.d';
 export { useStepModalContext } from './StepModal/StepModalContext';
+export type { TabsProps, TabButtonProps, TabItem } from './Tab/Tab.d';
 export type { WhenProps } from './When/When.d';
