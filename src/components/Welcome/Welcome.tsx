@@ -1,3 +1,5 @@
+'use client';
+
 import {
   DashboardContainer,
   DashboardWrapper,
