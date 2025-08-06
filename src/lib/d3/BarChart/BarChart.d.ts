@@ -64,15 +64,57 @@ export interface BarChartDimensions {
 
 export interface UseBarChartProps extends BarChartProps {}
 
+export interface D3BandScale {
+  domain(): string[];
+  range(): number[];
+  bandwidth(): number;
+  (value: string): number;
+}
+
+export interface D3LinearScale {
+  domain(): number[];
+  range(): number[];
+  ticks(count?: number): number[];
+  nice(): D3LinearScale;
+  (value: number): number;
+}
+
+export interface D3ColorScale {
+  domain(): string[];
+  range(): string[];
+  (value: string): string;
+}
+
+export type D3Scale = D3BandScale | D3LinearScale;
+
+export interface StackedDataPoint {
+  0: number;
+  1: number;
+  data: StackedBarChartDataPoint;
+}
+
+export interface GridLine {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+}
+
+export interface AxisData {
+  xAxisTicks: (string | number)[];
+  yAxisTicks: (string | number)[];
+  gridLines: GridLine[];
+}
+
 export interface UseBarChartReturn {
   svgRef: React.RefObject<SVGSVGElement>;
   dimensions: BarChartDimensions;
   scales: {
-    xScale: any;
-    yScale: any;
-    colorScale: any;
+    xScale: D3Scale;
+    yScale: D3Scale;
+    colorScale: D3ColorScale;
   };
-  stackedData: any[];
+  stackedData: StackedDataPoint[][];
   tooltip: TooltipData | null;
   processedData: (StackedBarChartDataPoint & { total: number })[];
   handleBarClick: (dataPoint: StackedBarChartDataPoint, seriesKey: string) => void;

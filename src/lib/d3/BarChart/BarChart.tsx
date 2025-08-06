@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import type { BarChartProps } from './BarChart.d';
+import type { BarChartProps, AxisData, GridLine, StackedDataPoint, D3Scale, D3BandScale, D3LinearScale } from './BarChart.d';
 import { useBarChart } from './useBarChart';
 import When from '../../ui/When';
 
@@ -43,26 +43,41 @@ function BarChart({
 
   const { xScale, yScale } = scales;
 
-  const axisData = useMemo(() => {
+  const callScale = (scale: D3Scale, value: string | number): number => {
+    if ('bandwidth' in scale && typeof value === 'string') {
+      return (scale as D3BandScale)(value);
+    } else if ('ticks' in scale && typeof value === 'number') {
+      return (scale as D3LinearScale)(value);
+    }
+    return 0;
+  };
+  
+  const getBandwidth = (scale: D3Scale): number => {
+    return 'bandwidth' in scale ? scale.bandwidth() : 0;
+  };
+
+  const axisData = useMemo((): AxisData => {
     if (orientation === 'vertical') {
+      const yTicks = 'ticks' in yScale ? yScale.ticks(5) : [];
       return {
         xAxisTicks: xScale.domain(),
-        yAxisTicks: yScale.ticks(5),
-        gridLines: yScale.ticks(5).map((tick: number) => ({
+        yAxisTicks: yTicks,
+        gridLines: yTicks.map((tick: number): GridLine => ({
           x1: 0,
-          y1: yScale(tick),
+          y1: callScale(yScale, tick),
           x2: dimensions.innerWidth,
-          y2: yScale(tick),
+          y2: callScale(yScale, tick),
         })),
       };
     } else {
+      const xTicks = 'ticks' in xScale ? xScale.ticks(5) : [];
       return {
-        xAxisTicks: xScale.ticks(5),
+        xAxisTicks: xTicks,
         yAxisTicks: yScale.domain(),
-        gridLines: xScale.ticks(5).map((tick: number) => ({
-          x1: xScale(tick),
+        gridLines: xTicks.map((tick: number): GridLine => ({
+          x1: callScale(xScale, tick),
           y1: 0,
-          x2: xScale(tick),
+          x2: callScale(xScale, tick),
           y2: dimensions.innerHeight,
         })),
       };
@@ -104,7 +119,7 @@ function BarChart({
           {/* Grid lines */}
           <When condition={showGrid}>
             <g>
-              {axisData.gridLines.map((line: any, i: number) => (
+              {axisData.gridLines.map((line: GridLine, i: number) => (
                 <line
                   key={i}
                   x1={line.x1}
@@ -120,10 +135,10 @@ function BarChart({
 
           {/* Y Axis */}
           <g>
-            {axisData.yAxisTicks.map((tick: any) => (
+            {axisData.yAxisTicks.map((tick: string | number) => (
               <g key={tick} transform={orientation === 'vertical' 
-                ? `translate(0, ${yScale(tick)})` 
-                : `translate(0, ${(yScale(tick) ?? 0) + yScale.bandwidth() / 2})`
+                ? `translate(0, ${callScale(yScale, tick)})` 
+                : `translate(0, ${callScale(yScale, tick) + getBandwidth(yScale) / 2})`
               }>
                 <text
                   x={-8}
@@ -133,7 +148,7 @@ function BarChart({
                   textAnchor="end"
                   dominantBaseline="middle"
                 >
-                  {orientation === 'vertical' ? formatValue(tick) : tick}
+                  {orientation === 'vertical' ? formatValue(tick as number) : tick}
                 </text>
               </g>
             ))}
@@ -145,21 +160,21 @@ function BarChart({
               const seriesKey = series[seriesIndex].key;
               const seriesColor = series[seriesIndex].color;
               
-              return seriesData.map((d: any, i: number) => {
+              return seriesData.map((d: StackedDataPoint, i: number) => {
                 const dataPoint = processedData[i];
                 
                 let x, y, width, height;
                 
                 if (orientation === 'vertical') {
-                  x = xScale(dataPoint.label) ?? 0;
-                  y = yScale(d[1]);
-                  width = xScale.bandwidth();
-                  height = Math.max(0, yScale(d[0]) - yScale(d[1]));
+                  x = callScale(xScale, dataPoint.label);
+                  y = callScale(yScale, d[1]);
+                  width = getBandwidth(xScale);
+                  height = Math.max(0, callScale(yScale, d[0]) - callScale(yScale, d[1]));
                 } else {
-                  x = xScale(d[0]);
-                  y = yScale(dataPoint.label) ?? 0;
-                  width = Math.max(0, xScale(d[1]) - xScale(d[0]));
-                  height = yScale.bandwidth();
+                  x = callScale(xScale, d[0]);
+                  y = callScale(yScale, dataPoint.label);
+                  width = Math.max(0, callScale(xScale, d[1]) - callScale(xScale, d[0]));
+                  height = getBandwidth(yScale);
                 }
                 
                 return (
@@ -185,10 +200,10 @@ function BarChart({
 
           {/* X Axis */}
           <g transform={`translate(0, ${dimensions.innerHeight})`}>
-            {axisData.xAxisTicks.map((tick: any) => (
+            {axisData.xAxisTicks.map((tick: string | number) => (
               <g key={tick} transform={orientation === 'vertical'
-                ? `translate(${(xScale(tick) ?? 0) + xScale.bandwidth() / 2}, 0)`
-                : `translate(${xScale(tick)}, 0)`
+                ? `translate(${callScale(xScale, tick) + getBandwidth(xScale) / 2}, 0)`
+                : `translate(${callScale(xScale, tick)}, 0)`
               }>
                 <text
                   x={0}
@@ -198,7 +213,7 @@ function BarChart({
                   textAnchor="middle"
                   dominantBaseline="hanging"
                 >
-                  {orientation === 'vertical' ? tick : formatValue(tick)}
+                  {orientation === 'vertical' ? tick : formatValue(tick as number)}
                 </text>
               </g>
             ))}

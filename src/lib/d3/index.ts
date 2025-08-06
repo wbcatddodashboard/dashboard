@@ -10,5 +10,12 @@ export type {
   TooltipData,
   BarChartDimensions,
   UseBarChartProps,
-  UseBarChartReturn
+  UseBarChartReturn,
+  D3Scale,
+  D3BandScale,
+  D3LinearScale,
+  D3ColorScale,
+  StackedDataPoint,
+  GridLine,
+  AxisData
 } from './BarChart/BarChart.d';
