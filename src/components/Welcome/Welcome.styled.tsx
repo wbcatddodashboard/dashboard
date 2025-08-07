@@ -6,7 +6,7 @@ interface ChildrenProps {
 
 export function DashboardContainer({ children }: ChildrenProps) {
   return (
-    <main className="w-full h-full relative">
+    <main className="w-full relative">
       {children}
     </main>
   );
@@ -14,7 +14,7 @@ export function DashboardContainer({ children }: ChildrenProps) {
 
 export function DashboardWrapper({ children }: ChildrenProps) {
   return (
-    <div className="w-full h-full flex">
+    <div className="w-full flex">
       {children}
     </div>
   );
@@ -22,7 +22,7 @@ export function DashboardWrapper({ children }: ChildrenProps) {
 
 export function MainDashboardSection({ children }: ChildrenProps) {
   return (
-    <div className="flex-1 relative bg-white">
+    <div className="w-full relative bg-white h-[400px]">
       {children}
     </div>
   );

@@ -31,6 +31,7 @@ export const useBarChart = (props: UseBarChartProps): UseBarChartReturn => {
     height = DEFAULT_DIMENSIONS.height,
     margin = DEFAULT_MARGIN,
     orientation = 'vertical',
+    barPadding = BAR_PADDING,
     onBarClick,
     onBarHover,
   } = props;
@@ -63,7 +64,7 @@ export const useBarChart = (props: UseBarChartProps): UseBarChartReturn => {
         .scaleBand()
         .domain(processedData.map(d => d.label))
         .range([0, dimensions.innerWidth])
-        .padding(BAR_PADDING);
+        .padding(barPadding);
 
       yScale = d3
         .scaleLinear()
@@ -82,7 +83,7 @@ export const useBarChart = (props: UseBarChartProps): UseBarChartReturn => {
         .scaleBand()
         .domain(processedData.map(d => d.label))
         .range([0, dimensions.innerHeight])
-        .padding(BAR_PADDING);
+        .padding(barPadding);
     }
 
     const colorScale = d3

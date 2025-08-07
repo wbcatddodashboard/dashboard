@@ -6,10 +6,11 @@ import { useTabs } from './useTab';
 function TabButton({
   children,
   isActive = false,
+  className = '',
   ...props
 }: TabButtonProps) {
   return (
-    <button {...props}>
+    <button className={className} {...props}>
       {children}
     </button>
   );
@@ -21,6 +22,10 @@ function Tabs({
   defaultActiveTabId,
   onTabChange,
   className = '',
+  tabListClassName = '',
+  tabButtonClassName = '',
+  activeTabButtonClassName = '',
+  tabPanelClassName = '',
   ...props
 }: TabsProps) {
   const { 
@@ -37,12 +42,13 @@ function Tabs({
 
   return (
     <div className={className} {...props}>
-      <div role="tablist">
+      <div role="tablist" className={tabListClassName}>
         {tabs.map((tab) => (
           <TabButton
             key={tab.id}
             {...getTabButtonProps(tab)}
             isActive={tab.id === currentActiveTabId}
+            className={`${tabButtonClassName} ${tab.id === currentActiveTabId ? activeTabButtonClassName : ''}`}
           >
             {tab.label}
           </TabButton>
@@ -50,7 +56,7 @@ function Tabs({
       </div>
       
       {activeTab && (
-        <div {...getTabPanelProps(activeTab)}>
+        <div {...getTabPanelProps(activeTab)} className={tabPanelClassName}>
           {activeTab.content}
         </div>
       )}

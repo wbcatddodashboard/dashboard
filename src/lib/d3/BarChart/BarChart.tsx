@@ -14,6 +14,9 @@ function BarChart({
   showLegend = true,
   showGrid = true,
   showTooltip = true,
+  showTotals = false,
+  barPadding = 0.1,
+  styleProps = {},
   className,
   ...svgProps
 }: BarChartProps) {
@@ -38,6 +41,9 @@ function BarChart({
     showLegend,
     showGrid,
     showTooltip,
+    showTotals,
+    barPadding,
+    styleProps,
     ...svgProps,
   });
 
@@ -96,11 +102,33 @@ function BarChart({
     }));
   }, [series, dimensions.innerWidth]);
 
+  const {
+    titleColor = '#000000',
+    titleFontSize = 18,
+    titleFontWeight = 600,
+    titleFontFamily = 'Inter, sans-serif',
+    axisTextColor = '#6b7280',
+    axisTextFontSize = 12,
+    axisTextFontFamily = 'Inter, sans-serif',
+    gridLineColor = '#e5e7eb',
+    gridLineStrokeWidth = 1,
+    backgroundColor = 'transparent',
+    totalTextColor = '#295e84',
+    totalTextFontSize = 12,
+    totalTextFontFamily = 'Inter, sans-serif'
+  } = styleProps;
+
   return (
-    <div className={className}>
+    <div className={className} style={{ backgroundColor }}>
       {title && (
         <div style={{ marginBottom: '16px' }}>
-          <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 600 }}>
+          <h3 style={{ 
+            margin: 0, 
+            fontSize: titleFontSize, 
+            fontWeight: titleFontWeight,
+            fontFamily: titleFontFamily,
+            color: titleColor
+          }}>
             {title}
           </h3>
         </div>
@@ -126,8 +154,8 @@ function BarChart({
                   y1={line.y1}
                   x2={line.x2}
                   y2={line.y2}
-                  stroke="#e5e7eb"
-                  strokeWidth={1}
+                  stroke={gridLineColor}
+                  strokeWidth={gridLineStrokeWidth}
                 />
               ))}
             </g>
@@ -143,8 +171,9 @@ function BarChart({
                 <text
                   x={-8}
                   y={0}
-                  fill="#6b7280"
-                  fontSize="12"
+                  fill={axisTextColor}
+                  fontSize={axisTextFontSize}
+                  fontFamily={axisTextFontFamily}
                   textAnchor="end"
                   dominantBaseline="middle"
                 >
@@ -198,6 +227,38 @@ function BarChart({
             })}
           </g>
 
+          <When condition={showTotals}>
+            <g>
+              {processedData.map((dataPoint) => {
+                const total = dataPoint.total;
+                let x, y;
+                
+                if (orientation === 'vertical') {
+                  x = callScale(xScale, dataPoint.label) + getBandwidth(xScale) / 2;
+                  y = callScale(yScale, total) - 5;
+                } else {
+                  x = callScale(xScale, total) + 5;
+                  y = callScale(yScale, dataPoint.label) + getBandwidth(yScale) / 2;
+                }
+                
+                return (
+                  <text
+                    key={`total-${dataPoint.id}`}
+                    x={x}
+                    y={y}
+                    fill={totalTextColor}
+                    fontSize={totalTextFontSize}
+                    fontFamily={totalTextFontFamily}
+                    textAnchor="middle"
+                    dominantBaseline="baseline"
+                  >
+                    {total}
+                  </text>
+                );
+              })}
+            </g>
+          </When>
+
           {/* X Axis */}
           <g transform={`translate(0, ${dimensions.innerHeight})`}>
             {axisData.xAxisTicks.map((tick: string | number) => (
@@ -208,8 +269,9 @@ function BarChart({
                 <text
                   x={0}
                   y={15}
-                  fill="#6b7280"
-                  fontSize="12"
+                  fill={axisTextColor}
+                  fontSize={axisTextFontSize}
+                  fontFamily={axisTextFontFamily}
                   textAnchor="middle"
                   dominantBaseline="hanging"
                 >
@@ -224,8 +286,9 @@ function BarChart({
             <text
               x={dimensions.innerWidth / 2}
               y={dimensions.innerHeight + 45}
-              fill="#6b7280"
-              fontSize="12"
+              fill={axisTextColor}
+              fontSize={axisTextFontSize}
+              fontFamily={axisTextFontFamily}
               textAnchor="middle"
               dominantBaseline="middle"
             >
@@ -238,8 +301,9 @@ function BarChart({
             <text
               x={-dimensions.innerHeight / 2}
               y={-25}
-              fill="#6b7280"
-              fontSize="12"
+              fill={axisTextColor}
+              fontSize={axisTextFontSize}
+              fontFamily={axisTextFontFamily}
               textAnchor="middle"
               dominantBaseline="middle"
               transform="rotate(-90)"
@@ -261,8 +325,9 @@ function BarChart({
                   <text
                     x={16}
                     y={9}
-                    fill="#6b7280"
-                    fontSize="12"
+                    fill={axisTextColor}
+                    fontSize={axisTextFontSize}
+                    fontFamily={axisTextFontFamily}
                     dominantBaseline="middle"
                   >
                     {item.label}
