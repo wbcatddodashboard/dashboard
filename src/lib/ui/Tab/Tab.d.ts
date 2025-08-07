@@ -13,6 +13,10 @@ export interface TabsProps {
   defaultActiveTabId?: string;
   onTabChange?: (tabId: string) => void;
   className?: string;
+  tabListClassName?: string;
+  tabButtonClassName?: string;
+  activeTabButtonClassName?: string;
+  tabPanelClassName?: string;
 }
 
 export interface TabButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

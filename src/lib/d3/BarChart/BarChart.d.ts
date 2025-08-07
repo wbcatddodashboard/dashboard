@@ -29,6 +29,22 @@ export interface BarChartMargin {
 
 export type BarChartOrientation = 'vertical' | 'horizontal';
 
+export interface BarChartStyleProps {
+  titleColor?: string;
+  titleFontSize?: number;
+  titleFontWeight?: number;
+  titleFontFamily?: string;
+  axisTextColor?: string;
+  axisTextFontSize?: number;
+  axisTextFontFamily?: string;
+  gridLineColor?: string;
+  gridLineStrokeWidth?: number;
+  backgroundColor?: string;
+  totalTextColor?: string;
+  totalTextFontSize?: number;
+  totalTextFontFamily?: string;
+}
+
 export interface BarChartProps extends Omit<SVGAttributes<SVGSVGElement>, 'width' | 'height'> {
   data: StackedBarChartDataPoint[];
   series: BarChartSeries[];
@@ -41,7 +57,10 @@ export interface BarChartProps extends Omit<SVGAttributes<SVGSVGElement>, 'width
   showLegend?: boolean;
   showGrid?: boolean;
   showTooltip?: boolean;
+  showTotals?: boolean;
+  barPadding?: number;
   margin?: BarChartMargin;
+  styleProps?: BarChartStyleProps;
   onBarClick?: (dataPoint: StackedBarChartDataPoint, series: string) => void;
   onBarHover?: (dataPoint: StackedBarChartDataPoint | null, series?: string) => void;
 }
