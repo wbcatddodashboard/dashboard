@@ -1076,6 +1076,7 @@ export default function GAT() {
           <div className="space-y-6">
             <div className="border rounded-md">
               <NoPaginationTableExample />
+              <NoPaginationTableExample />
             </div>
             <div className="border rounded-md">
               <BasicTableExample />
