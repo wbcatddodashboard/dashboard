@@ -22,7 +22,6 @@ export interface TabsProps {
 export interface TabButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  isActive?: boolean;
 }
 
 export interface UseTabsProps {

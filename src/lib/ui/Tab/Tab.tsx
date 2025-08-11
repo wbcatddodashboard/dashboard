@@ -37,7 +37,6 @@ function Tabs({
           <TabButton
             key={tab.id}
             {...getTabButtonProps(tab)}
-            isActive={tab.id === activeTabId}
             className={`${tabButtonClassName} ${tab.id === activeTabId ? activeTabButtonClassName : ''}`}
           >
             {tab.label}
