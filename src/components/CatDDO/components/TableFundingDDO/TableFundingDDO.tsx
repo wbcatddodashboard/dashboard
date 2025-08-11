@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table } from '@/lib/ui';
-import type { TableColumn } from '@/lib/ui/Table/Table.d';
+import { Table } from 'vizonomy';
+import type { TableColumn } from 'vizonomy';
 import type { FundingSource } from '../../interfaces';
 import { fundingData } from './constants/tableFundingData';
 import {
@@ -16,7 +16,7 @@ export const TableFundingDDO = () => {
       key: 'source',
       label: 'Source',
       width: 200,
-      render: (value, row: FundingSource) => (
+      render: (value: string, row: FundingSource) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
     },
@@ -26,7 +26,7 @@ export const TableFundingDDO = () => {
       label: 'IBRD',
       width: 48,
       align: 'center',
-      render: (value, row: FundingSource) => (
+      render: (value: string, row: FundingSource) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
     },
@@ -36,7 +36,7 @@ export const TableFundingDDO = () => {
       label: 'IDA',
       width: 48,
       align: 'center',
-      render: (value, row: FundingSource) => (
+      render: (value: string, row: FundingSource) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
     },
@@ -46,7 +46,7 @@ export const TableFundingDDO = () => {
       label: 'Total',
       width: 48,
       align: 'center',
-      render: (value, row: FundingSource) => (
+      render: (value: string, row: FundingSource) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
     },

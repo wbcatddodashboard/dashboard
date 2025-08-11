@@ -1,7 +1,4 @@
-import type {
-  StackedBarChartDataPoint,
-  BarChartSeries,
-} from '@/lib/d3/BarChart/BarChart.d';
+import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
 
 export const regionChartData: StackedBarChartDataPoint[] = [
   {

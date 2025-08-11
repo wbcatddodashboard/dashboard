@@ -1,6 +1,6 @@
 import React from 'react';
-import { BarChart } from '../../../../lib/d3';
-import { Image } from '../../../../lib/ui';
+import { BarChart } from 'vizonomy-d3';
+import { Image } from 'vizonomy';
 import {
   ChartContainer,
   ChartHeader,
