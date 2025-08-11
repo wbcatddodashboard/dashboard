@@ -14,8 +14,10 @@ export function HeadlessSingleExample() {
 
   return (
     <div className="p-8 space-y-6">
-      <h2 className="text-2xl font-bold mb-4">Headless Single Modal Examples</h2>
-      
+      <h2 className="text-2xl font-bold mb-4">
+        Headless Single Modal Examples
+      </h2>
+
       <div className="space-y-4">
         {/* Confirmation Modal */}
         <div>
@@ -56,9 +58,12 @@ export function HeadlessSingleExample() {
                           />
                         </svg>
                       </div>
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">Are you sure?</h3>
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">
+                        Are you sure?
+                      </h3>
                       <p className="text-sm text-gray-500">
-                        This action cannot be undone. This will permanently delete the item.
+                        This action cannot be undone. This will permanently
+                        delete the item.
                       </p>
                     </div>
                   </StepModal.Step>
@@ -66,10 +71,16 @@ export function HeadlessSingleExample() {
 
                 <StepModal.Footer>
                   <div className="flex justify-end space-x-3">
-                    <NavigationButton variant="ghost" onClick={() => setIsConfirmOpen(false)}>
+                    <NavigationButton
+                      variant="ghost"
+                      onClick={() => setIsConfirmOpen(false)}
+                    >
                       Cancel
                     </NavigationButton>
-                    <NavigationButton variant="danger" onClick={handleDeleteConfirm}>
+                    <NavigationButton
+                      variant="danger"
+                      onClick={handleDeleteConfirm}
+                    >
                       Delete
                     </NavigationButton>
                   </div>
@@ -104,16 +115,24 @@ export function HeadlessSingleExample() {
                   <StepModal.Step>
                     <div className="space-y-4">
                       <div className="bg-blue-50 p-4 rounded-md">
-                        <h4 className="text-md font-medium text-blue-900 mb-2">About This Application</h4>
+                        <h4 className="text-md font-medium text-blue-900 mb-2">
+                          About This Application
+                        </h4>
                         <p className="text-sm text-blue-800">
-                          This is a comprehensive headless modal component that supports both stepped workflows
-                          and single modal dialogs. It follows SOLID principles and provides maximum flexibility.
+                          This is a comprehensive headless modal component that
+                          supports both stepped workflows and single modal
+                          dialogs. It follows SOLID principles and provides
+                          maximum flexibility.
                         </p>
                       </div>
                       <div className="space-y-2">
-                        <h5 className="font-medium text-gray-900">Key Features:</h5>
+                        <h5 className="font-medium text-gray-900">
+                          Key Features:
+                        </h5>
                         <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
-                          <li>Headless architecture for maximum customization</li>
+                          <li>
+                            Headless architecture for maximum customization
+                          </li>
                           <li>Compound component pattern</li>
                           <li>SOLID principles compliance</li>
                           <li>Multi-step wizard support</li>
@@ -147,9 +166,9 @@ export function HeadlessSingleExample() {
             allowBackdropClose={false}
           >
             <StepModal.Overlay className="bg-purple-900/30">
-              <StepModal.Content 
-                size="lg" 
-                position="top" 
+              <StepModal.Content
+                size="lg"
+                position="top"
                 className="border-4 border-purple-500"
               >
                 <StepModal.Header>
@@ -174,15 +193,19 @@ export function HeadlessSingleExample() {
                           />
                         </svg>
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900">Headless Customization</h3>
+                      <h3 className="text-xl font-bold text-gray-900">
+                        Headless Customization
+                      </h3>
                       <p className="text-gray-600">
-                        This modal demonstrates the power of headless architecture. You have complete
-                        control over styling, behavior, and structure while keeping the logic intact.
+                        This modal demonstrates the power of headless
+                        architecture. You have complete control over styling,
+                        behavior, and structure while keeping the logic intact.
                       </p>
                       <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg">
                         <p className="text-sm text-purple-800">
-                          Each component can be styled independently and composed in any way you need.
-                          The compound pattern provides flexibility while maintaining type safety.
+                          Each component can be styled independently and
+                          composed in any way you need. The compound pattern
+                          provides flexibility while maintaining type safety.
                         </p>
                       </div>
                     </div>

@@ -5,16 +5,16 @@ export const useSidebar = () => {
   const [filterSections, setFilterSections] = useState(FILTER_SECTIONS);
 
   const handleFilterToggle = (sectionId: string, optionId: string) => {
-    setFilterSections(prevSections => 
-      prevSections.map(section => {
+    setFilterSections((prevSections) =>
+      prevSections.map((section) => {
         if (section.id === sectionId) {
           return {
             ...section,
-            options: section.options.map(option => 
-              option.id === optionId 
+            options: section.options.map((option) =>
+              option.id === optionId
                 ? { ...option, isSelected: !option.isSelected }
                 : option
-            )
+            ),
           };
         }
         return section;
@@ -23,10 +23,13 @@ export const useSidebar = () => {
   };
 
   const handleResetFilters = () => {
-    setFilterSections(prevSections => 
-      prevSections.map(section => ({
+    setFilterSections((prevSections) =>
+      prevSections.map((section) => ({
         ...section,
-        options: section.options.map(option => ({ ...option, isSelected: false }))
+        options: section.options.map((option) => ({
+          ...option,
+          isSelected: false,
+        })),
       }))
     );
   };
@@ -39,6 +42,6 @@ export const useSidebar = () => {
     filterSections,
     handleFilterToggle,
     handleResetFilters,
-    handleUnderstandingData
+    handleUnderstandingData,
   };
-}; 
+};

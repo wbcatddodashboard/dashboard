@@ -3,12 +3,7 @@ import React from 'react';
 import type { TabsProps, TabButtonProps } from './Tab.d';
 import { useTabs } from './useTab';
 
-function TabButton({
-  children,
-  isActive = false,
-  className = '',
-  ...props
-}: TabButtonProps) {
+function TabButton({ children, className = '', ...props }: TabButtonProps) {
   return (
     <button className={className} {...props}>
       {children}
@@ -28,12 +23,7 @@ function Tabs({
   tabPanelClassName = '',
   ...props
 }: TabsProps) {
-  const { 
-    activeTabId: currentActiveTabId, 
-    activeTab, 
-    getTabButtonProps, 
-    getTabPanelProps 
-  } = useTabs({
+  const { activeTab, getTabButtonProps, getTabPanelProps } = useTabs({
     tabs,
     activeTabId,
     defaultActiveTabId,
@@ -47,14 +37,14 @@ function Tabs({
           <TabButton
             key={tab.id}
             {...getTabButtonProps(tab)}
-            isActive={tab.id === currentActiveTabId}
-            className={`${tabButtonClassName} ${tab.id === currentActiveTabId ? activeTabButtonClassName : ''}`}
+            isActive={tab.id === activeTabId}
+            className={`${tabButtonClassName} ${tab.id === activeTabId ? activeTabButtonClassName : ''}`}
           >
             {tab.label}
           </TabButton>
         ))}
       </div>
-      
+
       {activeTab && (
         <div {...getTabPanelProps(activeTab)} className={tabPanelClassName}>
           {activeTab.content}

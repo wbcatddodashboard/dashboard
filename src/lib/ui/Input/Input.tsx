@@ -21,7 +21,8 @@ function Input({
   };
   const inputState = useInput(hookProps);
 
-  const { isFocused, handleFocus, handleBlur, handleChange, handleClick } = inputState;
+  const { isFocused, handleFocus, handleBlur, handleChange, handleClick } =
+    inputState;
 
   const contextValue: InputContextType = {
     value,

@@ -5,35 +5,19 @@ interface ChildrenProps {
 }
 
 export function DashboardContainer({ children }: ChildrenProps) {
-  return (
-    <main className="w-full relative">
-      {children}
-    </main>
-  );
+  return <main className="w-full relative">{children}</main>;
 }
 
 export function DashboardWrapper({ children }: ChildrenProps) {
-  return (
-    <div className="w-full flex">
-      {children}
-    </div>
-  );
+  return <div className="w-full flex">{children}</div>;
 }
 
 export function MainDashboardSection({ children }: ChildrenProps) {
-  return (
-    <div className="w-full relative bg-white h-[400px]">
-      {children}
-    </div>
-  );
+  return <div className="w-full relative bg-white h-[400px]">{children}</div>;
 }
 
 export function TitleSection({ children }: ChildrenProps) {
-  return (
-    <div className="absolute left-[318px] top-20">
-      {children}
-    </div>
-  );
+  return <div className="absolute left-[318px] top-20">{children}</div>;
 }
 
 export function DashboardTitle({ children }: ChildrenProps) {
@@ -46,9 +30,7 @@ export function DashboardTitle({ children }: ChildrenProps) {
 
 export function DescriptionSection({ children }: ChildrenProps) {
   return (
-    <div className="absolute left-[318px] top-36 w-[497px]">
-      {children}
-    </div>
+    <div className="absolute left-[318px] top-36 w-[497px]">{children}</div>
   );
 }
 
@@ -69,11 +51,7 @@ export function DescriptionParagraphLast({ children }: ChildrenProps) {
 }
 
 export function ItalicText({ children }: ChildrenProps) {
-  return (
-    <span className="font-normal italic">
-      {children}
-    </span>
-  );
+  return <span className="font-normal italic">{children}</span>;
 }
 
 export function MapVisualizationSection({ children }: ChildrenProps) {

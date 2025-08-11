@@ -19,27 +19,37 @@ export function HeadlessSteppedExample() {
       content: () => (
         <div className="space-y-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
               Full Name
             </label>
             <input
               type="text"
               id="name"
               value={formData.name}
-              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, name: e.target.value }))
+              }
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your full name"
             />
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email Address
             </label>
             <input
               type="email"
               id="email"
               value={formData.email}
-              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, email: e.target.value }))
+              }
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your email"
             />
@@ -65,14 +75,22 @@ export function HeadlessSteppedExample() {
       content: () => (
         <div className="space-y-4">
           <div>
-            <label htmlFor="preferences" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="preferences"
+              className="block text-sm font-medium text-gray-700"
+            >
               Tell us about your preferences
             </label>
             <textarea
               id="preferences"
               rows={4}
               value={formData.preferences}
-              onChange={(e) => setFormData(prev => ({ ...prev, preferences: e.target.value }))}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  preferences: e.target.value,
+                }))
+              }
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder="What are you interested in?"
             />
@@ -88,11 +106,20 @@ export function HeadlessSteppedExample() {
       content: () => (
         <div className="space-y-4">
           <div className="bg-gray-50 p-4 rounded-md">
-            <h3 className="text-lg font-medium text-gray-900 mb-3">Review Your Information</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-3">
+              Review Your Information
+            </h3>
             <div className="space-y-2 text-sm text-gray-600">
-              <p><strong>Name:</strong> {formData.name}</p>
-              <p><strong>Email:</strong> {formData.email}</p>
-              <p><strong>Preferences:</strong> {formData.preferences || 'None specified'}</p>
+              <p>
+                <strong>Name:</strong> {formData.name}
+              </p>
+              <p>
+                <strong>Email:</strong> {formData.email}
+              </p>
+              <p>
+                <strong>Preferences:</strong>{' '}
+                {formData.preferences || 'None specified'}
+              </p>
             </div>
           </div>
           <div className="flex items-center">
@@ -100,7 +127,9 @@ export function HeadlessSteppedExample() {
               type="checkbox"
               id="terms"
               checked={formData.terms}
-              onChange={(e) => setFormData(prev => ({ ...prev, terms: e.target.checked }))}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, terms: e.target.checked }))
+              }
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
             <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
@@ -128,7 +157,9 @@ export function HeadlessSteppedExample() {
 
   return (
     <div className="p-8">
-      <h2 className="text-2xl font-bold mb-4">Headless Stepped Modal Example</h2>
+      <h2 className="text-2xl font-bold mb-4">
+        Headless Stepped Modal Example
+      </h2>
       <button
         onClick={() => setIsOpen(true)}
         className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -154,7 +185,9 @@ export function HeadlessSteppedExample() {
 
             <StepModal.Body>
               <StepModal.Progress showBar={true} showNumbers={true} />
-              <StepModal.Step />
+              <StepModal.Step>
+                <div>Step content placeholder</div>
+              </StepModal.Step>
             </StepModal.Body>
 
             <StepModal.Footer>
@@ -171,13 +204,13 @@ export function HeadlessSteppedExample() {
 
 // Custom navigation component using the headless context
 function StepModalNavigationButtons() {
-  const { 
-    canGoPrevious, 
-    canGoNext, 
-    isLastStep, 
-    goToPreviousStep, 
-    goToNextStep, 
-    closeModal 
+  const {
+    canGoPrevious,
+    canGoNext,
+    isLastStep,
+    goToPreviousStep,
+    goToNextStep,
+    closeModal,
   } = StepModal.useContext();
 
   return (

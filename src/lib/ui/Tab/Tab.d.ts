@@ -19,7 +19,8 @@ export interface TabsProps {
   tabPanelClassName?: string;
 }
 
-export interface TabButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface TabButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   isActive?: boolean;
 }
@@ -30,4 +31,3 @@ export interface UseTabsProps {
   defaultActiveTabId?: string;
   onTabChange?: (tabId: string) => void;
 }
-
