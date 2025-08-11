@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Tabs, TabsProps } from 'vizonomy';
 
 interface ChildrenProps {
   children: ReactNode;
@@ -29,3 +30,15 @@ export function TabsWrapper({ children }: ChildrenProps) {
 export function TabsInnerContainer({ children }: ChildrenProps) {
   return <div className="max-w-7xl mx-auto px-8 py-4">{children}</div>;
 }
+
+export const TabStyledWrapper = (props: TabsProps) => {
+  return (
+    <Tabs
+      {...props}
+      tabListClassName="box-border content-stretch flex flex-row gap-2 items-center justify-start p-0 relative size-full"
+      tabButtonClassName="box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-4 py-2 relative rounded-[99px] shrink-0 hover:bg-[#EDEEF0]/70 transition-colors"
+      activeTabButtonClassName="bg-[#EDEEF0]"
+      tabPanelClassName="mt-4"
+    />
+  );
+};

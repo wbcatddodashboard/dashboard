@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Tabs } from 'vizonomy';
 import { PortfolioContent } from './PortfolioContent';
 import { PolicyProgramContent } from './PolicyProgramContent';
 import { DisbursementTriggersContent } from './DisbursementTriggersContent';
@@ -11,6 +10,7 @@ import {
   IconContainer,
   TabsWrapper,
   TabsInnerContainer,
+  TabStyledWrapper,
 } from './styled';
 
 export function TabText({ children }: { children: React.ReactNode }) {
@@ -65,16 +65,12 @@ export function CatDDOTabs() {
   return (
     <TabsWrapper>
       <TabsInnerContainer>
-        <Tabs
+        <TabStyledWrapper
           tabs={tabs}
           defaultActiveTabId="portfolio"
           activeTabId={activeTabId}
           onTabChange={setActiveTabId}
           className="w-full"
-          tabListClassName="box-border content-stretch flex flex-row gap-2 items-center justify-start p-0 relative size-full"
-          tabButtonClassName="box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-4 py-2 relative rounded-[99px] shrink-0 hover:bg-[#edeef0]/70 transition-colors"
-          activeTabButtonClassName="bg-[#edeef0]"
-          tabPanelClassName="mt-4"
         />
       </TabsInnerContainer>
     </TabsWrapper>
