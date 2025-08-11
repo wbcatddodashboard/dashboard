@@ -4,14 +4,21 @@ import Tabs from '@/lib/ui/Tab';
 import { PortfolioContent } from './PortfolioContent';
 import { PolicyProgramContent } from './PolicyProgramContent';
 import { DisbursementTriggersContent } from './DisbursementTriggersContent';
+import {
+  TabTextContainer,
+  TabContentWithIcon,
+  IconContainer,
+  TabsWrapper,
+  TabsInnerContainer,
+} from './styled';
 
 export function TabText({ children }: { children: React.ReactNode }) {
   return (
-    <div className="font-['Roboto:Medium',_sans-serif] font-medium leading-[0] relative shrink-0 text-[#295e84] text-[16px] text-left text-nowrap tracking-[0.15px]">
+    <TabTextContainer>
       <p className="adjustLetterSpacing block leading-[24px] whitespace-pre">
         {children}
       </p>
-    </div>
+    </TabTextContainer>
   );
 }
 
@@ -27,9 +34,9 @@ export function CatDDOTabs() {
     {
       id: 'policy',
       label: (
-        <div className="flex flex-row gap-[5px] items-center">
+        <TabContentWithIcon>
           <TabText>Cat DDO Policy Program</TabText>
-          <div className="relative shrink-0 size-5">
+          <IconContainer>
             <Image
               src="/info-icon-figma.svg"
               alt="Info"
@@ -37,8 +44,8 @@ export function CatDDOTabs() {
               height={20}
               className="block max-w-none size-full"
             />
-          </div>
-        </div>
+          </IconContainer>
+        </TabContentWithIcon>
       ),
       content: <PolicyProgramContent />,
     },
@@ -50,8 +57,8 @@ export function CatDDOTabs() {
   ];
 
   return (
-    <div className="w-full border-t border-gray-200 bg-white">
-      <div className="max-w-7xl mx-auto px-8 py-4">
+    <TabsWrapper>
+      <TabsInnerContainer>
         <Tabs
           tabs={tabs}
           defaultActiveTabId="portfolio"
@@ -63,8 +70,8 @@ export function CatDDOTabs() {
           activeTabButtonClassName="bg-[#edeef0]"
           tabPanelClassName="mt-4"
         />
-      </div>
-    </div>
+      </TabsInnerContainer>
+    </TabsWrapper>
   );
 }
 
