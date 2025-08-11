@@ -4,6 +4,7 @@ import Tabs from '@/lib/ui/Tab';
 import { PortfolioContent } from './PortfolioContent';
 import { PolicyProgramContent } from './PolicyProgramContent';
 import { DisbursementTriggersContent } from './DisbursementTriggersContent';
+import { OverViewCatDDO } from './OverViewCatDDO';
 import {
   TabTextContainer,
   TabContentWithIcon,
@@ -53,6 +54,11 @@ export function CatDDOTabs() {
       id: 'triggers',
       label: <TabText>Cat DDO Disbursement Triggers</TabText>,
       content: <DisbursementTriggersContent />,
+    },
+    {
+      id: 'overview',
+      label: <TabText>Financial Overview</TabText>,
+      content: <OverViewCatDDO />,
     },
   ];
 
