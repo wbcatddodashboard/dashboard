@@ -18,6 +18,7 @@ const eslintConfig = [
     },
     rules: {
       'prettier/prettier': 'error',
+      'linebreak-style': ['error', 'unix'],
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       'react/no-unescaped-entities': [
