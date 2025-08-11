@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import Tabs from '@/lib/ui/Tab';
+import { Tabs } from 'vizonomy';
 import { PortfolioContent } from './PortfolioContent';
 import { PolicyProgramContent } from './PolicyProgramContent';
 import { DisbursementTriggersContent } from './DisbursementTriggersContent';

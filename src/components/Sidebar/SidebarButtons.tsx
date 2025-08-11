@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import Button from '@/lib/ui/Button/Button';
-import type { ButtonProps } from '@/lib/ui/Button/Button.d';
+import { Button } from 'vizonomy';
+import type { ButtonProps } from 'vizonomy';
 
-interface StyledButtonProps extends ButtonProps {
+type StyledButtonProps = ButtonProps & {
   variant?: 'primary' | 'secondary';
-}
+  className?: string;
+};
 
 export function ResetFiltersButton({ className, ...props }: StyledButtonProps) {
   const buttonClasses = classNames(

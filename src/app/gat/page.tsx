@@ -1,23 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Table, When } from '@/lib/ui';
-import type { TableColumn } from '@/lib/ui/Table/Table.d';
-import HeadlessTableExample from '@/lib/ui/Table/examples/HeadlessTableExample';
-import ServerTableExample from '@/lib/ui/Table/examples/ServerTableExample';
-import UnifiedTableExample from '@/lib/ui/Table/examples/UnifiedTableExample';
-import BasicTableExample from '@/lib/ui/Table/examples/BasicTableExample';
-import SelectableTableExample from '@/lib/ui/Table/examples/SelectableTableExample';
-import FixedColumnsExample from '@/lib/ui/Table/examples/FixedColumnsExample';
-import AdvancedTableExample from '@/lib/ui/Table/examples/AdvancedTableExample';
-import GroupedHeaderExample from '@/lib/ui/Table/examples/GroupedHeaderExample';
-import NoPaginationTableExample from '@/lib/ui/Table/examples/NoPaginationTableExample';
-import WithStandalonePaginationExample from '@/lib/ui/Table/examples/WithStandalonePaginationExample';
-import { SingleModalExample } from '@/lib/ui/StepModal/examples/SingleModalExample';
-import { SteppedModalExample } from '@/lib/ui/StepModal/examples/SteppedModalExample';
-import { HeadlessSteppedExample } from '@/lib/ui/StepModal/examples/HeadlessSteppedExample';
-import { HeadlessSingleExample } from '@/lib/ui/StepModal/examples/HeadlessSingleExample';
-import { QuickTest } from '@/lib/ui/StepModal/examples/QuickTest';
+import { Table, When } from 'vizonomy';
+import type { TableColumn } from 'vizonomy';
 
 // Sample data types for table examples
 interface User {
@@ -345,7 +330,7 @@ export default function GAT() {
       key: 'status',
       label: 'Status',
       width: 100,
-      render: (value) => {
+      render: (value: User['status']) => {
         const v = value as string;
         return (
           <span
@@ -366,7 +351,7 @@ export default function GAT() {
       label: 'Joined',
       sortable: true,
       width: 120,
-      render: (value) => (value as Date).toLocaleDateString(),
+      render: (value: Date) => value.toLocaleDateString(),
     },
   ];
 
@@ -392,7 +377,7 @@ export default function GAT() {
       sortable: true,
       width: 120,
       align: 'right',
-      render: (value) => `$${(value as number).toFixed(2)}`,
+      render: (value: number) => `$${value.toFixed(2)}`,
     },
     {
       id: 'stock',
@@ -401,7 +386,7 @@ export default function GAT() {
       sortable: true,
       width: 100,
       align: 'center',
-      render: (value) => {
+      render: (value: number) => {
         const v = value as number;
         return (
           <span
@@ -424,7 +409,7 @@ export default function GAT() {
       label: 'Available',
       width: 100,
       align: 'center',
-      render: (value) => (
+      render: (value: boolean) => (
         <span
           className={`w-3 h-3 rounded-full inline-block ${
             (value as boolean) ? 'bg-green-500' : 'bg-red-500'
@@ -482,14 +467,14 @@ export default function GAT() {
       key: 'notes',
       label: 'Notes',
       width: 200,
-      render: (value) => (value as string | undefined) || '-',
+      render: (value: string | undefined) => value || '-',
     },
     {
       id: 'status',
       key: 'status',
       label: 'Status',
       width: 120,
-      render: (value) => {
+      render: (value: Transaction['status']) => {
         const v = value as string;
         return (
           <span
@@ -514,7 +499,7 @@ export default function GAT() {
       width: 150,
       align: 'right',
       fixed: 'right',
-      render: (value) => {
+      render: (value: number) => {
         const v = value as number;
         return (
           <span
@@ -535,7 +520,7 @@ export default function GAT() {
       width: 150,
       align: 'right',
       fixed: 'right',
-      render: (value) => {
+      render: (value: number) => {
         const v = value as number;
         return (
           <span
@@ -560,7 +545,7 @@ export default function GAT() {
       sortable: true,
       width: 200,
       fixed: 'left',
-      render: (_, row: Employee) => (
+      render: (_value: unknown, row: Employee) => (
         <div className="flex flex-col">
           <span className="font-medium">
             {row.firstName} {row.lastName}
@@ -588,7 +573,7 @@ export default function GAT() {
       key: 'manager',
       label: 'Manager',
       width: 150,
-      render: (value) => (value as string | undefined) || 'N/A',
+      render: (value: string | undefined) => value || 'N/A',
     },
     {
       id: 'salary',
@@ -597,7 +582,7 @@ export default function GAT() {
       sortable: true,
       width: 130,
       align: 'right',
-      render: (value) => `$${(value as number).toLocaleString()}`,
+      render: (value: number) => `$${value.toLocaleString()}`,
     },
     {
       id: 'hireDate',
@@ -605,14 +590,14 @@ export default function GAT() {
       label: 'Hire Date',
       sortable: true,
       width: 120,
-      render: (value) => (value as Date).toLocaleDateString(),
+      render: (value: Date) => value.toLocaleDateString(),
     },
     {
       id: 'skills',
       key: 'skills',
       label: 'Skills',
       width: 250,
-      render: (value) => {
+      render: (value: string[]) => {
         const v = value as string[];
         return (
           <div className="flex flex-wrap gap-1">
@@ -640,7 +625,7 @@ export default function GAT() {
       sortable: true,
       width: 130,
       align: 'center',
-      render: (value) => {
+      render: (value: number) => {
         const v = value as number;
         return (
           <div className="flex items-center justify-center gap-1">
@@ -667,7 +652,7 @@ export default function GAT() {
       label: 'Status',
       width: 110,
       fixed: 'right',
-      render: (value) => {
+      render: (value: Employee['status']) => {
         const v = value as string;
         return (
           <span
@@ -794,7 +779,7 @@ export default function GAT() {
                 <div className="mt-2">
                   <p className="text-sm font-medium">Selected Products:</p>
                   <ul className="text-sm text-gray-600 mt-1">
-                    {selectedRows.map((row) => (
+                    {selectedRows.map((row: Product) => (
                       <li key={row.id}>
                         • {row.name} - ${row.price}
                       </li>
@@ -811,7 +796,7 @@ export default function GAT() {
                 type: 'multiple',
                 selectedRowKeys,
                 onSelectionChange: handleProductSelectionChange,
-                getRowKey: (row) => row.id,
+                getRowKey: (row: Product) => row.id,
                 disabled: isProductRowDisabled,
               }}
               pagination={{
@@ -823,7 +808,7 @@ export default function GAT() {
               }}
               bordered
               hoverable
-              onRow={(row) => ({
+              onRow={(row: Product) => ({
                 className: isProductRowDisabled(row) ? 'opacity-50' : '',
               })}
             />
@@ -980,7 +965,7 @@ export default function GAT() {
                 type: 'multiple',
                 selectedRowKeys: employeeSelectedRowKeys,
                 onSelectionChange: handleEmployeeSelectionChange,
-                getRowKey: (row) => row.id,
+                getRowKey: (row: Employee) => row.id,
                 disabled: isEmployeeRowDisabled,
               }}
               pagination={{
@@ -1001,7 +986,7 @@ export default function GAT() {
               bordered
               hoverable
               size="small"
-              onRow={(row) => ({
+              onRow={(row: Employee) => ({
                 onDoubleClick: () =>
                   alert(`Viewing details for ${row.firstName} ${row.lastName}`),
                 className: 'cursor-pointer',
@@ -1068,66 +1053,7 @@ export default function GAT() {
           </div>
         </div>
 
-        {/* Table Examples Catalog */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Table Examples Catalog
-          </h2>
-          <div className="space-y-6">
-            <div className="border rounded-md">
-              <NoPaginationTableExample />
-            </div>
-            <div className="border rounded-md">
-              <BasicTableExample />
-            </div>
-            <div className="border rounded-md">
-              <SelectableTableExample />
-            </div>
-            <div className="border rounded-md">
-              <FixedColumnsExample />
-            </div>
-            <div className="border rounded-md">
-              <AdvancedTableExample />
-              <GroupedHeaderExample />
-            </div>
-            <div className="border rounded-md">
-              <HeadlessTableExample />
-            </div>
-            <div className="border rounded-md">
-              <ServerTableExample />
-            </div>
-            <div className="border rounded-md">
-              <UnifiedTableExample />
-            </div>
-            <div className="border rounded-md">
-              <WithStandalonePaginationExample />
-            </div>
-          </div>
-        </div>
-
-        {/* StepModal Examples Catalog */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            StepModal Examples Catalog
-          </h2>
-          <div className="space-y-6">
-            <div className="border rounded-md">
-              <SingleModalExample />
-            </div>
-            <div className="border rounded-md">
-              <SteppedModalExample />
-            </div>
-            <div className="border rounded-md">
-              <HeadlessSingleExample />
-            </div>
-            <div className="border rounded-md">
-              <HeadlessSteppedExample />
-            </div>
-            <div className="border rounded-md">
-              <QuickTest />
-            </div>
-          </div>
-        </div>
+        {/* Example catalogs removed since deep imports are not exported by vizonomy-ui */}
       </div>
     </div>
   );
