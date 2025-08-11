@@ -7,6 +7,7 @@ import {
   PortfolioWrapper,
 } from './styled';
 import { RegionChart, StatusChart } from './components';
+import OverViewCatDDO from './OverViewCatDDO';
 
 export const PortfolioContent = () => {
   return (
@@ -26,6 +27,7 @@ export const PortfolioContent = () => {
         <RegionChart />
         <StatusChart />
       </ChartsContainer>
+      <OverViewCatDDO />
     </PortfolioWrapper>
   );
 };
