@@ -1,16 +1,20 @@
 import React from 'react';
 import { BarChart } from '../../../../lib/d3';
 import { Image } from '../../../../lib/ui';
-import { ChartContainer, ChartHeader, ChartTitle, ChartIcon, ChartWrapper } from './styled/RegionChart.styled';
+import {
+  ChartContainer,
+  ChartHeader,
+  ChartTitle,
+  ChartIcon,
+  ChartWrapper,
+} from './styled/RegionChart.styled';
 import { regionChartData, regionSeries } from './constants/regionChartData';
 
 export const RegionChart = () => {
   return (
     <ChartContainer>
       <ChartHeader>
-        <ChartTitle>
-          Number of Cat DDOs by Region
-        </ChartTitle>
+        <ChartTitle>Number of Cat DDOs by Region</ChartTitle>
         <ChartIcon>
           <Image
             src="/download-icon.svg"
@@ -44,7 +48,7 @@ export const RegionChart = () => {
             axisTextFontFamily: 'Inter, sans-serif',
             gridLineColor: '#e5e7eb',
             gridLineStrokeWidth: 1,
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
           }}
         />
       </ChartWrapper>

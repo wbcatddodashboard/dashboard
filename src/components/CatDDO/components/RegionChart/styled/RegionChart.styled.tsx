@@ -31,11 +31,7 @@ export function ChartTitle({ children }: ChildrenProps) {
 }
 
 export function ChartIcon({ children }: ChildrenProps) {
-  return (
-    <div className="relative shrink-0 size-6">
-      {children}
-    </div>
-  );
+  return <div className="relative shrink-0 size-6">{children}</div>;
 }
 
 export function ChartWrapper({ children }: ChildrenProps) {
