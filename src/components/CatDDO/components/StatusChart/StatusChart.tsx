@@ -1,21 +1,25 @@
 import React from 'react';
 import { BarChart } from '../../../../lib/d3';
 import { Image } from '../../../../lib/ui';
-import { ChartContainer, ChartHeader, ChartTitle, ChartIcon, ChartWrapper } from './styled/StatusChart.styled';
+import {
+  ChartContainer,
+  ChartHeader,
+  ChartTitle,
+  ChartIcon,
+  ChartWrapper,
+} from './styled/StatusChart.styled';
 import { statusChartData, statusSeries } from './constants/statusChartData';
 
 export const StatusChart = () => {
   return (
     <ChartContainer>
       <ChartHeader>
-        <ChartTitle>
-          Number of Cat DDOs by Status
-        </ChartTitle>
+        <ChartTitle>Number of Cat DDOs by Status</ChartTitle>
         <ChartIcon>
-          <Image 
-            src="/download-icon.svg" 
-            alt="Download icon" 
-            className="block max-w-none size-full" 
+          <Image
+            src="/download-icon.svg"
+            alt="Download icon"
+            className="block max-w-none size-full"
           />
         </ChartIcon>
       </ChartHeader>
@@ -44,7 +48,7 @@ export const StatusChart = () => {
             axisTextFontFamily: 'Inter, sans-serif',
             gridLineColor: '#e5e7eb',
             gridLineStrokeWidth: 1,
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
           }}
         />
       </ChartWrapper>
