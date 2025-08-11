@@ -2,7 +2,7 @@ import type {
   StackedBarChartDataPoint,
   BarChartSeries,
 } from '@/lib/d3/BarChart/BarChart.d';
-// Data for "Number of Cat DDOs by Status" chart
+
 export const statusChartData: StackedBarChartDataPoint[] = [
   { id: 'AFE', label: 'AFE', values: { Active: 4, Close: 4, Pipeline: 4 } },
   { id: 'AFW', label: 'AFW', values: { Active: 15, Close: 0, Pipeline: 0 } },
@@ -13,7 +13,6 @@ export const statusChartData: StackedBarChartDataPoint[] = [
   { id: 'SAR', label: 'SAR', values: { Active: 6, Close: 0, Pipeline: 0 } },
 ];
 
-// Series definitions for status chart
 export const statusSeries: BarChartSeries[] = [
   { key: 'Active', label: 'Active', color: '#a3c0e4' },
   { key: 'Close', label: 'Close', color: '#295e84' },
