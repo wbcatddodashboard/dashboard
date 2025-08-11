@@ -1,10 +1,16 @@
 import React from 'react';
-import { PortfolioContainer, PortfolioTitle, PortfolioDescription, ChartsContainer } from './styled';
+import {
+  PortfolioContainer,
+  PortfolioTitle,
+  PortfolioDescription,
+  ChartsContainer,
+  PortfolioWrapper,
+} from './styled';
 import { RegionChart, StatusChart } from './components';
 
 export const PortfolioContent = () => {
   return (
-    <div className="flex flex-col gap-6">
+    <PortfolioWrapper>
       <PortfolioContainer>
         <PortfolioTitle>
           Overview of the evolution and composition of the Cat DDO portfolio
@@ -20,7 +26,7 @@ export const PortfolioContent = () => {
         <RegionChart />
         <StatusChart />
       </ChartsContainer>
-    </div>
+    </PortfolioWrapper>
   );
 };
 
