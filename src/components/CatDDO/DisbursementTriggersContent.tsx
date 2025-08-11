@@ -1,15 +1,19 @@
 import React from 'react';
+import {
+  DisbursementTriggersContainer,
+  DisbursementTriggersTitle,
+} from './styled';
 
 export const DisbursementTriggersContent = () => {
   return (
-    <div className="p-4">
-      <h3 className="text-lg font-semibold mb-4">
+    <DisbursementTriggersContainer>
+      <DisbursementTriggersTitle>
         Cat DDO Disbursement Triggers Content
-      </h3>
+      </DisbursementTriggersTitle>
       <p className="text-gray-600">
         Disbursement triggers content will be implemented later...
       </p>
-    </div>
+    </DisbursementTriggersContainer>
   );
 };
 
