@@ -1,15 +1,14 @@
 import React from 'react';
+import { PolicyProgramContainer, PolicyProgramTitle } from './styled';
 
 export const PolicyProgramContent = () => {
   return (
-    <div className="p-4">
-      <h3 className="text-lg font-semibold mb-4">
-        Cat DDO Policy Program Content
-      </h3>
+    <PolicyProgramContainer>
+      <PolicyProgramTitle>Cat DDO Policy Program Content</PolicyProgramTitle>
       <p className="text-gray-600">
         Policy program content will be implemented later...
       </p>
-    </div>
+    </PolicyProgramContainer>
   );
 };
 

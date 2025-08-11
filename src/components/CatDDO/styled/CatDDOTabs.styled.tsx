@@ -35,6 +35,7 @@ export const TabStyledWrapper = (props: TabsProps) => {
   return (
     <Tabs
       {...props}
+      className="w-full"
       tabListClassName="box-border content-stretch flex flex-row gap-2 items-center justify-start p-0 relative size-full"
       tabButtonClassName="box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-4 py-2 relative rounded-[99px] shrink-0 hover:bg-[#EDEEF0]/70 transition-colors"
       activeTabButtonClassName="bg-[#EDEEF0]"

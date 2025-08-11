@@ -70,7 +70,6 @@ export function CatDDOTabs() {
           defaultActiveTabId="portfolio"
           activeTabId={activeTabId}
           onTabChange={setActiveTabId}
-          className="w-full"
         />
       </TabsInnerContainer>
     </TabsWrapper>

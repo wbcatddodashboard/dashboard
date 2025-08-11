@@ -47,3 +47,7 @@ export function BulletPoint({ children }: ChildrenProps) {
 export function OverViewWrapper({ children }: ChildrenProps) {
   return <div className="flex flex-col gap-6">{children}</div>;
 }
+
+export function SemiboldText({ children }: ChildrenProps) {
+  return <span className="font-semibold">{children}</span>;
+}
