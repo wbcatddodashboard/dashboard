@@ -103,7 +103,9 @@ const useSelect = (props: UseSelectProps) => {
         // Focus handling for arrow keys
         e.preventDefault();
 
-        const optionElements = Array.from(document.querySelectorAll('[role="option"]'));
+        const optionElements = Array.from(
+          document.querySelectorAll('[role="option"]')
+        );
 
         if (!optionElements.length) return;
 
@@ -113,9 +115,11 @@ const useSelect = (props: UseSelectProps) => {
 
         let nextIndex;
         if (e.key === 'ArrowDown') {
-          nextIndex = currentIndex < optionElements.length - 1 ? currentIndex + 1 : 0;
+          nextIndex =
+            currentIndex < optionElements.length - 1 ? currentIndex + 1 : 0;
         } else {
-          nextIndex = currentIndex > 0 ? currentIndex - 1 : optionElements.length - 1;
+          nextIndex =
+            currentIndex > 0 ? currentIndex - 1 : optionElements.length - 1;
         }
 
         (optionElements[nextIndex] as HTMLElement).focus();
@@ -132,7 +136,10 @@ const useSelect = (props: UseSelectProps) => {
   // Handle click outside to close the select
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
         closeSelect();
       }
     };

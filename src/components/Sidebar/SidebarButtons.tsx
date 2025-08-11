@@ -26,7 +26,7 @@ export function ResetFiltersButton({ className, ...props }: StyledButtonProps) {
     'border-[#295e84]',
     'border-solid',
     'rounded-[99px]',
-    'font-[\'Inter:Bold\',_sans-serif]',
+    "font-['Inter:Bold',_sans-serif]",
     'font-bold',
     'text-[#295e84]',
     'text-[14px]',
@@ -38,12 +38,13 @@ export function ResetFiltersButton({ className, ...props }: StyledButtonProps) {
     className
   );
 
-  return (
-    <Button className={buttonClasses} {...props} />
-  );
+  return <Button className={buttonClasses} {...props} />;
 }
 
-export function UnderstandingDataButton({ className, ...props }: StyledButtonProps) {
+export function UnderstandingDataButton({
+  className,
+  ...props
+}: StyledButtonProps) {
   const buttonClasses = classNames(
     'box-border',
     'content-stretch',
@@ -61,7 +62,7 @@ export function UnderstandingDataButton({ className, ...props }: StyledButtonPro
     'w-full',
     'cursor-pointer',
     'bg-[#295e84]',
-    'font-[\'Inter:Bold\',_sans-serif]',
+    "font-['Inter:Bold',_sans-serif]",
     'font-bold',
     'text-[#ffffff]',
     'text-[14px]',
@@ -72,7 +73,5 @@ export function UnderstandingDataButton({ className, ...props }: StyledButtonPro
     className
   );
 
-  return (
-    <Button className={buttonClasses} {...props} />
-  );
-} 
+  return <Button className={buttonClasses} {...props} />;
+}

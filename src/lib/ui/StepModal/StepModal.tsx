@@ -37,10 +37,15 @@ function StepModalRoot({
   steps = [],
   onStepChange,
   onFinish,
+  // The styled overlay handles backdrop and escape behavior via context
+  // Keeping props for API compatibility but not using directly in root
   allowBackdropClose = true,
   allowEscapeKey = true,
   children,
 }: StepModalRootProps & { children: React.ReactNode }) {
+  // Reference compatibility props to satisfy linter
+  void allowBackdropClose;
+  void allowEscapeKey;
   const stepModalState = useStepModal({
     steps,
     isOpen,
@@ -56,19 +61,15 @@ function StepModalRoot({
 
   if (!isOpen) return null;
 
-  return (
-    <StepModalProvider value={contextValue}>
-      {children}
-    </StepModalProvider>
-  );
+  return <StepModalProvider value={contextValue}>{children}</StepModalProvider>;
 }
 
 // Overlay component
-function StepModalOverlay({ 
-  children, 
-  className = '', 
+function StepModalOverlay({
+  children,
+  className = '',
   onClick,
-  ...props 
+  ...props
 }: StepModalOverlayProps) {
   const { handleBackdropClick, handleEscapeKey } = useStepModalContext();
 
@@ -91,13 +92,13 @@ function StepModalOverlay({
 }
 
 // Content container
-function StepModalContent({ 
+function StepModalContent({
   size = 'md',
   position = 'center',
-  children, 
-  className = '', 
+  children,
+  className = '',
   onClick,
-  ...props 
+  ...props
 }: StepModalContentProps) {
   const { isOpen } = useStepModalContext();
 
@@ -122,20 +123,12 @@ function StepModalContent({
 
 // Header component
 function StepModalHeader_({ children, ...props }: StepModalHeaderProps) {
-  return (
-    <ModalHeader {...props}>
-      {children}
-    </ModalHeader>
-  );
+  return <ModalHeader {...props}>{children}</ModalHeader>;
 }
 
 // Title component
 function StepModalTitle_({ children, ...props }: StepModalTitleProps) {
-  return (
-    <ModalTitle {...props}>
-      {children}
-    </ModalTitle>
-  );
+  return <ModalTitle {...props}>{children}</ModalTitle>;
 }
 
 // Close button component
@@ -156,24 +149,20 @@ function StepModalClose({ children, onClick, ...props }: StepModalCloseProps) {
 
 // Body component
 function StepModalBody_({ children, ...props }: StepModalBodyProps) {
-  return (
-    <ModalBody {...props}>
-      {children}
-    </ModalBody>
-  );
+  return <ModalBody {...props}>{children}</ModalBody>;
 }
 
 // Footer component
 function StepModalFooter_({ children, ...props }: StepModalFooterProps) {
-  return (
-    <ModalFooter {...props}>
-      {children}
-    </ModalFooter>
-  );
+  return <ModalFooter {...props}>{children}</ModalFooter>;
 }
 
 // Progress component
-function StepModalProgress({ showBar = true, showNumbers = true, ...props }: StepModalProgressProps) {
+function StepModalProgress({
+  showBar = true,
+  showNumbers = true,
+  ...props
+}: StepModalProgressProps) {
   const { currentStep, totalSteps } = useStepModalContext();
 
   if (totalSteps === 0) return null;
@@ -192,23 +181,19 @@ function StepModalProgress({ showBar = true, showNumbers = true, ...props }: Ste
 
 // Navigation component
 function StepModalNavigation({ children, ...props }: StepModalNavigationProps) {
-  return (
-    <div {...props}>
-      {children}
-    </div>
-  );
+  return <div {...props}>{children}</div>;
 }
 
 // Step content component
 function StepModalStep({ children, ...props }: StepModalStepProps) {
-  const { 
-    currentStepConfig, 
+  const {
+    currentStepConfig,
     currentStep,
     totalSteps,
     goToNextStep,
     goToPreviousStep,
     goToStep,
-    closeModal
+    closeModal,
   } = useStepModalContext();
 
   const renderContent = () => {
@@ -229,20 +214,12 @@ function StepModalStep({ children, ...props }: StepModalStepProps) {
       : currentStepConfig.content;
   };
 
-  return (
-    <StepContent {...props}>
-      {renderContent()}
-    </StepContent>
-  );
+  return <StepContent {...props}>{renderContent()}</StepContent>;
 }
 
 // Main component with compound pattern
 function StepModal({ children, ...props }: StepModalProps) {
-  return (
-    <div {...props}>
-      {children}
-    </div>
-  );
+  return <div {...props}>{children}</div>;
 }
 
 // Attach compound components

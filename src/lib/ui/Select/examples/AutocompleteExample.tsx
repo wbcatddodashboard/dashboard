@@ -16,7 +16,7 @@ const initialOptions: Option[] = [
   { id: 9, value: 'mango', label: 'Mango' },
   { id: 10, value: 'pineapple', label: 'Pineapple' },
   { id: 11, value: 'watermelon', label: 'Watermelon' },
-  { id: 12, value: 'grape', label: 'Grape' }
+  { id: 12, value: 'grape', label: 'Grape' },
 ];
 
 export function AutocompleteExample() {
@@ -71,7 +71,8 @@ export function AutocompleteExample() {
               key={option.id}
               onClick={() => state.toggleOption(option)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') state.toggleOption(option);
+                if (e.key === 'Enter' || e.key === ' ')
+                  state.toggleOption(option);
               }}
               className={`
                 p-2 hover:bg-gray-100 cursor-pointer 
@@ -94,7 +95,9 @@ export function AutocompleteExample() {
 
   return (
     <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-xl font-bold mb-4">Select with Autocomplete (Headless Example)</h1>
+      <h1 className="text-xl font-bold mb-4">
+        Select with Autocomplete (Headless Example)
+      </h1>
 
       <div className="mb-8 relative">
         <h2 className="text-lg font-semibold mb-2">Basic Autocomplete</h2>
@@ -110,7 +113,9 @@ export function AutocompleteExample() {
       </div>
 
       <div className="mb-8 relative">
-        <h2 className="text-lg font-semibold mb-2">Multi-Select with Autocomplete</h2>
+        <h2 className="text-lg font-semibold mb-2">
+          Multi-Select with Autocomplete
+        </h2>
         <Select
           options={initialOptions}
           selected={multiSelected}

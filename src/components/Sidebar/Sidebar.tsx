@@ -2,7 +2,11 @@
 
 import type { SidebarProps } from './Sidebar.d';
 import { useSidebar } from './useSidebar';
-import { SIDEBAR_LOGO_IMAGE, FILTER_ICON_GROUP, FILTER_ICON_IMAGE } from './Sidebar.constants';
+import {
+  SIDEBAR_LOGO_IMAGE,
+  FILTER_ICON_GROUP,
+  FILTER_ICON_IMAGE,
+} from './Sidebar.constants';
 import {
   SidebarContainer,
   SidebarContent,
@@ -19,16 +23,16 @@ import {
   FilterOptionText,
   ActionButtonsContainer,
   ButtonContainer,
-  SidebarBorder
+  SidebarBorder,
 } from './Sidebar.styled';
 import { ResetFiltersButton, UnderstandingDataButton } from './SidebarButtons';
 
 function Sidebar({ className }: SidebarProps) {
-  const { 
-    filterSections, 
-    handleFilterToggle, 
-    handleResetFilters, 
-    handleUnderstandingData 
+  const {
+    filterSections,
+    handleFilterToggle,
+    handleResetFilters,
+    handleUnderstandingData,
   } = useSidebar();
 
   return (
@@ -45,9 +49,9 @@ function Sidebar({ className }: SidebarProps) {
               {section.hasFilterIcon && (
                 <FilterIconContainer>
                   <FilterIconWrapper>
-                    <FilterIcon 
-                      groupSrc={FILTER_ICON_GROUP} 
-                      imageSrc={FILTER_ICON_IMAGE} 
+                    <FilterIcon
+                      groupSrc={FILTER_ICON_GROUP}
+                      imageSrc={FILTER_ICON_IMAGE}
                     />
                   </FilterIconWrapper>
                 </FilterIconContainer>
@@ -88,4 +92,4 @@ function Sidebar({ className }: SidebarProps) {
   );
 }
 
-export default Sidebar; 
+export default Sidebar;

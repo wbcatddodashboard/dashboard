@@ -13,4 +13,4 @@ export interface FilterSection {
 
 export interface SidebarProps {
   className?: string;
-} 
+}

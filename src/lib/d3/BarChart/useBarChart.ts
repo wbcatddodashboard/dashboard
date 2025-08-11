@@ -1,12 +1,12 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
-import type { 
-  UseBarChartProps, 
+import type {
+  UseBarChartProps,
   UseBarChartReturn,
-  StackedBarChartDataPoint, 
-  TooltipData, 
-  BarChartDimensions 
+  StackedBarChartDataPoint,
+  TooltipData,
+  BarChartDimensions,
 } from './BarChart.d';
 
 const DEFAULT_MARGIN = {
@@ -38,30 +38,33 @@ export const useBarChart = (props: UseBarChartProps): UseBarChartReturn => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
 
-  const dimensions: BarChartDimensions = useMemo(() => ({
-    width,
-    height,
-    innerWidth: width - margin.left - margin.right,
-    innerHeight: height - margin.top - margin.bottom,
-    margin,
-  }), [width, height, margin]);
+  const dimensions: BarChartDimensions = useMemo(
+    () => ({
+      width,
+      height,
+      innerWidth: width - margin.left - margin.right,
+      innerHeight: height - margin.top - margin.bottom,
+      margin,
+    }),
+    [width, height, margin]
+  );
 
   const processedData = useMemo(() => {
-    return data.map(d => ({
+    return data.map((d) => ({
       ...d,
       total: Object.values(d.values).reduce((sum, val) => sum + val, 0),
     }));
   }, [data]);
 
   const scales = useMemo(() => {
-    const maxValue = d3.max(processedData, d => d.total) ?? 0;
-    
+    const maxValue = d3.max(processedData, (d) => d.total) ?? 0;
+
     let xScale, yScale;
-    
+
     if (orientation === 'vertical') {
       xScale = d3
         .scaleBand()
-        .domain(processedData.map(d => d.label))
+        .domain(processedData.map((d) => d.label))
         .range([0, dimensions.innerWidth])
         .padding(BAR_PADDING);
 
@@ -80,15 +83,15 @@ export const useBarChart = (props: UseBarChartProps): UseBarChartReturn => {
 
       yScale = d3
         .scaleBand()
-        .domain(processedData.map(d => d.label))
+        .domain(processedData.map((d) => d.label))
         .range([0, dimensions.innerHeight])
         .padding(BAR_PADDING);
     }
 
     const colorScale = d3
       .scaleOrdinal<string>()
-      .domain(series.map(s => s.key))
-      .range(series.map(s => s.color));
+      .domain(series.map((s) => s.key))
+      .range(series.map((s) => s.color));
 
     return { xScale, yScale, colorScale };
   }, [processedData, dimensions, series, orientation]);
@@ -96,37 +99,40 @@ export const useBarChart = (props: UseBarChartProps): UseBarChartReturn => {
   const stackedData = useMemo(() => {
     const stack = d3
       .stack<StackedBarChartDataPoint>()
-      .keys(series.map(s => s.key))
+      .keys(series.map((s) => s.key))
       .value((d, key) => d.values[key] ?? 0);
 
     return stack(processedData);
   }, [processedData, series]);
 
-  const handleBarClick = useCallback((
-    dataPoint: StackedBarChartDataPoint,
-    seriesKey: string
-  ) => {
-    onBarClick?.(dataPoint, seriesKey);
-  }, [onBarClick]);
+  const handleBarClick = useCallback(
+    (dataPoint: StackedBarChartDataPoint, seriesKey: string) => {
+      onBarClick?.(dataPoint, seriesKey);
+    },
+    [onBarClick]
+  );
 
-  const handleBarMouseEnter = useCallback((
-    event: React.MouseEvent,
-    dataPoint: StackedBarChartDataPoint,
-    seriesKey: string
-  ) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const value = dataPoint.values[seriesKey] ?? 0;
-    
-    setTooltip({
-      dataPoint,
-      series: seriesKey,
-      value,
-      x: rect.left + rect.width / 2,
-      y: rect.top,
-    });
+  const handleBarMouseEnter = useCallback(
+    (
+      event: React.MouseEvent,
+      dataPoint: StackedBarChartDataPoint,
+      seriesKey: string
+    ) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const value = dataPoint.values[seriesKey] ?? 0;
 
-    onBarHover?.(dataPoint, seriesKey);
-  }, [onBarHover]);
+      setTooltip({
+        dataPoint,
+        series: seriesKey,
+        value,
+        x: rect.left + rect.width / 2,
+        y: rect.top,
+      });
+
+      onBarHover?.(dataPoint, seriesKey);
+    },
+    [onBarHover]
+  );
 
   const handleBarMouseLeave = useCallback(() => {
     setTooltip(null);

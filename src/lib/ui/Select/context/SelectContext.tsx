@@ -12,7 +12,9 @@ export function SelectProvider({
   children: ReactNode;
   value: SelectContextType;
 }) {
-  return <SelectContext.Provider value={value}>{children}</SelectContext.Provider>;
+  return (
+    <SelectContext.Provider value={value}>{children}</SelectContext.Provider>
+  );
 }
 
 export function useSelectContext() {

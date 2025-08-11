@@ -8,12 +8,17 @@ export interface LinkButtonProps extends Omit<ButtonProps, 'renderLoading'> {
   href?: string;
 }
 
-function LinkButton({ children, className = '', href, ...props }: LinkButtonProps) {
+function LinkButton({
+  children,
+  className = '',
+  href,
+  ...props
+}: LinkButtonProps) {
   const baseClasses = [
     'inline-flex items-center text-blue-600 hover:text-blue-800 hover:underline',
     'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
     'disabled:opacity-50 disabled:cursor-not-allowed disabled:no-underline',
-    className
+    className,
   ].join(' ');
 
   const isAnchor = !!href;

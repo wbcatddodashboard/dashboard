@@ -1,6 +1,6 @@
 export { default as BarChart } from './BarChart/BarChart';
 
-export type { 
+export type {
   BarChartProps,
   BarChartDataPoint,
   StackedBarChartDataPoint,
@@ -17,5 +17,5 @@ export type {
   D3ColorScale,
   StackedDataPoint,
   GridLine,
-  AxisData
+  AxisData,
 } from './BarChart/BarChart.d';

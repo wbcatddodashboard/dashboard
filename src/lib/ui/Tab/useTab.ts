@@ -20,7 +20,7 @@ export const useTabs = ({
     onTabChange?.(tabId);
   };
 
-  const activeTab = tabs.find(tab => tab.id === currentActiveTabId);
+  const activeTab = tabs.find((tab) => tab.id === currentActiveTabId);
 
   const getTabButtonProps = (tab: TabItem) => ({
     onClick: () => handleTabChange(tab.id),

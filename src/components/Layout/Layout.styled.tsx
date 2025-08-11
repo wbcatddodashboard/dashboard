@@ -5,11 +5,7 @@ interface ChildrenProps {
 }
 
 export function LayoutContainer({ children }: ChildrenProps) {
-  return (
-    <div className="flex min-h-screen bg-gray-50">
-      {children}
-    </div>
-  );
+  return <div className="flex min-h-screen bg-gray-50">{children}</div>;
 }
 
 export function Sidebar({ children }: ChildrenProps) {
@@ -21,19 +17,11 @@ export function Sidebar({ children }: ChildrenProps) {
 }
 
 export function SidebarContent({ children }: ChildrenProps) {
-  return (
-    <div className="p-6">
-      {children}
-    </div>
-  );
+  return <div className="p-6">{children}</div>;
 }
 
 export function HeaderContainer({ children }: ChildrenProps) {
-  return (
-    <div className="flex items-center mb-8">
-      {children}
-    </div>
-  );
+  return <div className="flex items-center mb-8">{children}</div>;
 }
 
 export function LogoContainer({ children }: ChildrenProps) {
@@ -45,111 +33,57 @@ export function LogoContainer({ children }: ChildrenProps) {
 }
 
 export function LogoText({ children }: ChildrenProps) {
-  return (
-    <span className="text-white text-sm font-bold">
-      {children}
-    </span>
-  );
+  return <span className="text-white text-sm font-bold">{children}</span>;
 }
 
 export function TitleContainer({ children }: ChildrenProps) {
-  return (
-    <div>
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }
 
 export function MainTitle({ children }: ChildrenProps) {
-  return (
-    <h1 className="text-sm font-semibold text-gray-900">
-      {children}
-    </h1>
-  );
+  return <h1 className="text-sm font-semibold text-gray-900">{children}</h1>;
 }
 
 export function Subtitle({ children }: ChildrenProps) {
-  return (
-    <p className="text-xs text-gray-500">
-      {children}
-    </p>
-  );
+  return <p className="text-xs text-gray-500">{children}</p>;
 }
 
 export function Navigation({ children }: ChildrenProps) {
-  return (
-    <nav className="space-y-6">
-      {children}
-    </nav>
-  );
+  return <nav className="space-y-6">{children}</nav>;
 }
 
 export function FilterSection({ children }: ChildrenProps) {
-  return (
-    <div>
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }
 
 export function FilterTitle({ children }: ChildrenProps) {
-  return (
-    <h3 className="text-sm font-medium text-gray-700 mb-3">
-      {children}
-    </h3>
-  );
+  return <h3 className="text-sm font-medium text-gray-700 mb-3">{children}</h3>;
 }
 
 export function FilterList({ children }: ChildrenProps) {
-  return (
-    <div className="space-y-2">
-      {children}
-    </div>
-  );
+  return <div className="space-y-2">{children}</div>;
 }
 
 export function CheckboxLabel({ children }: ChildrenProps) {
-  return (
-    <label className="flex items-center">
-      {children}
-    </label>
-  );
+  return <label className="flex items-center">{children}</label>;
 }
 
 export function CheckboxInput() {
-  return (
-    <input type="checkbox" className="mr-2" />
-  );
+  return <input type="checkbox" className="mr-2" />;
 }
 
 export function CheckboxText({ children }: ChildrenProps) {
-  return (
-    <span className="text-sm text-gray-600">
-      {children}
-    </span>
-  );
+  return <span className="text-sm text-gray-600">{children}</span>;
 }
 
 export function BlueFilterList({ children }: ChildrenProps) {
-  return (
-    <div className="space-y-2 text-sm text-blue-600">
-      {children}
-    </div>
-  );
+  return <div className="space-y-2 text-sm text-blue-600">{children}</div>;
 }
 
 export function FilterItem({ children }: ChildrenProps) {
-  return (
-    <div>
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }
 
 export function MainContent({ children }: ChildrenProps) {
-  return (
-    <main className="flex-1 overflow-hidden">
-      {children}
-    </main>
-  );
+  return <main className="flex-1 overflow-hidden">{children}</main>;
 }

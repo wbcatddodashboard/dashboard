@@ -3,22 +3,27 @@ import React from 'react';
 import When from '../../When';
 import Button, { type ButtonProps } from '../index';
 
-export interface PrimaryButtonProps extends Omit<ButtonProps, 'as' | 'renderLoading'> {
+export interface PrimaryButtonProps
+  extends Omit<ButtonProps, 'as' | 'renderLoading'> {
   className?: string;
 }
 
-function PrimaryButton({ children, className = '', ...props }: PrimaryButtonProps) {
+function PrimaryButton({
+  children,
+  className = '',
+  ...props
+}: PrimaryButtonProps) {
   const baseClasses = [
     'px-4 py-2 rounded-md font-medium',
     'bg-blue-600 text-white hover:bg-blue-700',
     'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
     'disabled:opacity-50 disabled:cursor-not-allowed',
-    className
+    className,
   ].join(' ');
 
   const spinnerPath = [
     'M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291',
-    'A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+    'A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z',
   ].join(' ');
 
   return (
