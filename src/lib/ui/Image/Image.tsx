@@ -18,6 +18,7 @@ function Image({
   }
 
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       {...imageProps}
       src={src}

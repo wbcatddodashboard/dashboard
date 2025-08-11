@@ -3,16 +3,8 @@ import React from 'react';
 import type { TabsProps, TabButtonProps } from './Tab.d';
 import { useTabs } from './useTab';
 
-function TabButton({
-  children,
-  isActive = false,
-  ...props
-}: TabButtonProps) {
-  return (
-    <button {...props}>
-      {children}
-    </button>
-  );
+function TabButton({ children, ...props }: TabButtonProps) {
+  return <button {...props}>{children}</button>;
 }
 
 function Tabs({
@@ -23,12 +15,7 @@ function Tabs({
   className = '',
   ...props
 }: TabsProps) {
-  const { 
-    activeTabId: currentActiveTabId, 
-    activeTab, 
-    getTabButtonProps, 
-    getTabPanelProps 
-  } = useTabs({
+  const { activeTab, getTabButtonProps, getTabPanelProps } = useTabs({
     tabs,
     activeTabId,
     defaultActiveTabId,
@@ -39,20 +26,14 @@ function Tabs({
     <div className={className} {...props}>
       <div role="tablist">
         {tabs.map((tab) => (
-          <TabButton
-            key={tab.id}
-            {...getTabButtonProps(tab)}
-            isActive={tab.id === currentActiveTabId}
-          >
+          <TabButton key={tab.id} {...getTabButtonProps(tab)}>
             {tab.label}
           </TabButton>
         ))}
       </div>
-      
+
       {activeTab && (
-        <div {...getTabPanelProps(activeTab)}>
-          {activeTab.content}
-        </div>
+        <div {...getTabPanelProps(activeTab)}>{activeTab.content}</div>
       )}
     </div>
   );

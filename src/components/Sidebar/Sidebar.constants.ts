@@ -1,8 +1,8 @@
 import type { FilterSection } from './Sidebar.d';
 
-export const SIDEBAR_LOGO_IMAGE = "/sidebar-logo.png";
-export const FILTER_ICON_GROUP = "/filter-icon-group.svg";
-export const FILTER_ICON_IMAGE = "/filter-icon-figma.svg";
+export const SIDEBAR_LOGO_IMAGE = '/sidebar-logo.png';
+export const FILTER_ICON_GROUP = '/filter-icon-group.svg';
+export const FILTER_ICON_IMAGE = '/filter-icon-figma.svg';
 
 export const FILTER_SECTIONS: FilterSection[] = [
   {
@@ -12,8 +12,8 @@ export const FILTER_SECTIONS: FilterSection[] = [
     options: [
       { id: 'active', label: 'Active' },
       { id: 'closed', label: 'Closed' },
-      { id: 'pipeline', label: 'Pipeline' }
-    ]
+      { id: 'pipeline', label: 'Pipeline' },
+    ],
   },
   {
     id: 'region',
@@ -27,8 +27,8 @@ export const FILTER_SECTIONS: FilterSection[] = [
       { id: 'lcr', label: 'Latin America & Caribbean (LCR)' },
       { id: 'mna', label: 'Middle East & North Africa (MNA)' },
       { id: 'na', label: 'North America' },
-      { id: 'sar', label: 'South Asia (SAR)' }
-    ]
+      { id: 'sar', label: 'South Asia (SAR)' },
+    ],
   },
   {
     id: 'country',
@@ -41,7 +41,7 @@ export const FILTER_SECTIONS: FilterSection[] = [
       { id: 'bhutan', label: 'Bhutan' },
       { id: 'cabo-verde', label: 'Cabo Verde' },
       { id: 'chile', label: 'Chile' },
-      { id: 'colombia', label: 'Colombia' }
-    ]
-  }
-]; 
+      { id: 'colombia', label: 'Colombia' },
+    ],
+  },
+];

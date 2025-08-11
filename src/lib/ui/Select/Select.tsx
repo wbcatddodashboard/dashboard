@@ -29,8 +29,15 @@ function Select({
   };
   const selectState = useSelect(hookProps);
 
-  const { isOpen, toggleOpen, selectRef, isSelected, searchTerm, setSearchTerm, filteredOptions } =
-    selectState;
+  const {
+    isOpen,
+    toggleOpen,
+    selectRef,
+    isSelected,
+    searchTerm,
+    setSearchTerm,
+    filteredOptions,
+  } = selectState;
 
   const contextValue: SelectContextType = {
     options,

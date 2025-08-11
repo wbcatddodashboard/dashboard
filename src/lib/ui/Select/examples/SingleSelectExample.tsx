@@ -10,13 +10,15 @@ const initialOptions: Option[] = [
   { id: 3, value: 'orange', label: 'Orange' },
   { id: 4, value: 'strawberry', label: 'Strawberry' },
   { id: 5, value: 'blueberry', label: 'Blueberry' },
-  { id: 6, value: 'raspberry', label: 'Raspberry' }
+  { id: 6, value: 'raspberry', label: 'Raspberry' },
 ];
 
 export function SingleSelectExample() {
   const [basicSelected, setBasicSelected] = useState<Option[]>([]);
   const [disabledSelected, setDisabledSelected] = useState<Option[]>([]);
-  const [preselectedValue, setPreselectedValue] = useState<Option[]>([initialOptions[2]]);
+  const [preselectedValue, setPreselectedValue] = useState<Option[]>([
+    initialOptions[2],
+  ]);
 
   const renderSelectChildren = (state: SelectContextType) => (
     <>
@@ -45,7 +47,8 @@ export function SingleSelectExample() {
               key={option.id}
               onClick={() => state.toggleOption(option)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') state.toggleOption(option);
+                if (e.key === 'Enter' || e.key === ' ')
+                  state.toggleOption(option);
               }}
               className={`
                 p-2 hover:bg-gray-100 cursor-pointer 
@@ -93,7 +96,9 @@ export function SingleSelectExample() {
       </div>
 
       <div className="mb-8 relative">
-        <h2 className="text-lg font-semibold mb-2">Single Select with Pre-selected Value</h2>
+        <h2 className="text-lg font-semibold mb-2">
+          Single Select with Pre-selected Value
+        </h2>
         <Select
           options={initialOptions}
           selected={preselectedValue}

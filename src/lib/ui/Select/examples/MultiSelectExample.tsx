@@ -12,7 +12,7 @@ const initialOptions: Option[] = [
   { id: 5, value: 'blueberry', label: 'Blueberry' },
   { id: 6, value: 'raspberry', label: 'Raspberry' },
   { id: 7, value: 'blackberry', label: 'Blackberry' },
-  { id: 8, value: 'kiwi', label: 'Kiwi' }
+  { id: 8, value: 'kiwi', label: 'Kiwi' },
 ];
 
 export function MultiSelectExample() {
@@ -20,7 +20,7 @@ export function MultiSelectExample() {
   const [limitedSelected, setLimitedSelected] = useState<Option[]>([]);
   const [preselectedOptions, setPreselectedOptions] = useState<Option[]>([
     initialOptions[0],
-    initialOptions[2]
+    initialOptions[2],
   ]);
 
   const renderSelectChildren = (state: SelectContextType) => (
@@ -50,7 +50,8 @@ export function MultiSelectExample() {
               key={option.id}
               onClick={() => state.toggleOption(option)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') state.toggleOption(option);
+                if (e.key === 'Enter' || e.key === ' ')
+                  state.toggleOption(option);
               }}
               className={`
                 p-2 hover:bg-gray-100 cursor-pointer flex items-center 
@@ -60,7 +61,12 @@ export function MultiSelectExample() {
               aria-selected={state.isSelected(option)}
               tabIndex={0}
             >
-              <input type="checkbox" checked={state.isSelected(option)} readOnly className="mr-2" />
+              <input
+                type="checkbox"
+                checked={state.isSelected(option)}
+                readOnly
+                className="mr-2"
+              />
               {option.label}
             </li>
           ))}
@@ -85,12 +91,17 @@ export function MultiSelectExample() {
           {renderSelectChildren}
         </Select>
         <div className="mt-2 text-sm text-gray-600">
-          Selected: {basicSelected.length ? basicSelected.map((s) => s.label).join(', ') : 'None'}
+          Selected:{' '}
+          {basicSelected.length
+            ? basicSelected.map((s) => s.label).join(', ')
+            : 'None'}
         </div>
       </div>
 
       <div className="mb-8 relative">
-        <h2 className="text-lg font-semibold mb-2">Multi-Select with Max Items (3)</h2>
+        <h2 className="text-lg font-semibold mb-2">
+          Multi-Select with Max Items (3)
+        </h2>
         <Select
           options={initialOptions}
           selected={limitedSelected}
@@ -103,13 +114,17 @@ export function MultiSelectExample() {
         </Select>
         <div className="mt-2 text-sm text-gray-600">
           Selected:{' '}
-          {limitedSelected.length ? limitedSelected.map((s) => s.label).join(', ') : 'None'}(
-          {limitedSelected.length}/3)
+          {limitedSelected.length
+            ? limitedSelected.map((s) => s.label).join(', ')
+            : 'None'}
+          ({limitedSelected.length}/3)
         </div>
       </div>
 
       <div className="mb-8 relative">
-        <h2 className="text-lg font-semibold mb-2">Multi-Select with Pre-selected Values</h2>
+        <h2 className="text-lg font-semibold mb-2">
+          Multi-Select with Pre-selected Values
+        </h2>
         <Select
           options={initialOptions}
           selected={preselectedOptions}

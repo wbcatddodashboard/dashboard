@@ -29,7 +29,8 @@ export interface BarChartMargin {
 
 export type BarChartOrientation = 'vertical' | 'horizontal';
 
-export interface BarChartProps extends Omit<SVGAttributes<SVGSVGElement>, 'width' | 'height'> {
+export interface BarChartProps
+  extends Omit<SVGAttributes<SVGSVGElement>, 'width' | 'height'> {
   data: StackedBarChartDataPoint[];
   series: BarChartSeries[];
   width?: number;
@@ -43,7 +44,10 @@ export interface BarChartProps extends Omit<SVGAttributes<SVGSVGElement>, 'width
   showTooltip?: boolean;
   margin?: BarChartMargin;
   onBarClick?: (dataPoint: StackedBarChartDataPoint, series: string) => void;
-  onBarHover?: (dataPoint: StackedBarChartDataPoint | null, series?: string) => void;
+  onBarHover?: (
+    dataPoint: StackedBarChartDataPoint | null,
+    series?: string
+  ) => void;
 }
 
 export interface TooltipData {
@@ -62,13 +66,13 @@ export interface BarChartDimensions {
   margin: BarChartMargin;
 }
 
-export interface UseBarChartProps extends BarChartProps {}
+export type UseBarChartProps = BarChartProps;
 
 export interface D3BandScale {
   domain(): string[];
   range(): number[];
   bandwidth(): number;
-  (value: string): number;
+  (value: string): number | undefined;
 }
 
 export interface D3LinearScale {
@@ -107,7 +111,7 @@ export interface AxisData {
 }
 
 export interface UseBarChartReturn {
-  svgRef: React.RefObject<SVGSVGElement>;
+  svgRef: React.RefObject<SVGSVGElement | null>;
   dimensions: BarChartDimensions;
   scales: {
     xScale: D3Scale;
@@ -117,8 +121,15 @@ export interface UseBarChartReturn {
   stackedData: StackedDataPoint[][];
   tooltip: TooltipData | null;
   processedData: (StackedBarChartDataPoint & { total: number })[];
-  handleBarClick: (dataPoint: StackedBarChartDataPoint, seriesKey: string) => void;
-  handleBarMouseEnter: (event: React.MouseEvent, dataPoint: StackedBarChartDataPoint, seriesKey: string) => void;
+  handleBarClick: (
+    dataPoint: StackedBarChartDataPoint,
+    seriesKey: string
+  ) => void;
+  handleBarMouseEnter: (
+    event: React.MouseEvent,
+    dataPoint: StackedBarChartDataPoint,
+    seriesKey: string
+  ) => void;
   handleBarMouseLeave: () => void;
   formatValue: (value: number) => string;
 }

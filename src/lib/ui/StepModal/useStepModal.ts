@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { UseStepModalProps, UseStepModalReturn, StepConfig } from './StepModal.d';
+import type { UseStepModalProps, UseStepModalReturn } from './StepModal.d';
 
 export const useStepModal = ({
   steps = [],
@@ -33,22 +33,29 @@ export const useStepModal = ({
     }
   }, [currentStepConfig]);
 
-  const goToStep = useCallback(async (stepIndex: number): Promise<void> => {
-    if (stepIndex < 0 || stepIndex >= totalSteps || stepIndex === currentStep) {
-      return;
-    }
-
-    if (stepIndex > currentStep) {
-      const isValid = await validateCurrentStep();
-      if (!isValid) {
+  const goToStep = useCallback(
+    async (stepIndex: number): Promise<void> => {
+      if (
+        stepIndex < 0 ||
+        stepIndex >= totalSteps ||
+        stepIndex === currentStep
+      ) {
         return;
       }
-    }
 
-    setCurrentStep(stepIndex);
-    const newStepConfig = steps[stepIndex];
-    onStepChange?.(stepIndex, newStepConfig);
-  }, [currentStep, totalSteps, steps, validateCurrentStep, onStepChange]);
+      if (stepIndex > currentStep) {
+        const isValid = await validateCurrentStep();
+        if (!isValid) {
+          return;
+        }
+      }
+
+      setCurrentStep(stepIndex);
+      const newStepConfig = steps[stepIndex];
+      onStepChange?.(stepIndex, newStepConfig);
+    },
+    [currentStep, totalSteps, steps, validateCurrentStep, onStepChange]
+  );
 
   const goToNextStep = useCallback(async (): Promise<void> => {
     if (isLastStep || isSingleModal) {
@@ -64,7 +71,14 @@ export const useStepModal = ({
     setCurrentStep(nextStepIndex);
     const nextStepConfig = steps[nextStepIndex];
     onStepChange?.(nextStepIndex, nextStepConfig);
-  }, [currentStep, isLastStep, isSingleModal, steps, validateCurrentStep, onStepChange]);
+  }, [
+    currentStep,
+    isLastStep,
+    isSingleModal,
+    steps,
+    validateCurrentStep,
+    onStepChange,
+  ]);
 
   const goToPreviousStep = useCallback((): void => {
     if (isFirstStep || isSingleModal) {
@@ -91,17 +105,23 @@ export const useStepModal = ({
     closeModal();
   }, [validateCurrentStep, onFinish, closeModal]);
 
-  const handleBackdropClick = useCallback((event: React.MouseEvent): void => {
-    if (event.target === event.currentTarget) {
-      closeModal();
-    }
-  }, [closeModal]);
+  const handleBackdropClick = useCallback(
+    (event: React.MouseEvent): void => {
+      if (event.target === event.currentTarget) {
+        closeModal();
+      }
+    },
+    [closeModal]
+  );
 
-  const handleEscapeKey = useCallback((event: React.KeyboardEvent): void => {
-    if (event.key === 'Escape') {
-      closeModal();
-    }
-  }, [closeModal]);
+  const handleEscapeKey = useCallback(
+    (event: React.KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    },
+    [closeModal]
+  );
 
   useEffect(() => {
     if (isOpen) {

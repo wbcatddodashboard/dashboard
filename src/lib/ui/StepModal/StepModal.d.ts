@@ -47,11 +47,13 @@ export interface StepModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-export interface StepModalTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+export interface StepModalTitleProps
+  extends HTMLAttributes<HTMLHeadingElement> {
   children: ReactNode;
 }
 
-export interface StepModalCloseProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface StepModalCloseProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
 }
 
@@ -68,7 +70,8 @@ export interface StepModalProgressProps extends HTMLAttributes<HTMLDivElement> {
   showNumbers?: boolean;
 }
 
-export interface StepModalNavigationProps extends HTMLAttributes<HTMLDivElement> {
+export interface StepModalNavigationProps
+  extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 

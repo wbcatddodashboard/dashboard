@@ -5,7 +5,10 @@ interface ChildrenProps {
   children: ReactNode;
 }
 
-export function SidebarContainer({ children, className }: ChildrenProps & { className?: string }) {
+export function SidebarContainer({
+  children,
+  className,
+}: ChildrenProps & { className?: string }) {
   const containerClasses = classNames(
     'bg-gray-50',
     'relative',
@@ -14,11 +17,7 @@ export function SidebarContainer({ children, className }: ChildrenProps & { clas
     className
   );
 
-  return (
-    <div className={containerClasses}>
-      {children}
-    </div>
-  );
+  return <div className={containerClasses}>{children}</div>;
 }
 
 export function SidebarContent({ children }: ChildrenProps) {
@@ -35,11 +34,7 @@ export function SidebarContent({ children }: ChildrenProps) {
     'h-full'
   );
 
-  return (
-    <div className={containerClasses}>
-      {children}
-    </div>
-  );
+  return <div className={containerClasses}>{children}</div>;
 }
 
 export function LogoContainer({ children }: ChildrenProps) {
@@ -55,16 +50,12 @@ export function LogoContainer({ children }: ChildrenProps) {
     'p-0',
     'relative',
     'shadow-[0px_0px_0px_1px_rgba(26,26,26,0.06),0px_1px_1px_-6px_rgba(71,71,71,0.1),' +
-    '0px_2px_4px_0px_rgba(71,71,71,0.08)]',
+      '0px_2px_4px_0px_rgba(71,71,71,0.08)]',
     'shrink-0',
     'w-52'
   );
 
-  return (
-    <div className={logoClasses}>
-      {children}
-    </div>
-  );
+  return <div className={logoClasses}>{children}</div>;
 }
 
 export function LogoImage({ src }: { src: string }) {
@@ -78,7 +69,7 @@ export function LogoImage({ src }: { src: string }) {
   );
 
   return (
-    <div 
+    <div
       className={imageClasses}
       style={{ backgroundImage: `url('${src}')` }}
     />
@@ -100,11 +91,7 @@ export function FilterSectionContainer({ children }: ChildrenProps) {
     'w-full'
   );
 
-  return (
-    <div className={containerClasses}>
-      {children}
-    </div>
-  );
+  return <div className={containerClasses}>{children}</div>;
 }
 
 export function FilterSectionHeader({ children }: ChildrenProps) {
@@ -124,17 +111,13 @@ export function FilterSectionHeader({ children }: ChildrenProps) {
     'w-full'
   );
 
-  return (
-    <div className={headerClasses}>
-      {children}
-    </div>
-  );
+  return <div className={headerClasses}>{children}</div>;
 }
 
 export function FilterSectionTitle({ children }: ChildrenProps) {
   const titleClasses = classNames(
     'basis-0',
-    'font-[\'Inter:Medium\',_sans-serif]',
+    "font-['Inter:Medium',_sans-serif]",
     'font-medium',
     'grow',
     'leading-[0]',
@@ -164,28 +147,22 @@ export function FilterIconContainer({ children }: ChildrenProps) {
     'size-5'
   );
 
-  return (
-    <div className={containerClasses}>
-      {children}
-    </div>
-  );
+  return <div className={containerClasses}>{children}</div>;
 }
 
 export function FilterIconWrapper({ children }: ChildrenProps) {
-  const wrapperClasses = classNames(
-    'absolute',
-    'contents',
-    'inset-0'
-  );
+  const wrapperClasses = classNames('absolute', 'contents', 'inset-0');
 
-  return (
-    <div className={wrapperClasses}>
-      {children}
-    </div>
-  );
+  return <div className={wrapperClasses}>{children}</div>;
 }
 
-export function FilterIcon({ groupSrc, imageSrc }: { groupSrc: string; imageSrc: string }) {
+export function FilterIcon({
+  groupSrc,
+  imageSrc,
+}: {
+  groupSrc: string;
+  imageSrc: string;
+}) {
   const iconClasses = classNames(
     'absolute',
     'bottom-[5.208%]',
@@ -201,10 +178,8 @@ export function FilterIcon({ groupSrc, imageSrc }: { groupSrc: string; imageSrc:
   );
 
   return (
-    <div 
-      className={iconClasses}
-      style={{ maskImage: `url('${groupSrc}')` }}
-    >
+    <div className={iconClasses} style={{ maskImage: `url('${groupSrc}')` }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         alt="Filter icon"
         className="block max-w-none size-full"
@@ -214,12 +189,12 @@ export function FilterIcon({ groupSrc, imageSrc }: { groupSrc: string; imageSrc:
   );
 }
 
-export function FilterOptionButton({ 
-  children, 
-  isSelected, 
-  onClick 
-}: ChildrenProps & { 
-  isSelected?: boolean; 
+export function FilterOptionButton({
+  children,
+  isSelected,
+  onClick,
+}: ChildrenProps & {
+  isSelected?: boolean;
   onClick: () => void;
 }) {
   const buttonClasses = classNames(
@@ -238,12 +213,12 @@ export function FilterOptionButton({
     'w-full',
     'cursor-pointer',
     {
-      'bg-[#edeff0] rounded': isSelected
+      'bg-[#edeff0] rounded': isSelected,
     }
   );
 
   return (
-    <div 
+    <div
       className={buttonClasses}
       onClick={onClick}
       role="button"
@@ -281,19 +256,15 @@ export function FilterOptionLabel({ children }: ChildrenProps) {
     'shrink-0'
   );
 
-  return (
-    <div className={labelClasses}>
-      {children}
-    </div>
-  );
+  return <div className={labelClasses}>{children}</div>;
 }
 
-export function FilterOptionText({ 
-  children, 
-  isSelected 
+export function FilterOptionText({
+  children,
+  isSelected,
 }: ChildrenProps & { isSelected?: boolean }) {
   const textClasses = classNames(
-    'font-[\'Roboto:Regular\',_sans-serif]',
+    "font-['Roboto:Regular',_sans-serif]",
     'font-normal',
     'leading-[0]',
     'relative',
@@ -304,7 +275,8 @@ export function FilterOptionText({
     'text-nowrap',
     'tracking-[0.25px]',
     {
-      'font-["Inter:Semi_Bold",_sans-serif] font-semibold tracking-[-0.14px]': isSelected
+      'font-["Inter:Semi_Bold",_sans-serif] font-semibold tracking-[-0.14px]':
+        isSelected,
     }
   );
 
@@ -313,15 +285,13 @@ export function FilterOptionText({
     'leading-[20px]',
     'whitespace-pre',
     {
-      'leading-[16px]': isSelected
+      'leading-[16px]': isSelected,
     }
   );
 
   return (
     <div className={textClasses}>
-      <p className={paragraphClasses}>
-        {children}
-      </p>
+      <p className={paragraphClasses}>{children}</p>
     </div>
   );
 }
@@ -341,11 +311,7 @@ export function ActionButtonsContainer({ children }: ChildrenProps) {
     'w-full'
   );
 
-  return (
-    <div className={containerClasses}>
-      {children}
-    </div>
-  );
+  return <div className={containerClasses}>{children}</div>;
 }
 
 export function ButtonContainer({ children }: ChildrenProps) {
@@ -356,11 +322,7 @@ export function ButtonContainer({ children }: ChildrenProps) {
     'w-full'
   );
 
-  return (
-    <div className={containerClasses}>
-      {children}
-    </div>
-  );
+  return <div className={containerClasses}>{children}</div>;
 }
 
 export function SidebarBorder() {
@@ -373,7 +335,5 @@ export function SidebarBorder() {
     'pointer-events-none'
   );
 
-  return (
-    <div className={borderClasses} />
-  );
-} 
+  return <div className={borderClasses} />;
+}

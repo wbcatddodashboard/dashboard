@@ -1,0 +1,8 @@
+echo "Running lint-staged..."
+npx lint-staged
+
+echo "Running typecheck..."
+npm run typecheck
+
+echo "Running tests..."
+npm test
