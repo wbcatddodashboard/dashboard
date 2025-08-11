@@ -12,7 +12,9 @@ export function InputProvider({
   children: ReactNode;
   value: InputContextType;
 }) {
-  return <InputContext.Provider value={value}>{children}</InputContext.Provider>;
+  return (
+    <InputContext.Provider value={value}>{children}</InputContext.Provider>
+  );
 }
 
 export function useInputContext() {

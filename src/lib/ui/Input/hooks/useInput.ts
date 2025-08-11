@@ -9,7 +9,9 @@ export default function useInput({
   type = 'text',
 }: UseInputProps) {
   const [isFocused, setIsFocused] = useState(false);
-  const [isChecked, setIsChecked] = useState(type === 'checkbox' ? !!value : false);
+  const [isChecked, setIsChecked] = useState(
+    type === 'checkbox' ? !!value : false
+  );
 
   useEffect(() => {
     if (type === 'checkbox') {

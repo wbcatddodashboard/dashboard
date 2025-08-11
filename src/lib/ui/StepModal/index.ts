@@ -1,6 +1,6 @@
 export { default as StepModal } from './StepModal';
 export { useStepModalContext } from './StepModalContext';
-export type { 
+export type {
   StepModalProps,
   StepModalRootProps,
   StepModalOverlayProps,
@@ -13,9 +13,9 @@ export type {
   StepModalProgressProps,
   StepModalNavigationProps,
   StepModalStepProps,
-  StepConfig, 
-  StepContentProps, 
-  UseStepModalProps, 
+  StepConfig,
+  StepContentProps,
+  UseStepModalProps,
   UseStepModalReturn,
-  StepModalContextValue
+  StepModalContextValue,
 } from './StepModal.d';
