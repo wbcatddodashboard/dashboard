@@ -4,6 +4,8 @@ export const PORTFOLIO_ENDPOINTS = {
   approvalsByFiscalYearRegion: `${API_BASE_PATH}/api/portfolio/approvals-by-fy-region`,
   regionByStatus: `${API_BASE_PATH}/api/portfolio/region-by-status`,
   summaryTable: `${API_BASE_PATH}/api/portfolio/summary-table`,
+  list: `${API_BASE_PATH}/api/portfolio/list`,
+  triggers: `${API_BASE_PATH}/api/portfolio/triggers`,
 } as const;
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
