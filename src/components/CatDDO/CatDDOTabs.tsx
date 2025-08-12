@@ -11,14 +11,13 @@ import {
   TabsWrapper,
   TabsInnerContainer,
   TabStyledWrapper,
+  TabTextParagraph,
 } from './styled';
 
 export function TabText({ children }: { children: React.ReactNode }) {
   return (
     <TabTextContainer>
-      <p className="adjustLetterSpacing block leading-[24px] whitespace-pre">
-        {children}
-      </p>
+      <TabTextParagraph>{children}</TabTextParagraph>
     </TabTextContainer>
   );
 }
