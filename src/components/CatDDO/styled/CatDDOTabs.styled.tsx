@@ -31,6 +31,14 @@ export function TabsInnerContainer({ children }: ChildrenProps) {
   return <div className="max-w-7xl mx-auto px-8 py-4">{children}</div>;
 }
 
+export function TabTextParagraph({ children }: ChildrenProps) {
+  return (
+    <p className="adjustLetterSpacing block leading-[24px] whitespace-pre">
+      {children}
+    </p>
+  );
+}
+
 export const TabStyledWrapper = (props: TabsProps) => {
   return (
     <Tabs

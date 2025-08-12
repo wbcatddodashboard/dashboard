@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import { Table, type TableProps } from 'vizonomy';
+import type { FundingSource } from '../../../interfaces';
 
 interface ChildrenProps {
   children: ReactNode;
@@ -38,3 +40,17 @@ export function TableCellText({
     </span>
   );
 }
+
+export const TableFundingWrapper = (props: TableProps) => {
+  return (
+    <Table
+      {...props}
+      bordered
+      size="small"
+      className="w-[357px] [&_thead]:bg-[#f2f3f5] [&_th]:text-[#295e84] [&_th]:font-['Inter:Medium',_sans-serif] [&_th]:font-medium [&_th]:text-[14px] [&_th]:leading-[21px] [&_th]:tracking-[-0.154px] [&_th]:px-4 [&_th]:py-3 [&_td]:px-4 [&_td]:py-3 [&_tr]:border-b [&_tr]:border-[rgba(0,0,0,0.1)]"
+      onRow={(row: FundingSource) => ({
+        className: row.isTotal ? 'border-t-2 border-gray-300' : '',
+      })}
+    />
+  );
+};

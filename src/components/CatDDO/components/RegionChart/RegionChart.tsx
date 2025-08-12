@@ -32,10 +32,10 @@ export const RegionChart = () => {
           xAxisLabel="Fiscal Year"
           yAxisLabel=""
           orientation="vertical"
-          showLegend={true}
-          showGrid={true}
-          showTooltip={true}
-          showTotals={true}
+          showLegend
+          showGrid
+          showTooltip
+          showTotals
           barPadding={0.4}
           margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
           styleProps={{
