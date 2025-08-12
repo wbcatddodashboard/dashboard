@@ -8,6 +8,7 @@ import {
 } from './styled';
 import { RegionChart, StatusChart, TablePortfolioList } from './components';
 import OverViewCatDDO from './OverViewCatDDO';
+import DisbursementTables from './DisbursementTables';
 
 export const PortfolioContent = () => {
   return (
@@ -29,6 +30,7 @@ export const PortfolioContent = () => {
       </ChartsContainer>
       <OverViewCatDDO />
       <TablePortfolioList />
+      <DisbursementTables />
     </PortfolioWrapper>
   );
 };
