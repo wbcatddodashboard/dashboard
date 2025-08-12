@@ -45,6 +45,7 @@ export function RegionChart() {
           showGrid
           showTooltip
           showTotals
+          barPadding={0.3}
           margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
         />
       </ChartWrapper>
