@@ -10,15 +10,19 @@ import {
   ChartIcon,
   ChartWrapper,
   DownloadIconWrapper,
-} from './styled/StatusChart.styled';
-import { useStatusChart } from './useStatusChart';
+} from './styled/DisbursementChart.styled';
+import { useDisbursementChart } from './useDisbursementChart';
+import { formatTotalLabel, formatValueLabel } from './DisbursementChart.utils';
 
-export function StatusChart() {
-  const { data, series } = useStatusChart();
+export function DisbursementChart() {
+  const { data, series } = useDisbursementChart();
+
   return (
     <ChartContainer>
       <ChartHeader>
-        <ChartTitle>Number of Cat DDOs by Status</ChartTitle>
+        <ChartTitle>
+          Cat DDO disbursements (in million US$) per funding source
+        </ChartTitle>
         <ChartIcon>
           <DownloadIconWrapper>
             <Image
@@ -35,20 +39,23 @@ export function StatusChart() {
         <BarChart
           data={data}
           series={series}
-          width={285}
-          height={389}
-          xAxisLabel="Region"
-          yAxisLabel=""
+          width={1040}
+          height={385}
+          xAxisLabel="Fiscal Year"
+          yAxisLabel="Disbursement Amount"
           orientation="vertical"
+          showTotals
           showLegend
           showGrid
           showTooltip
-          showTotals
-          margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
+          yAxisLabelOffset={45}
+          margin={{ top: 20, right: 20, bottom: 80, left: 80 }}
+          formatTotalLabel={formatTotalLabel}
+          formatValueLabel={formatValueLabel}
         />
       </ChartWrapper>
     </ChartContainer>
   );
 }
 
-export default StatusChart;
+export default DisbursementChart;

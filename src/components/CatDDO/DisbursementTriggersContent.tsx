@@ -3,6 +3,7 @@ import {
   DisbursementTriggersContainer,
   DisbursementTriggersTitle,
 } from './styled';
+import { TablePortfolioList } from './components';
 
 export const DisbursementTriggersContent = () => {
   return (
@@ -10,9 +11,7 @@ export const DisbursementTriggersContent = () => {
       <DisbursementTriggersTitle>
         Cat DDO Disbursement Triggers Content
       </DisbursementTriggersTitle>
-      <p className="text-gray-600">
-        Disbursement triggers content will be implemented later...
-      </p>
+      <TablePortfolioList />
     </DisbursementTriggersContainer>
   );
 };

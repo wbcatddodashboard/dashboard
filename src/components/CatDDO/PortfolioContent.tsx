@@ -6,7 +6,7 @@ import {
   ChartsContainer,
   PortfolioWrapper,
 } from './styled';
-import { RegionChart, StatusChart, TablePortfolioList } from './components';
+import { DisbursementChart, RegionChart, StatusChart } from './components';
 import OverViewCatDDO from './OverViewCatDDO';
 import DisbursementTables from './DisbursementTables';
 
@@ -29,7 +29,7 @@ export const PortfolioContent = () => {
         <StatusChart />
       </ChartsContainer>
       <OverViewCatDDO />
-      <TablePortfolioList />
+      <DisbursementChart />
       <DisbursementTables />
     </PortfolioWrapper>
   );

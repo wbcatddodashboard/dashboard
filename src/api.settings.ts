@@ -6,6 +6,7 @@ export const PORTFOLIO_ENDPOINTS = {
   summaryTable: `${API_BASE_PATH}/api/portfolio/summary-table`,
   list: `${API_BASE_PATH}/api/portfolio/list`,
   triggers: `${API_BASE_PATH}/api/portfolio/triggers`,
+  disbursementsByFySource: `${API_BASE_PATH}/api/portfolio/disbursements-by-fy-source`,
 } as const;
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
