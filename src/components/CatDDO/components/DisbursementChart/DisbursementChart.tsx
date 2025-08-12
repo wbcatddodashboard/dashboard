@@ -48,6 +48,7 @@ export function DisbursementChart() {
           showLegend
           showGrid
           showTooltip
+          yAxisLabelOffset={45}
           margin={{ top: 20, right: 20, bottom: 80, left: 80 }}
           formatTotalLabel={formatTotalLabel}
           formatValueLabel={formatValueLabel}
