@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
-import { Table, type TableProps } from 'vizonomy';
-import type { FundingSource } from '../../../interfaces';
+import { Table, type TableProps, type TableColumn } from 'vizonomy';
 
 interface ChildrenProps {
   children: ReactNode;
@@ -8,7 +7,7 @@ interface ChildrenProps {
 
 export function TableFundingContainer({ children }: ChildrenProps) {
   return (
-    <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start p-0 relative shrink-0 w-[357px]">
+    <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start p-0 relative w-full min-w-0 overflow-x-auto">
       {children}
     </div>
   );
@@ -41,15 +40,42 @@ export function TableCellText({
   );
 }
 
-export const TableFundingWrapper = (props: TableProps) => {
+export interface TableFundingWrapperProps<T = unknown> {
+  data: T[];
+  columns: TableColumn<T>[];
+  className?: string;
+  maxBodyHeight?: number;
+  scroll?: { x?: number | boolean; y?: number };
+  sorting?: unknown;
+  rowKey?: string;
+}
+
+export const TableFundingWrapper = <T,>(props: TableFundingWrapperProps<T>) => {
+  const {
+    maxBodyHeight = 360,
+    scroll,
+    ...rest
+  } = props as TableFundingWrapperProps<T>;
+  const incoming = rest as unknown as TableProps & {
+    scroll?: { x?: number | boolean; y?: number };
+  };
+  const mergedScroll = {
+    ...(incoming.scroll ?? {}),
+    ...(scroll ?? {}),
+    y: maxBodyHeight,
+  };
   return (
     <Table
-      {...props}
+      {...incoming}
       bordered
       size="small"
-      className="w-[357px] [&_thead]:bg-[#f2f3f5] [&_th]:text-[#295e84] [&_th]:font-['Inter:Medium',_sans-serif] [&_th]:font-medium [&_th]:text-[14px] [&_th]:leading-[21px] [&_th]:tracking-[-0.154px] [&_th]:px-4 [&_th]:py-3 [&_td]:px-4 [&_td]:py-3 [&_tr]:border-b [&_tr]:border-[rgba(0,0,0,0.1)]"
-      onRow={(row: FundingSource) => ({
-        className: row.isTotal ? 'border-t-2 border-gray-300' : '',
+      className="w-full [&_thead]:bg-[#f2f3f5] [&_th]:text-[#295e84] [&_th]:font-['Inter:Medium',_sans-serif] [&_th]:font-medium [&_th]:text-[14px] [&_th]:leading-[21px] [&_th]:tracking-[-0.154px] [&_th]:px-4 [&_th]:py-3 [&_td]:px-4 [&_td]:py-3 [&_tr]:border-b [&_tr]:border-[rgba(0,0,0,0.1)]"
+      sticky
+      scroll={mergedScroll}
+      onRow={(row: Record<string, unknown>) => ({
+        className: (row as { isTotal?: boolean }).isTotal
+          ? 'border-t-2 border-gray-300'
+          : '',
       })}
     />
   );
