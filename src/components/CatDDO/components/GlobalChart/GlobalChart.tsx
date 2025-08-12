@@ -21,6 +21,7 @@ export function GlobalChart() {
           showLegend
           showGrid
           showTooltip
+          legendItemGap={10}
           margin={{ top: 20, right: 20, bottom: 80, left: 60 }}
         />
       </ChartWrapper>
