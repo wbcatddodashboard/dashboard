@@ -22,6 +22,7 @@ export function GlobalChart() {
           showGrid
           showTooltip
           legendItemGap={10}
+          yAxisLabelOffset={10}
           margin={{ top: 20, right: 20, bottom: 80, left: 60 }}
         />
       </ChartWrapper>
