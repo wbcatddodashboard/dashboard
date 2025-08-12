@@ -12,6 +12,7 @@ import {
   DownloadIconWrapper,
 } from './styled/DisbursementChart.styled';
 import { useDisbursementChart } from './useDisbursementChart';
+import { formatTotalLabel, formatValueLabel } from './DisbursementChart.utils';
 
 export function DisbursementChart() {
   const { data, series } = useDisbursementChart();
@@ -48,6 +49,8 @@ export function DisbursementChart() {
           showGrid
           showTooltip
           margin={{ top: 20, right: 20, bottom: 80, left: 80 }}
+          formatTotalLabel={formatTotalLabel}
+          formatValueLabel={formatValueLabel}
         />
       </ChartWrapper>
     </ChartContainer>
