@@ -5,15 +5,15 @@ interface ChildrenProps {
 }
 
 export function DashboardContainer({ children }: ChildrenProps) {
-  return <main className="w-full h-full relative">{children}</main>;
+  return <main className="w-full relative">{children}</main>;
 }
 
 export function DashboardWrapper({ children }: ChildrenProps) {
-  return <div className="w-full h-full flex">{children}</div>;
+  return <div className="w-full flex">{children}</div>;
 }
 
 export function MainDashboardSection({ children }: ChildrenProps) {
-  return <div className="flex-1 relative bg-white">{children}</div>;
+  return <div className="w-full relative bg-white h-[400px]">{children}</div>;
 }
 
 export function TitleSection({ children }: ChildrenProps) {
