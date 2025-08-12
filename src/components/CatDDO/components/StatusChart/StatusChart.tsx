@@ -43,21 +43,7 @@ export function StatusChart() {
           showLegend
           showGrid
           showTooltip
-          showTotals
           margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
-          barPadding={0.3}
-          styleProps={{
-            titleColor: '#295e84',
-            titleFontSize: 18,
-            titleFontWeight: 600,
-            titleFontFamily: 'Inter, sans-serif',
-            axisTextColor: '#295e84',
-            axisTextFontSize: 12,
-            axisTextFontFamily: 'Inter, sans-serif',
-            gridLineColor: '#e5e7eb',
-            gridLineStrokeWidth: 1,
-            backgroundColor: '#ffffff',
-          }}
         />
       </ChartWrapper>
     </ChartContainer>
