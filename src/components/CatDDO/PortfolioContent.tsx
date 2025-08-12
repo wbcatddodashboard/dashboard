@@ -6,9 +6,10 @@ import {
   ChartsContainer,
   PortfolioWrapper,
 } from './styled';
-import { RegionChart, StatusChart, TablePortfolioList } from './components';
+import { DisbursementChart, RegionChart, StatusChart } from './components';
 import OverViewCatDDO from './OverViewCatDDO';
 import { GlobalCatDDO } from './GlobalCatDDO';
+import DisbursementTables from './DisbursementTables';
 
 export const PortfolioContent = () => {
   return (
@@ -29,7 +30,8 @@ export const PortfolioContent = () => {
         <StatusChart />
       </ChartsContainer>
       <OverViewCatDDO />
-      <TablePortfolioList />
+      <DisbursementChart />
+      <DisbursementTables />
       <GlobalCatDDO />
     </PortfolioWrapper>
   );
