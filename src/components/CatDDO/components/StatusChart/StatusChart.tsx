@@ -43,6 +43,7 @@ export function StatusChart() {
           showLegend
           showGrid
           showTooltip
+          showTotals
           margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
         />
       </ChartWrapper>

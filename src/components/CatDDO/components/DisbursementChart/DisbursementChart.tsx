@@ -43,6 +43,7 @@ export function DisbursementChart() {
           xAxisLabel="Fiscal Year"
           yAxisLabel="Disbursement Amount"
           orientation="vertical"
+          showTotals
           showLegend
           showGrid
           showTooltip
