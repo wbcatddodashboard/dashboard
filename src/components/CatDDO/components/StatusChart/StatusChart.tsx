@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { BarChart } from 'vizonomy-d3';
 import { Image } from 'vizonomy';
@@ -7,26 +9,32 @@ import {
   ChartTitle,
   ChartIcon,
   ChartWrapper,
+  DownloadIconWrapper,
 } from './styled/StatusChart.styled';
-import { statusChartData, statusSeries } from './constants/statusChartData';
+import { useStatusChart } from './useStatusChart';
 
-export const StatusChart = () => {
+export function StatusChart() {
+  const { data, series } = useStatusChart();
   return (
     <ChartContainer>
       <ChartHeader>
         <ChartTitle>Number of Cat DDOs by Status</ChartTitle>
         <ChartIcon>
-          <Image
-            src="/download-icon.svg"
-            alt="Download icon"
-            className="block max-w-none size-full"
-          />
+          <DownloadIconWrapper>
+            <Image
+              src="/download-icon.svg"
+              alt="Download icon"
+              width={24}
+              height={24}
+              className="block max-w-none size-full"
+            />
+          </DownloadIconWrapper>
         </ChartIcon>
       </ChartHeader>
       <ChartWrapper>
         <BarChart
-          data={statusChartData}
-          series={statusSeries}
+          data={data}
+          series={series}
           width={285}
           height={389}
           xAxisLabel="Region"
@@ -54,6 +62,6 @@ export const StatusChart = () => {
       </ChartWrapper>
     </ChartContainer>
   );
-};
+}
 
 export default StatusChart;

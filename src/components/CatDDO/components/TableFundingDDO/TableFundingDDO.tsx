@@ -1,15 +1,16 @@
 import React from 'react';
 import type { TableColumn } from 'vizonomy';
 import type { FundingSource } from '../../interfaces';
-import { fundingData } from './constants/tableFundingData';
 import {
   TableFundingContainer,
   TableFundingNote,
   TableCellText,
   TableFundingWrapper,
 } from './styled/TableFundingDDO.styled';
+import { useTableFundingDDO } from './useTableFundingDDO';
 
 export const TableFundingDDO = () => {
+  const { rows } = useTableFundingDDO();
   const fundingColumns: TableColumn<FundingSource>[] = [
     {
       id: 'source',
@@ -54,7 +55,7 @@ export const TableFundingDDO = () => {
 
   return (
     <TableFundingContainer>
-      <TableFundingWrapper data={fundingData} columns={fundingColumns} />
+      <TableFundingWrapper data={rows} columns={fundingColumns} />
       <TableFundingNote>
         Note: disbursements are for the overall amount for mixed CATs.
       </TableFundingNote>
