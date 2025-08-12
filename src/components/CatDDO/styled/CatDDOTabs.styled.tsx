@@ -43,11 +43,7 @@ export const TabStyledWrapper = (props: TabsProps) => {
   return (
     <Tabs
       {...props}
-      className="w-full"
-      tabListClassName="box-border content-stretch flex flex-row gap-2 items-center justify-start p-0 relative size-full"
-      tabButtonClassName="box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-4 py-2 relative rounded-[99px] shrink-0 hover:bg-[#EDEEF0]/70 transition-colors"
-      activeTabButtonClassName="bg-[#EDEEF0]"
-      tabPanelClassName="mt-4"
+      className="w-full [&_[role=tablist]]:flex [&_[role=tablist]]:gap-2 [&_[role=tablist]]:items-center [&_[role=tablist]]:justify-start [&_[role=tablist]]:size-full [&_[role=tab]]:flex [&_[role=tab]]:gap-2.5 [&_[role=tab]]:items-center [&_[role=tab]]:justify-center [&_[role=tab]]:px-4 [&_[role=tab]]:py-2 [&_[role=tab]]:rounded-[99px] [&_[role=tab]:hover]:bg-[#EDEEF0]/70 [&_[role=tab][aria-selected=true]]:bg-[#EDEEF0] [&_[role=tabpanel]]:mt-4"
     />
   );
 };

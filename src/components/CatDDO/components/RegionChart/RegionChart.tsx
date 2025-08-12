@@ -44,21 +44,7 @@ export function RegionChart() {
           showLegend
           showGrid
           showTooltip
-          showTotals
-          barPadding={0.4}
           margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
-          styleProps={{
-            titleColor: '#295e84',
-            titleFontSize: 18,
-            titleFontWeight: 600,
-            titleFontFamily: 'Inter, sans-serif',
-            axisTextColor: '#295e84',
-            axisTextFontSize: 12,
-            axisTextFontFamily: 'Inter, sans-serif',
-            gridLineColor: '#e5e7eb',
-            gridLineStrokeWidth: 1,
-            backgroundColor: '#ffffff',
-          }}
         />
       </ChartWrapper>
     </ChartContainer>

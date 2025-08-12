@@ -55,7 +55,7 @@ export const TableFundingDDO = () => {
 
   return (
     <TableFundingContainer>
-      <TableFundingWrapper data={rows} columns={fundingColumns} />
+      <TableFundingWrapper data={rows} columns={fundingColumns} rowKey="id" />
       <TableFundingNote>
         Note: disbursements are for the overall amount for mixed CATs.
       </TableFundingNote>

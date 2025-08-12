@@ -20,25 +20,29 @@ type ListRow = {
 export async function GET() {
   try {
     const rows = loadPortfolio();
-    const list: ListRow[] = rows.map((r) => ({
-      id: (r['P#'] ?? '').toString().trim(),
-      projectId: (r['P#'] ?? '').toString().trim(),
-      country: (r['Country'] ?? '').toString().trim(),
-      projectName: (r['Description'] ?? '').toString().trim(),
-      fiscalYear: (r['Fiscal Year'] ?? '').toString().trim(),
-      status: (r['Status'] ?? '').toString().trim(),
-      activationForCovid: (
-        r['Activation for COVID'] ??
-        r['Activation for COVID '] ??
-        ''
-      )
-        .toString()
-        .trim(),
-      financier: (r['Source'] ?? '').toString().trim(),
-      region: (r['Region'] ?? '').toString().trim(),
-      globalPractice: (r['Global Practice'] ?? '').toString().trim(),
-      operationType: (r['Standalone/Mixed'] ?? '').toString().trim(),
-    }));
+    const list: ListRow[] = rows.map((r, index) => {
+      const pid = (r['P#'] ?? '').toString().trim();
+      const safeId = pid || `row-${index + 1}`;
+      return {
+        id: safeId,
+        projectId: pid,
+        country: (r['Country'] ?? '').toString().trim(),
+        projectName: (r['Description'] ?? '').toString().trim(),
+        fiscalYear: (r['Fiscal Year'] ?? '').toString().trim(),
+        status: (r['Status'] ?? '').toString().trim(),
+        activationForCovid: (
+          r['Activation for COVID'] ??
+          r['Activation for COVID '] ??
+          ''
+        )
+          .toString()
+          .trim(),
+        financier: (r['Source'] ?? '').toString().trim(),
+        region: (r['Region'] ?? '').toString().trim(),
+        globalPractice: (r['Global Practice'] ?? '').toString().trim(),
+        operationType: (r['Standalone/Mixed'] ?? '').toString().trim(),
+      };
+    });
     return NextResponse.json({ data: list });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error';

@@ -69,8 +69,7 @@ export const TableFundingWrapper = <T,>(props: TableFundingWrapperProps<T>) => {
       {...incoming}
       bordered
       size="small"
-      className="w-full [&_thead]:bg-[#f2f3f5] [&_th]:text-[#295e84] [&_th]:font-['Inter:Medium',_sans-serif] [&_th]:font-medium [&_th]:text-[14px] [&_th]:leading-[21px] [&_th]:tracking-[-0.154px] [&_th]:px-4 [&_th]:py-3 [&_td]:px-4 [&_td]:py-3 [&_tr]:border-b [&_tr]:border-[rgba(0,0,0,0.1)]"
-      sticky
+      className="w-full [&_thead]:bg-[#f2f3f5] [&_th]:text-[#295e84] [&_th]:font-['Inter:Medium',_sans-serif] [&_th]:font-medium [&_th]:text-[14px] [&_th]:leading-[21px] [&_th]:tracking-[-0.154px] [&_th]:px-4 [&_th]:py-3 [&_td]:px-4 [&_td]:py-3 [&_tr]:border-b [&_tr]:border-[rgba(0,0,0,0.1)] [&_thead_th]:sticky [&_thead_th]:top-0 [&_thead_th]:z-10"
       scroll={mergedScroll}
       onRow={(row: Record<string, unknown>) => ({
         className: (row as { isTotal?: boolean }).isTotal

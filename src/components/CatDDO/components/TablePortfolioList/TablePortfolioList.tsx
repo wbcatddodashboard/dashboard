@@ -126,6 +126,7 @@ export function TablePortfolioList() {
       <TableFundingWrapper
         data={rows}
         columns={columns}
+        rowKey="id"
         maxBodyHeight={420}
         scroll={{ x: 2600 }}
         sorting={{ multiple: false }}
