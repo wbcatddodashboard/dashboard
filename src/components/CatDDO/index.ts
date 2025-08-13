@@ -5,3 +5,4 @@ export { DisbursementTriggersContent } from './DisbursementTriggersContent';
 export { OverViewCatDDO } from './OverViewCatDDO';
 export { GlobalCatDDO } from './GlobalCatDDO';
 export { DisbursementTables } from './DisbursementTables';
+export { PriorActionsResultIndicators } from './PriorActionsResultIndicators';
