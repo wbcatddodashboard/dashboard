@@ -5,38 +5,56 @@ interface ChildrenProps {
 }
 
 export function DashboardContainer({ children }: ChildrenProps) {
-  return <main className="w-full relative">{children}</main>;
+  return <main className="w-full min-h-screen flex flex-col">{children}</main>;
 }
 
 export function DashboardWrapper({ children }: ChildrenProps) {
-  return <div className="w-full flex">{children}</div>;
+  return <div className="w-full flex-shrink-0">{children}</div>;
 }
 
 export function MainDashboardSection({ children }: ChildrenProps) {
-  return <div className="w-full relative bg-white h-[400px]">{children}</div>;
+  return <div className="w-full bg-white">{children}</div>;
+}
+
+export function DashboardInnerContainer({ children }: ChildrenProps) {
+  return <div className="max-w-7xl mx-auto px-8">{children}</div>;
+}
+
+export function HeroWrapper({ children }: ChildrenProps) {
+  return (
+    <div className="w-full flex flex-col lg:flex-row min-h-[400px]">
+      {children}
+    </div>
+  );
+}
+
+export function TextContentSection({ children }: ChildrenProps) {
+  return (
+    <div className="flex-1 lg:flex-[0_0_50%] p-8 lg:p-16 flex flex-col justify-center">
+      {children}
+    </div>
+  );
 }
 
 export function TitleSection({ children }: ChildrenProps) {
-  return <div className="absolute left-[318px] top-20">{children}</div>;
+  return <div className="mb-6">{children}</div>;
 }
 
 export function DashboardTitle({ children }: ChildrenProps) {
   return (
-    <h1 className="font-semibold text-[40px] leading-[48px] text-[#295e84] tracking-[-0.64px]">
+    <h1 className="font-semibold text-2xl md:text-3xl lg:text-[40px] leading-tight lg:leading-[48px] text-[#295e84] tracking-[-0.64px]">
       {children}
     </h1>
   );
 }
 
 export function DescriptionSection({ children }: ChildrenProps) {
-  return (
-    <div className="absolute left-[318px] top-36 w-[497px]">{children}</div>
-  );
+  return <div>{children}</div>;
 }
 
 export function DescriptionParagraph({ children }: ChildrenProps) {
   return (
-    <p className="font-normal text-[14px] leading-[24px] text-[#295e84] mb-3.5">
+    <p className="font-normal text-sm lg:text-[14px] leading-relaxed lg:leading-[24px] text-[#295e84] mb-3.5">
       {children}
     </p>
   );
@@ -44,7 +62,7 @@ export function DescriptionParagraph({ children }: ChildrenProps) {
 
 export function DescriptionParagraphLast({ children }: ChildrenProps) {
   return (
-    <p className="font-normal text-[14px] leading-[24px] text-[#295e84]">
+    <p className="font-normal text-sm lg:text-[14px] leading-relaxed lg:leading-[24px] text-[#295e84]">
       {children}
     </p>
   );
@@ -56,7 +74,7 @@ export function ItalicText({ children }: ChildrenProps) {
 
 export function MapVisualizationSection({ children }: ChildrenProps) {
   return (
-    <div className="absolute h-[304px] left-[756px] top-0 w-[684px] overflow-hidden">
+    <div className="flex-1 lg:flex-[0_0_50%] relative min-h-[250px] md:min-h-[300px] lg:min-h-[400px] overflow-hidden">
       {children}
     </div>
   );
@@ -65,7 +83,7 @@ export function MapVisualizationSection({ children }: ChildrenProps) {
 export function BackgroundMapContainer() {
   return (
     <div
-      className="absolute h-[450px] left-[30px] top-[-55px] w-[727px] bg-center bg-cover bg-no-repeat opacity-[0.08]"
+      className="absolute inset-0 w-full h-full bg-center bg-contain md:bg-cover bg-no-repeat opacity-[0.08] scale-110"
       style={{
         backgroundImage: "url('/world-map-dashboard.png')",
       }}
@@ -76,7 +94,7 @@ export function BackgroundMapContainer() {
 export function MainMapContainer() {
   return (
     <div
-      className="absolute h-[276px] left-[97px] top-[38px] w-[447px] bg-center bg-cover bg-no-repeat"
+      className="absolute inset-2 md:inset-4 lg:inset-8 bg-center bg-contain md:bg-cover bg-no-repeat"
       style={{
         backgroundImage: "url('/world-map-dashboard.png')",
       }}
