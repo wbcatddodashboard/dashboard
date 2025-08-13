@@ -9,6 +9,7 @@ import {
 import { DisbursementChart, RegionChart, StatusChart } from './components';
 import OverViewCatDDO from './OverViewCatDDO';
 import { GlobalCatDDO } from './GlobalCatDDO';
+import { PriorActionsResultIndicators } from './PriorActionsResultIndicators';
 import DisbursementTables from './DisbursementTables';
 
 export const PortfolioContent = () => {
@@ -33,6 +34,7 @@ export const PortfolioContent = () => {
       <DisbursementChart />
       <DisbursementTables />
       <GlobalCatDDO />
+      <PriorActionsResultIndicators />
     </PortfolioWrapper>
   );
 };
