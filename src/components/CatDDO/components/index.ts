@@ -8,3 +8,5 @@ export { TablePortfolioList } from './TablePortfolioList/TablePortfolioList';
 export { TableDisbursementRegion } from './TableDisbursementRegion';
 export { TableDisbursementCountry } from './TableDisbursementCountry';
 export { DisbursementChart } from './DisbursementChart';
+export { PriorActionsChart } from './PriorActionsChart';
+export { TablePriorActions } from './TablePriorActions';

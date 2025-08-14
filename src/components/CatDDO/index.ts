@@ -6,3 +6,4 @@ export { OverViewCatDDO } from './OverViewCatDDO';
 export { GlobalCatDDO } from './GlobalCatDDO';
 export { ClimateCoBenefits } from './ClimateCoBenefits';
 export { DisbursementTables } from './DisbursementTables';
+export { PriorActionsResultIndicators } from './PriorActionsResultIndicators';
