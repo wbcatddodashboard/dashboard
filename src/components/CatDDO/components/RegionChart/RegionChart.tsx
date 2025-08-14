@@ -12,6 +12,7 @@ import {
   DownloadIconWrapper,
 } from './styled/RegionChart.styled';
 import { useRegionChart } from './useRegionChart';
+import { ClientOnlyChart } from '../ChartWrapper';
 
 export function RegionChart() {
   const { data, series } = useRegionChart();
@@ -33,22 +34,24 @@ export function RegionChart() {
         </ChartIcon>
       </ChartHeader>
       <ChartWrapper>
-        <BarChart
-          data={data}
-          series={series}
-          width={681}
-          height={385}
-          xAxisLabel="Fiscal Year"
-          yAxisLabel=""
-          orientation="vertical"
-          showLegend
-          showGrid
-          showTooltip
-          showTotals
-          legendItemGap={10}
-          barPadding={0.3}
-          margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
-        />
+        <ClientOnlyChart width={681} height={385}>
+          <BarChart
+            data={data}
+            series={series}
+            width={681}
+            height={385}
+            xAxisLabel="Fiscal Year"
+            yAxisLabel=""
+            orientation="vertical"
+            showLegend
+            showGrid
+            showTooltip
+            showTotals
+            legendItemGap={10}
+            barPadding={0.3}
+            margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
+          />
+        </ClientOnlyChart>
       </ChartWrapper>
     </ChartContainer>
   );
