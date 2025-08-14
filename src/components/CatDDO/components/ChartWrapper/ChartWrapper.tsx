@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import React from 'react';
+import { LoadingPlaceholder } from './styled/ChartWrapper.styled';
 
 interface ChartWrapperProps {
   children: React.ReactNode;
@@ -16,27 +17,14 @@ interface LoadingPlaceholderProps {
   loadingText?: string;
 }
 
-const LoadingPlaceholder: React.FC<LoadingPlaceholderProps> = ({
+const LoadingPlaceholderComponent: React.FC<LoadingPlaceholderProps> = ({
   width = '100%',
   height = '385px',
   loadingText = 'Loading chart...',
 }) => (
-  <div
-    style={{
-      width: typeof width === 'number' ? `${width}px` : width,
-      height: typeof height === 'number' ? `${height}px` : height,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      border: '1px solid #e5e7eb',
-      borderRadius: '8px',
-      backgroundColor: '#f9fafb',
-      color: '#6b7280',
-      fontSize: '14px',
-    }}
-  >
+  <LoadingPlaceholder width={width} height={height}>
     {loadingText}
-  </div>
+  </LoadingPlaceholder>
 );
 
 export const withChartWrapper = <P extends object>(
@@ -49,7 +37,10 @@ export const withChartWrapper = <P extends object>(
     {
       ssr: false,
       loading: () => (
-        <LoadingPlaceholder width={defaultWidth} height={defaultHeight} />
+        <LoadingPlaceholderComponent
+          width={defaultWidth}
+          height={defaultHeight}
+        />
       ),
     }
   );
@@ -73,7 +64,7 @@ export const ClientOnlyChart: React.FC<ChartWrapperProps> = ({
 
   if (!mounted) {
     return (
-      <LoadingPlaceholder
+      <LoadingPlaceholderComponent
         width={width}
         height={height}
         loadingText={loadingText}
