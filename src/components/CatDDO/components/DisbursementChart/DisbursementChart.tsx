@@ -13,6 +13,7 @@ import {
 } from './styled/DisbursementChart.styled';
 import { useDisbursementChart } from './useDisbursementChart';
 import { formatTotalLabel, formatValueLabel } from './DisbursementChart.utils';
+import { ClientOnlyChart } from '../ChartWrapper';
 
 export function DisbursementChart() {
   const { data, series } = useDisbursementChart();
@@ -36,24 +37,26 @@ export function DisbursementChart() {
         </ChartIcon>
       </ChartHeader>
       <ChartWrapper>
-        <BarChart
-          data={data}
-          series={series}
-          width={1040}
-          height={385}
-          xAxisLabel="Fiscal Year"
-          yAxisLabel="Disbursement Amount"
-          orientation="vertical"
-          showTotals
-          showLegend
-          showGrid
-          showTooltip
-          yAxisLabelOffset={45}
-          barPadding={0.3}
-          margin={{ top: 20, right: 20, bottom: 80, left: 80 }}
-          formatTotalLabel={formatTotalLabel}
-          formatValueLabel={formatValueLabel}
-        />
+        <ClientOnlyChart width={1040} height={385}>
+          <BarChart
+            data={data}
+            series={series}
+            width={1040}
+            height={385}
+            xAxisLabel="Fiscal Year"
+            yAxisLabel="Disbursement Amount"
+            orientation="vertical"
+            showTotals
+            showLegend
+            showGrid
+            showTooltip
+            yAxisLabelOffset={45}
+            barPadding={0.3}
+            margin={{ top: 20, right: 20, bottom: 80, left: 80 }}
+            formatTotalLabel={formatTotalLabel}
+            formatValueLabel={formatValueLabel}
+          />
+        </ClientOnlyChart>
       </ChartWrapper>
     </ChartContainer>
   );
