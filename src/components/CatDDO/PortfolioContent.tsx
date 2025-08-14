@@ -11,6 +11,7 @@ import OverViewCatDDO from './OverViewCatDDO';
 import { GlobalCatDDO } from './GlobalCatDDO';
 import { PriorActionsResultIndicators } from './PriorActionsResultIndicators';
 import DisbursementTables from './DisbursementTables';
+import { ClimateCoBenefits } from './ClimateCoBenefits';
 
 export const PortfolioContent = () => {
   return (
@@ -35,6 +36,7 @@ export const PortfolioContent = () => {
       <DisbursementTables />
       <GlobalCatDDO />
       <PriorActionsResultIndicators />
+      <ClimateCoBenefits />
     </PortfolioWrapper>
   );
 };
