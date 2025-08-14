@@ -10,6 +10,7 @@ import { DisbursementChart, RegionChart, StatusChart } from './components';
 import OverViewCatDDO from './OverViewCatDDO';
 import { GlobalCatDDO } from './GlobalCatDDO';
 import DisbursementTables from './DisbursementTables';
+import { ClimateCoBenefits } from './ClimateCoBenefits';
 
 export const PortfolioContent = () => {
   return (
@@ -33,6 +34,7 @@ export const PortfolioContent = () => {
       <DisbursementChart />
       <DisbursementTables />
       <GlobalCatDDO />
+      <ClimateCoBenefits />
     </PortfolioWrapper>
   );
 };
