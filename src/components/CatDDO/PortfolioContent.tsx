@@ -35,8 +35,8 @@ export const PortfolioContent = () => {
       <DisbursementChart />
       <DisbursementTables />
       <GlobalCatDDO />
-      <PriorActionsResultIndicators />
       <ClimateCoBenefits />
+      <PriorActionsResultIndicators />
     </PortfolioWrapper>
   );
 };
