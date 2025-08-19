@@ -40,3 +40,7 @@ export function getMetadataCsvPath(): string {
 export function getClimateCsvPath(): string {
   return path.join(getDataDir(), 'Climate_cobenefits.csv');
 }
+
+export function getPriorActionsCsvPath(): string {
+  return path.join(getDataDir(), 'Cat_DDO_Prior_Actions.csv');
+}
