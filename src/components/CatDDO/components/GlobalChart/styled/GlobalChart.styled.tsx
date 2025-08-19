@@ -19,3 +19,20 @@ export function ChartWrapper({ children }: ChildrenProps) {
     </div>
   );
 }
+
+export function NoDataMessage() {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '385px',
+        fontSize: '16px',
+        color: '#666',
+      }}
+    >
+      No data available
+    </div>
+  );
+}
