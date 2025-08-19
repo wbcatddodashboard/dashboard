@@ -91,6 +91,78 @@ export function sumDisbursementsByFyAndSource(
   return { ibrd: sumsIBRD, ida: sumsIDA };
 }
 
+export function sumDisbursementsByRegion(portfolioRows: PortfolioRow[]) {
+  const regionMap = new Map<
+    string,
+    { netCommitment: number; disbursements: number }
+  >();
+
+  for (const row of portfolioRows) {
+    const region = (row['Region'] ?? '').toString().trim();
+    if (!region) continue;
+
+    const netCommitment = toNumberLoose(row['Commitment (Cat DDO only)']) / 1e6;
+    const disbursements =
+      toNumberLoose(row['Disbursements - Cat DDO Cum.']) / 1e6;
+
+    const existing = regionMap.get(region) || {
+      netCommitment: 0,
+      disbursements: 0,
+    };
+    regionMap.set(region, {
+      netCommitment: existing.netCommitment + netCommitment,
+      disbursements: existing.disbursements + disbursements,
+    });
+  }
+
+  // Convert to array and sort by disbursements descending
+  const regions = Array.from(regionMap.entries())
+    .map(([region, data]) => ({
+      region,
+      netCommitment: data.netCommitment,
+      disbursements: data.disbursements,
+    }))
+    .sort((a, b) => b.disbursements - a.disbursements);
+
+  return regions;
+}
+
+export function sumDisbursementsByCountry(portfolioRows: PortfolioRow[]) {
+  const countryMap = new Map<
+    string,
+    { netCommitment: number; disbursements: number }
+  >();
+
+  for (const row of portfolioRows) {
+    const country = (row['Country'] ?? '').toString().trim();
+    if (!country) continue;
+
+    const netCommitment = toNumberLoose(row['Commitment (Cat DDO only)']) / 1e6;
+    const disbursements =
+      toNumberLoose(row['Disbursements - Cat DDO Cum.']) / 1e6;
+
+    const existing = countryMap.get(country) || {
+      netCommitment: 0,
+      disbursements: 0,
+    };
+    countryMap.set(country, {
+      netCommitment: existing.netCommitment + netCommitment,
+      disbursements: existing.disbursements + disbursements,
+    });
+  }
+
+  // Convert to array and sort by disbursements descending
+  const countries = Array.from(countryMap.entries())
+    .map(([country, data]) => ({
+      country,
+      netCommitment: data.netCommitment,
+      disbursements: data.disbursements,
+    }))
+    .sort((a, b) => b.disbursements - a.disbursements);
+
+  return countries;
+}
+
 export function crosstabFiscalYearRegion(portfolioRows: PortfolioRow[]) {
   // Build set of regions and fiscal years (formatted)
   const regionsSet = new Set<string>();
