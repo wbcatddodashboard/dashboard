@@ -1,33 +1,47 @@
 import { useMemo } from 'react';
 import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
-import {
-  mixedDPOSeries,
-  mixedDPOChartData,
-} from './constants/mixedDPOChartData';
+import { useFetchClimateCobenefits } from '@/hooks/useFetchClimateCobenefits';
 
 export const useMixedDPOChart = () => {
-  const data = mixedDPOChartData;
-  const isLoading = false;
-  const errorMessage = '';
+  const { data, isLoading, error } = useFetchClimateCobenefits();
 
-  const seriesKeys = useMemo(
-    () => mixedDPOSeries.map((s: BarChartSeries) => s.key as string),
+  const series = useMemo<BarChartSeries[]>(
+    () => [
+      {
+        key: 'Adaptation co-benefits',
+        label: 'Adaptation co-benefits',
+        color: '#295e84',
+      },
+      {
+        key: 'Mitigation co-benefits',
+        label: 'Mitigation co-benefits',
+        color: '#89A3C5',
+      },
+    ],
     []
   );
 
   const mappedData = useMemo<StackedBarChartDataPoint[]>(() => {
-    if (!data?.length) return [];
-    return data.map((row) => {
-      const label = row.label ?? '';
-      const values: Record<string, number> = {};
-      seriesKeys.forEach((key) => {
-        const rawValue = row.values[key] ?? 0;
-        const numericValue = +rawValue;
-        values[key] = Number.isFinite(numericValue) ? numericValue : 0;
-      });
-      return { id: row.id, label, values };
-    });
-  }, [data, seriesKeys]);
+    if (!data?.mixed) return [];
 
-  return { data: mappedData, isLoading, errorMessage, series: mixedDPOSeries };
+    return data.mixed.labels.map((label, index) => {
+      const values: Record<string, number> = {
+        'Adaptation co-benefits': data.mixed.adapt[index] || 0,
+        'Mitigation co-benefits': data.mixed.mitig[index] || 0,
+      };
+
+      return {
+        id: label,
+        label,
+        values,
+      };
+    });
+  }, [data]);
+
+  return {
+    data: mappedData,
+    isLoading,
+    errorMessage: error,
+    series,
+  };
 };
