@@ -49,7 +49,6 @@ export function DisbursementChart() {
             showTotals
             showLegend
             showGrid
-            showTooltip
             yAxisLabelOffset={45}
             barPadding={0.3}
             margin={{ top: 20, right: 20, bottom: 80, left: 80 }}

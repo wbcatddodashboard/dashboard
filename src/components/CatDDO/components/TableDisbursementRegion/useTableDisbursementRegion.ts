@@ -1,30 +1,20 @@
 import { useMemo } from 'react';
 import type { DisbursementRegion } from '../../interfaces';
+import { useFetchDisbursementsByRegion } from '@/hooks/useFetchDisbursementsByRegion';
 
-// Mock data based on Figma design - replace with actual API hook when available
 export const useTableDisbursementRegion = () => {
-  const isLoading = false;
-  const errorMessage = null;
+  const { data, isLoading, error } = useFetchDisbursementsByRegion();
 
   const rows = useMemo<DisbursementRegion[]>(() => {
+    if (!data.length) return [];
+
     const format = (n: number) =>
       n.toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
 
-    // Sample data from Figma design
-    const regions = [
-      { region: 'AFE', netCommitment: 1205.0, disbursements: 436.89 },
-      { region: 'AFE', netCommitment: 1205.0, disbursements: 436.89 },
-      { region: 'AFE', netCommitment: 1205.0, disbursements: 436.89 },
-      { region: 'AFE', netCommitment: 1205.0, disbursements: 436.89 },
-      { region: 'AFE', netCommitment: 1205.0, disbursements: 436.89 },
-      { region: 'AFE', netCommitment: 1205.0, disbursements: 436.89 },
-      { region: 'AFE', netCommitment: 1205.0, disbursements: 436.89 },
-    ];
-
-    const dataRows: DisbursementRegion[] = regions.map((item, index) => ({
+    const dataRows: DisbursementRegion[] = data.map((item, index) => ({
       id: `${index + 1}`,
       region: item.region,
       netCommitmentAmount: format(item.netCommitment),
@@ -32,11 +22,11 @@ export const useTableDisbursementRegion = () => {
     }));
 
     // Calculate totals
-    const totalNetCommitment = regions.reduce(
+    const totalNetCommitment = data.reduce(
       (sum, item) => sum + item.netCommitment,
       0
     );
-    const totalDisbursements = regions.reduce(
+    const totalDisbursements = data.reduce(
       (sum, item) => sum + item.disbursements,
       0
     );
@@ -50,7 +40,7 @@ export const useTableDisbursementRegion = () => {
     };
 
     return [...dataRows, totalRow];
-  }, []);
+  }, [data]);
 
-  return { rows, isLoading, errorMessage };
+  return { rows, isLoading, errorMessage: error };
 };
