@@ -7,7 +7,71 @@ import { useGlobalChart } from './useGlobalChart';
 import { ClientOnlyChart } from '../ChartWrapper';
 
 export function GlobalChart() {
-  const { data, series } = useGlobalChart();
+  const { data, series, isLoading, errorMessage } = useGlobalChart();
+
+  if (isLoading) {
+    return (
+      <ChartContainer>
+        <ChartWrapper>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '385px',
+              fontSize: '16px',
+              color: '#666',
+            }}
+          >
+            Loading chart data...
+          </div>
+        </ChartWrapper>
+      </ChartContainer>
+    );
+  }
+
+  if (errorMessage) {
+    return (
+      <ChartContainer>
+        <ChartWrapper>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '385px',
+              fontSize: '16px',
+              color: '#d32f2f',
+            }}
+          >
+            Error loading chart: {errorMessage}
+          </div>
+        </ChartWrapper>
+      </ChartContainer>
+    );
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <ChartContainer>
+        <ChartWrapper>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '385px',
+              fontSize: '16px',
+              color: '#666',
+            }}
+          >
+            No data available
+          </div>
+        </ChartWrapper>
+      </ChartContainer>
+    );
+  }
+
   return (
     <ChartContainer>
       <ChartWrapper>
