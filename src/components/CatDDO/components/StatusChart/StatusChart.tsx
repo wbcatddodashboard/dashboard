@@ -12,6 +12,7 @@ import {
   DownloadIconWrapper,
 } from './styled/StatusChart.styled';
 import { useStatusChart } from './useStatusChart';
+import { ClientOnlyChart } from '../ChartWrapper';
 
 export function StatusChart() {
   const { data, series } = useStatusChart();
@@ -32,22 +33,24 @@ export function StatusChart() {
         </ChartIcon>
       </ChartHeader>
       <ChartWrapper>
-        <BarChart
-          data={data}
-          series={series}
-          width={285}
-          height={389}
-          xAxisLabel="Region"
-          yAxisLabel=""
-          orientation="vertical"
-          showLegend
-          showGrid
-          showTooltip
-          showTotals
-          barPadding={0.3}
-          legendItemGap={10}
-          margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
-        />
+        <ClientOnlyChart width={285} height={389}>
+          <BarChart
+            data={data}
+            series={series}
+            width={285}
+            height={389}
+            xAxisLabel="Region"
+            yAxisLabel=""
+            orientation="vertical"
+            showLegend
+            showGrid
+            showTooltip
+            showTotals
+            barPadding={0.3}
+            legendItemGap={10}
+            margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
+          />
+        </ClientOnlyChart>
       </ChartWrapper>
     </ChartContainer>
   );
