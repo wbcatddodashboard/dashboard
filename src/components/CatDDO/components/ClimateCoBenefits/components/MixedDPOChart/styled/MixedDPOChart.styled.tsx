@@ -33,3 +33,20 @@ export function ChartWrapper({ children }: ChildrenProps) {
     </div>
   );
 }
+
+export function NoDataMessage({ children }: ChildrenProps) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '400px',
+        fontSize: '16px',
+        color: '#666',
+      }}
+    >
+      {children}
+    </div>
+  );
+}

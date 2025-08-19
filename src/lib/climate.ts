@@ -19,6 +19,7 @@ export type ClimateComputedRow = ClimateRow & {
 
 export function loadClimateDataFiltered(): ClimateComputedRow[] {
   const rowsRaw = readCsvAsObjects(getClimateCsvPath());
+
   // Normalize column names that might have trailing spaces in source
   const normalizeRow = (r: Record<string, string>): ClimateRow => {
     const out: Record<string, string> = {};
@@ -37,22 +38,14 @@ export function loadClimateDataFiltered(): ClimateComputedRow[] {
       .filter(Boolean)
   );
 
-  const filtered: ClimateComputedRow[] = rows.filter(
-    (r) =>
-      (r['Project Assessed'] ?? '').toString().trim() === 'Assessed' &&
-      catDdoProjectIds.has((r['Project ID'] ?? '').toString().trim())
+  const filtered: ClimateComputedRow[] = rows.filter((r) =>
+    catDdoProjectIds.has((r['Project ID'] ?? '').toString().trim())
   ) as ClimateComputedRow[];
 
-  // Preprocess and compute percentages
   for (const r of filtered) {
-    const adapt = toNumberLoose(r['TN2: Net IDA/IBRD Adaptation ($M)']);
-    const total = toNumberLoose(r['TO6: Total IDA/IBRD Commitment ($M)']);
-    const mitig = toNumberLoose(r['TN3: Net IDA/IBRD Mitigation ($M)']);
-    const adaptPct = total > 0 ? (adapt / total) * 100 : 0;
-    const mitigPct = total > 0 ? (mitig / total) * 100 : 0;
-    r['Adaptation CCB %'] = adaptPct;
-    r['Mitigation CCB %'] = mitigPct;
-    r['Total CCB %'] = adaptPct + mitigPct;
+    r['Adaptation CCB %'] = toNumberLoose(r['Adaptation CCB %']);
+    r['Mitigation CCB %'] = toNumberLoose(r['Mitigation CCB %']);
+    r['Total CCB %'] = toNumberLoose(r['Total CCB %']);
   }
 
   return filtered;
@@ -83,8 +76,11 @@ export function cobenefitsBars() {
     const selected = rows.filter((r) =>
       ids.has((r['Project ID'] ?? '').toString().trim())
     );
+
     selected.sort((a, b) => (b.FY ?? '').localeCompare(a.FY ?? ''));
+
     const labels = selected.map((r) => `${r.Country} (${r.FY})`);
+
     const adapt = selected.map((r) =>
       Number((r['Adaptation CCB %'] ?? 0).toFixed(2))
     );
@@ -94,6 +90,7 @@ export function cobenefitsBars() {
     const total = selected.map((r) =>
       Number((r['Total CCB %'] ?? 0).toFixed(2))
     );
+
     const avgTotal = total.length
       ? Number((total.reduce((a, b) => a + b, 0) / total.length).toFixed(2))
       : 0;

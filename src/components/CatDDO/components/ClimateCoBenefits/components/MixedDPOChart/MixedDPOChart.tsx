@@ -2,24 +2,43 @@
 
 import React from 'react';
 import { BarChart } from 'vizonomy-d3';
-import { ChartContainer, ChartWrapper, ChartTitle } from './styled';
+import {
+  ChartContainer,
+  ChartWrapper,
+  ChartTitle,
+  NoDataMessage,
+} from './styled';
 import { useMixedDPOChart } from './useMixedDPOChart';
 import { ClientOnlyChart } from '../../../ChartWrapper';
+import { BAR_HEIGHT, CHART_PADDING } from './constants/mixedDPOChartData';
 
 export function MixedDPOChart() {
   const { data, series } = useMixedDPOChart();
+
+  const chartHeight = data.length * BAR_HEIGHT + CHART_PADDING;
+
+  if (!data?.length) {
+    return (
+      <ChartContainer>
+        <ChartTitle>Mixed DPOs</ChartTitle>
+        <ChartWrapper>
+          <NoDataMessage>No data available</NoDataMessage>
+        </ChartWrapper>
+      </ChartContainer>
+    );
+  }
 
   return (
     <ChartContainer>
       <ChartTitle>Mixed DPOs</ChartTitle>
       <ChartWrapper>
-        <ClientOnlyChart width={493} height={400}>
+        <ClientOnlyChart width={493} height={chartHeight}>
           <BarChart
             data={data}
             series={series}
             width={493}
-            height={400}
-            xAxisLabel=""
+            height={chartHeight}
+            xAxisLabel="Climate co-benefits %"
             yAxisLabel=""
             orientation="horizontal"
             showLegend={false}
