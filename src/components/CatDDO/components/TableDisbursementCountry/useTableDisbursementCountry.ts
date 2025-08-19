@@ -6,7 +6,7 @@ export const useTableDisbursementCountry = () => {
   const { data, isLoading, error } = useFetchDisbursementsByCountry();
 
   const rows = useMemo<DisbursementCountry[]>(() => {
-    if (!data || data.length === 0) return [];
+    if (!data.length) return [];
 
     const format = (n: number) =>
       n.toLocaleString('en-US', {
