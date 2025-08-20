@@ -1,15 +1,13 @@
 import { useMemo } from 'react';
 import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
-import { globalSeries, globalChartData } from './constants/globalChartData';
+import { useFetchGlobalChart } from '@/hooks/useFetchGlobalChart';
 
 export const useGlobalChart = () => {
-  const data = globalChartData;
-  const isLoading = false;
-  const errorMessage = '';
+  const { data, series, isLoading, error } = useFetchGlobalChart();
 
   const seriesKeys = useMemo(
-    () => globalSeries.map((s: BarChartSeries) => s.key as string),
-    []
+    () => series.map((s: BarChartSeries) => s.key as string),
+    [series]
   );
 
   const mappedData = useMemo<StackedBarChartDataPoint[]>(() => {
@@ -26,5 +24,10 @@ export const useGlobalChart = () => {
     });
   }, [data, seriesKeys]);
 
-  return { data: mappedData, isLoading, errorMessage, series: globalSeries };
+  return {
+    data: mappedData,
+    isLoading,
+    errorMessage: error,
+    series,
+  };
 };

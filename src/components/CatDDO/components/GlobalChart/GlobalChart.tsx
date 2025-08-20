@@ -2,12 +2,27 @@
 
 import React from 'react';
 import { BarChart } from 'vizonomy-d3';
-import { ChartContainer, ChartWrapper } from './styled/GlobalChart.styled';
+import {
+  ChartContainer,
+  ChartWrapper,
+  NoDataMessage,
+} from './styled/GlobalChart.styled';
 import { useGlobalChart } from './useGlobalChart';
 import { ClientOnlyChart } from '../ChartWrapper';
 
 export function GlobalChart() {
   const { data, series } = useGlobalChart();
+
+  if (!data.length) {
+    return (
+      <ChartContainer>
+        <ChartWrapper>
+          <NoDataMessage />
+        </ChartWrapper>
+      </ChartContainer>
+    );
+  }
+
   return (
     <ChartContainer>
       <ChartWrapper>
