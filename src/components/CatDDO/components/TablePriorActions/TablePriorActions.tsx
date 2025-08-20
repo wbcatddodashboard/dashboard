@@ -11,7 +11,7 @@ import {
 import { useTablePriorActions } from './useTablePriorActions';
 
 export const TablePriorActions = () => {
-  const { rows, isLoading, errorMessage } = useTablePriorActions();
+  const { rows, isLoading } = useTablePriorActions();
 
   const columns: TableColumn<PriorAction>[] = [
     {
@@ -89,28 +89,7 @@ export const TablePriorActions = () => {
     );
   }
 
-  if (errorMessage) {
-    return (
-      <TablePriorActionsContainer>
-        <TablePriorActionsWrapper_Container>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '200px',
-              fontSize: '16px',
-              color: '#d32f2f',
-            }}
-          >
-            Error loading table: {errorMessage}
-          </div>
-        </TablePriorActionsWrapper_Container>
-      </TablePriorActionsContainer>
-    );
-  }
-
-  if (!rows || rows.length === 0) {
+  if (!rows?.length) {
     return (
       <TablePriorActionsContainer>
         <TablePriorActionsWrapper_Container>
