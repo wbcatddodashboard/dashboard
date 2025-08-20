@@ -18,6 +18,7 @@ import {
   FilterIconContainer,
   FilterIconWrapper,
   FilterIcon,
+  FilterOptionsContainer,
   FilterOptionButton,
   FilterOptionLabel,
   FilterOptionText,
@@ -30,6 +31,8 @@ import { ResetFiltersButton, UnderstandingDataButton } from './SidebarButtons';
 function Sidebar({ className }: SidebarProps) {
   const {
     filterSections,
+    isLoading,
+    error,
     handleFilterToggle,
     handleResetFilters,
     handleUnderstandingData,
@@ -42,37 +45,53 @@ function Sidebar({ className }: SidebarProps) {
           <LogoImage src={SIDEBAR_LOGO_IMAGE} />
         </LogoContainer>
 
-        {filterSections.map((section) => (
-          <FilterSectionContainer key={section.id}>
-            <FilterSectionHeader>
-              <FilterSectionTitle>{section.title}</FilterSectionTitle>
-              {section.hasFilterIcon && (
-                <FilterIconContainer>
-                  <FilterIconWrapper>
-                    <FilterIcon
-                      groupSrc={FILTER_ICON_GROUP}
-                      imageSrc={FILTER_ICON_IMAGE}
-                    />
-                  </FilterIconWrapper>
-                </FilterIconContainer>
-              )}
-            </FilterSectionHeader>
+        {!isLoading &&
+          !error &&
+          filterSections.map((section) => {
+            let sectionSize: 'small' | 'default' | 'large' = 'default';
 
-            {section.options.map((option) => (
-              <FilterOptionButton
-                key={option.id}
-                isSelected={option.isSelected}
-                onClick={() => handleFilterToggle(section.id, option.id)}
-              >
-                <FilterOptionLabel>
-                  <FilterOptionText isSelected={option.isSelected}>
-                    {option.label}
-                  </FilterOptionText>
-                </FilterOptionLabel>
-              </FilterOptionButton>
-            ))}
-          </FilterSectionContainer>
-        ))}
+            if (section.id === 'project-status') {
+              sectionSize = 'small';
+            } else if (section.id === 'country') {
+              sectionSize = 'large';
+            } else {
+              sectionSize = 'default';
+            }
+
+            return (
+              <FilterSectionContainer key={section.id} size={sectionSize}>
+                <FilterSectionHeader>
+                  <FilterSectionTitle>{section.title}</FilterSectionTitle>
+                  {section.hasFilterIcon && (
+                    <FilterIconContainer>
+                      <FilterIconWrapper>
+                        <FilterIcon
+                          groupSrc={FILTER_ICON_GROUP}
+                          imageSrc={FILTER_ICON_IMAGE}
+                        />
+                      </FilterIconWrapper>
+                    </FilterIconContainer>
+                  )}
+                </FilterSectionHeader>
+
+                <FilterOptionsContainer>
+                  {section.options.map((option) => (
+                    <FilterOptionButton
+                      key={option.id}
+                      isSelected={option.isSelected}
+                      onClick={() => handleFilterToggle(section.id, option.id)}
+                    >
+                      <FilterOptionLabel>
+                        <FilterOptionText isSelected={option.isSelected}>
+                          {option.label}
+                        </FilterOptionText>
+                      </FilterOptionLabel>
+                    </FilterOptionButton>
+                  ))}
+                </FilterOptionsContainer>
+              </FilterSectionContainer>
+            );
+          })}
 
         <ActionButtonsContainer>
           <ButtonContainer>
