@@ -2,71 +2,22 @@
 
 import React from 'react';
 import { BarChart } from 'vizonomy-d3';
-import { ChartContainer, ChartWrapper } from './styled/GlobalChart.styled';
+import {
+  ChartContainer,
+  ChartWrapper,
+  NoDataMessage,
+} from './styled/GlobalChart.styled';
 import { useGlobalChart } from './useGlobalChart';
 import { ClientOnlyChart } from '../ChartWrapper';
 
 export function GlobalChart() {
-  const { data, series, isLoading, errorMessage } = useGlobalChart();
+  const { data, series } = useGlobalChart();
 
-  if (isLoading) {
+  if (!data.length) {
     return (
       <ChartContainer>
         <ChartWrapper>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '385px',
-              fontSize: '16px',
-              color: '#666',
-            }}
-          >
-            Loading chart data...
-          </div>
-        </ChartWrapper>
-      </ChartContainer>
-    );
-  }
-
-  if (errorMessage) {
-    return (
-      <ChartContainer>
-        <ChartWrapper>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '385px',
-              fontSize: '16px',
-              color: '#d32f2f',
-            }}
-          >
-            Error loading chart: {errorMessage}
-          </div>
-        </ChartWrapper>
-      </ChartContainer>
-    );
-  }
-
-  if (!data || data.length === 0) {
-    return (
-      <ChartContainer>
-        <ChartWrapper>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '385px',
-              fontSize: '16px',
-              color: '#666',
-            }}
-          >
-            No data available
-          </div>
+          <NoDataMessage />
         </ChartWrapper>
       </ChartContainer>
     );
