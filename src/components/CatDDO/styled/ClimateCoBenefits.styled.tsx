@@ -64,7 +64,7 @@ export function ClimateSubBulletPoint({ children }: ChildrenProps) {
 
 export function ClimateChartsContainer({ children }: ChildrenProps) {
   return (
-    <div className="box-border content-stretch flex flex-row gap-8 items-center justify-start p-0 relative shrink-0">
+    <div className="box-border content-stretch flex flex-row gap-8 items-start justify-start p-0 relative shrink-0">
       {children}
     </div>
   );
