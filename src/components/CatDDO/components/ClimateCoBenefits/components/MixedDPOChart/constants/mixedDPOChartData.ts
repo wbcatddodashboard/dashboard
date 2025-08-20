@@ -1,5 +1,8 @@
 import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
 
+export const BAR_HEIGHT = 20;
+export const CHART_PADDING = 120;
+
 export const mixedDPOChartData: StackedBarChartDataPoint[] = [
   {
     id: 'mixed-dpo-19',
