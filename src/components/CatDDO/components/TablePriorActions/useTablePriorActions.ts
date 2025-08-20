@@ -10,13 +10,13 @@ export function useTablePriorActions() {
 
     return tableData.map((row, index) => ({
       id: `${index + 1}`,
-      projectNumber: row['P#'] || '',
-      country: row['Country'] || '',
-      pillar: row['Pillar'] || '',
-      priorAction: row['Prior Action'] || '',
-      resultIndicator: row['Result Indicator'] || '',
-      drmPolicyArea: row['PA Typology Description'] || '',
-      typeOfLegalEvidence: row['Type of legal evidence'] || '',
+      projectNumber: row['P#'] ?? '',
+      country: row['Country'] ?? '',
+      pillar: row['Pillar'] ?? '',
+      priorAction: row['Prior Action'] ?? '',
+      resultIndicator: row['Result Indicator'] ?? '',
+      drmPolicyArea: row['PA Typology Description'] ?? '',
+      typeOfLegalEvidence: row['Type of legal evidence'] ?? '',
       isTotal: false,
     }));
   }, [tableData]);
