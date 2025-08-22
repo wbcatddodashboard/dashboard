@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PORTFOLIO_ENDPOINTS, fetchJson } from '@/api.settings';
+import { useFilters } from '@/contexts/FilterContext';
 
 export interface RegionByStatusResponse {
   regions: string[];
@@ -8,6 +9,7 @@ export interface RegionByStatusResponse {
 }
 
 export const useFetchRegionByStatus = () => {
+  const { filters } = useFilters();
   const [data, setData] = useState<RegionByStatusResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -17,10 +19,25 @@ export const useFetchRegionByStatus = () => {
     const load = async () => {
       try {
         setIsLoading(true);
-        const json = await fetchJson<RegionByStatusResponse>(
-          PORTFOLIO_ENDPOINTS.regionByStatus,
-          { signal: abortController.signal }
-        );
+
+        const params = new URLSearchParams();
+        if (!!filters.statuses.length) {
+          params.append('statuses', filters.statuses.join(','));
+        }
+        if (!!filters.regions.length) {
+          params.append('regions', filters.regions.join(','));
+        }
+        if (!!filters.countries.length) {
+          params.append('countries', filters.countries.join(','));
+        }
+
+        const url = params.toString()
+          ? `${PORTFOLIO_ENDPOINTS.regionByStatus}?${params.toString()}`
+          : PORTFOLIO_ENDPOINTS.regionByStatus;
+
+        const json = await fetchJson<RegionByStatusResponse>(url, {
+          signal: abortController.signal,
+        });
         setData(json);
         setErrorMessage('');
       } catch (err: unknown) {
@@ -32,7 +49,7 @@ export const useFetchRegionByStatus = () => {
     };
     load();
     return () => abortController.abort();
-  }, []);
+  }, [filters]);
 
   return { data, isLoading, errorMessage };
 };

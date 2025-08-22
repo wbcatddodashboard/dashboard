@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
+import { useFilters } from '@/contexts/FilterContext';
+import { buildApiUrl } from '@/lib/api-utils';
 
 interface GlobalChartResponse {
   data: StackedBarChartDataPoint[];
@@ -7,6 +9,7 @@ interface GlobalChartResponse {
 }
 
 export function useFetchGlobalChart() {
+  const { filters } = useFilters();
   const [data, setData] = useState<StackedBarChartDataPoint[]>([]);
   const [series, setSeries] = useState<BarChartSeries[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +21,8 @@ export function useFetchGlobalChart() {
         setIsLoading(true);
         setError('');
 
-        const response = await fetch('/api/portfolio/global-chart');
+        const url = buildApiUrl('/api/portfolio/global-chart', filters);
+        const response = await fetch(url);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -40,7 +44,7 @@ export function useFetchGlobalChart() {
     }
 
     fetchData();
-  }, []);
+  }, [filters]);
 
   return { data, series, isLoading, error };
 }

@@ -1,11 +1,24 @@
 import { NextResponse } from 'next/server';
-import { loadPortfolio, sumDisbursementsByRegion } from '@/lib/portfolio';
+import {
+  loadPortfolioFiltered,
+  sumDisbursementsByRegion,
+  type FilterState,
+} from '@/lib/portfolio';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const portfolio = loadPortfolio();
+    const { searchParams } = new URL(request.url);
+
+    const filters: FilterState = {
+      statuses: searchParams.get('statuses')?.split(',').filter(Boolean) || [],
+      regions: searchParams.get('regions')?.split(',').filter(Boolean) || [],
+      countries:
+        searchParams.get('countries')?.split(',').filter(Boolean) || [],
+    };
+
+    const portfolio = loadPortfolioFiltered(filters);
     const regions = sumDisbursementsByRegion(portfolio);
     return NextResponse.json({ regions });
   } catch (err: unknown) {

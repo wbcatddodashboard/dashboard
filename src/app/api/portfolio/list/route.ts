@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { loadPortfolio } from '@/lib/portfolio';
+import { loadPortfolioFiltered, type FilterState } from '@/lib/portfolio';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,9 +17,18 @@ type ListRow = {
   operationType: string;
 };
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const rows = loadPortfolio();
+    const { searchParams } = new URL(request.url);
+
+    const filters: FilterState = {
+      statuses: searchParams.get('statuses')?.split(',').filter(Boolean) || [],
+      regions: searchParams.get('regions')?.split(',').filter(Boolean) || [],
+      countries:
+        searchParams.get('countries')?.split(',').filter(Boolean) || [],
+    };
+
+    const rows = loadPortfolioFiltered(filters);
     const list: ListRow[] = rows.map((r, index) => {
       const pid = (r['P#'] ?? '').toString().trim();
       const safeId = pid || `row-${index + 1}`;
