@@ -371,3 +371,15 @@ export function SidebarBorder() {
 
   return <div className={borderClasses} />;
 }
+
+export function LoadingMessage({ children }: ChildrenProps) {
+  const loadingClasses = classNames('p-4', 'text-sm', 'text-gray-500');
+
+  return <div className={loadingClasses}>{children}</div>;
+}
+
+export function ErrorMessage({ children }: ChildrenProps) {
+  const errorClasses = classNames('p-4', 'text-sm', 'text-red-500');
+
+  return <div className={errorClasses}>{children}</div>;
+}
