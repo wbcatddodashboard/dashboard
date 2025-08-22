@@ -45,17 +45,27 @@ function Sidebar({ className }: SidebarProps) {
           <LogoImage src={SIDEBAR_LOGO_IMAGE} />
         </LogoContainer>
 
+        {isLoading && (
+          <div className="p-4 text-sm text-gray-500">Loading filters...</div>
+        )}
+
+        {error && (
+          <div className="p-4 text-sm text-red-500">
+            Error loading filters: {error}
+          </div>
+        )}
+
         {!isLoading &&
           !error &&
           filterSections.map((section) => {
             let sectionSize: 'small' | 'default' | 'large' = 'default';
 
             if (section.id === 'project-status') {
-              sectionSize = 'small';
+              sectionSize = 'small'; // Only 3 options
             } else if (section.id === 'country') {
-              sectionSize = 'large';
+              sectionSize = 'large'; // Many country options
             } else {
-              sectionSize = 'default';
+              sectionSize = 'default'; // Regions
             }
 
             return (
