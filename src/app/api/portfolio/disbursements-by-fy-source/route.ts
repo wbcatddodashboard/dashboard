@@ -4,21 +4,14 @@ import {
   loadMetadata,
   loadPortfolioFiltered,
   sumDisbursementsByFyAndSource,
-  type FilterState,
 } from '@/lib/portfolio';
+import { parseFiltersFromRequest } from '@/lib/api-utils';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-
-    const filters: FilterState = {
-      statuses: searchParams.get('statuses')?.split(',').filter(Boolean) || [],
-      regions: searchParams.get('regions')?.split(',').filter(Boolean) || [],
-      countries:
-        searchParams.get('countries')?.split(',').filter(Boolean) || [],
-    };
+    const filters = parseFiltersFromRequest(request);
 
     const portfolio = loadPortfolioFiltered(filters);
     const metadata = loadMetadata();

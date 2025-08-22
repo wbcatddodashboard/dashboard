@@ -1,11 +1,26 @@
 import { NextResponse } from 'next/server';
-import { loadPriorActions } from '@/lib/portfolio';
+import { loadPriorActions, loadPortfolioFiltered } from '@/lib/portfolio';
+import { parseFiltersFromRequest } from '@/lib/api-utils';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const priorActions = loadPriorActions();
+    const filters = parseFiltersFromRequest(request);
+
+    // Filter the portfolio first to get the relevant Project IDs
+    const filteredPortfolio = loadPortfolioFiltered(filters);
+    const filteredProjectIds = new Set(
+      filteredPortfolio
+        .map((row) => (row['P#'] ?? '').toString().trim())
+        .filter(Boolean)
+    );
+
+    // Load all prior actions and filter by Project IDs
+    const allPriorActions = loadPriorActions();
+    const priorActions = allPriorActions.filter((row) =>
+      filteredProjectIds.has((row['P#'] ?? '').toString().trim())
+    );
 
     // Group by PA Typology Description for chart data
     const typologyCounts = new Map<string, number>();

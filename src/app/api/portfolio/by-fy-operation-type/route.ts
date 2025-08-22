@@ -1,14 +1,17 @@
 import { NextResponse } from 'next/server';
 import {
   crosstabFiscalYearOperationType,
-  loadPortfolio,
+  loadPortfolioFiltered,
 } from '@/lib/portfolio';
+import { parseFiltersFromRequest } from '@/lib/api-utils';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const portfolio = loadPortfolio();
+    const filters = parseFiltersFromRequest(request);
+
+    const portfolio = loadPortfolioFiltered(filters);
     const { types, years, matrix } = crosstabFiscalYearOperationType(portfolio);
     return NextResponse.json({ types, years, matrix });
   } catch (err: unknown) {
