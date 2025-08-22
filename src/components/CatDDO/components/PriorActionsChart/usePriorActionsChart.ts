@@ -1,45 +1,15 @@
 import { useMemo } from 'react';
-import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
+import type { BarChartSeries } from 'vizonomy';
+import { useFetchPriorActions } from '@/hooks/useFetchPriorActions';
 
 export function usePriorActionsChart() {
-  const data = useMemo<StackedBarChartDataPoint[]>(() => {
-    return [
-      {
-        id: 'territorial',
-        label: 'Territorial and urban planning',
-        values: {
-          'Prior Action': 2.8,
-        },
-      },
-      {
-        id: 'risk-identification',
-        label: 'Risk Identification',
-        values: {
-          'Prior Action': 8.2,
-        },
-      },
-      {
-        id: 'fiscal-risk',
-        label: 'Fiscal Risk',
-        values: {
-          'Prior Action': 2.9,
-        },
-      },
-      {
-        id: 'drm-policies',
-        label: 'DRM policies and institutions',
-        values: {
-          'Prior Action': 5.5,
-        },
-      },
-    ];
-  }, []);
+  const { chartData, isLoading, error } = useFetchPriorActions();
 
-  const series = useMemo<BarChartSeries[]>(
+  const memoizedSeries = useMemo<BarChartSeries[]>(
     () => [
       {
-        key: 'Prior Action',
-        label: 'Prior Action',
+        key: 'Prior Actions',
+        label: 'Prior Actions',
         color: '#295e84',
       },
     ],
@@ -47,7 +17,9 @@ export function usePriorActionsChart() {
   );
 
   return {
-    data,
-    series,
+    data: chartData,
+    series: memoizedSeries,
+    isLoading,
+    errorMessage: error,
   };
 }

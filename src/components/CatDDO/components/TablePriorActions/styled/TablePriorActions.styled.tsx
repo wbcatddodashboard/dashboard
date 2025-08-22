@@ -28,7 +28,17 @@ export function TablePriorActionsTitle({ children }: ChildrenProps) {
 export function TablePriorActionsWrapper_Container({
   children,
 }: ChildrenProps) {
-  return <div className="relative shrink-0 w-full">{children}</div>;
+  return (
+    <div className="bg-[#ffffff] relative shrink-0 w-full">
+      <div className="box-border content-stretch flex flex-col gap-3 items-start justify-start overflow-clip px-0 py-4 relative w-full">
+        {children}
+      </div>
+      <div
+        aria-hidden="true"
+        className="absolute border-[1px_0px] border-[rgba(0,0,0,0.1)] border-solid inset-0 pointer-events-none"
+      />
+    </div>
+  );
 }
 
 export function TableCellText({
@@ -40,6 +50,23 @@ export function TableCellText({
       className={`font-['Inter:Regular',_sans-serif] ${isTotal ? 'font-semibold' : 'font-normal'} leading-[0] not-italic relative shrink-0 text-[#295e84] text-[12px] text-left tracking-[-0.154px]`}
     >
       <p className="adjustLetterSpacing block leading-[18px]">{children}</p>
+    </div>
+  );
+}
+
+export function NoDataMessage({ children }: ChildrenProps) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '200px',
+        fontSize: '16px',
+        color: '#666',
+      }}
+    >
+      {children}
     </div>
   );
 }

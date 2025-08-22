@@ -5,12 +5,23 @@ import { BarChart } from 'vizonomy-d3';
 import {
   ChartContainer,
   ChartWrapper,
+  NoDataMessage,
 } from './styled/PriorActionsChart.styled';
 import { usePriorActionsChart } from './usePriorActionsChart';
 import { ClientOnlyChart } from '../ChartWrapper';
 
 export function PriorActionsChart() {
   const { data, series } = usePriorActionsChart();
+
+  if (!data.length) {
+    return (
+      <ChartContainer>
+        <ChartWrapper>
+          <NoDataMessage>No data available</NoDataMessage>
+        </ChartWrapper>
+      </ChartContainer>
+    );
+  }
 
   return (
     <ChartContainer>
@@ -25,7 +36,7 @@ export function PriorActionsChart() {
             yAxisLabel=""
             orientation="horizontal"
             showLegend
-            showGrid={false}
+            showGrid={true}
             showTooltip={false}
             legendItemGap={10}
             yAxisLabelOffset={10}
