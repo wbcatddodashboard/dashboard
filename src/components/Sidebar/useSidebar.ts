@@ -129,7 +129,6 @@ export const useSidebar = () => {
       }))
     );
 
-    // Reset filters in context
     setTimeout(() => {
       updateFilter('statuses', []);
       updateFilter('regions', []);

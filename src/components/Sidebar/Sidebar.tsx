@@ -1,5 +1,6 @@
 'use client';
 
+import { When } from 'vizonomy';
 import type { SidebarProps } from './Sidebar.d';
 import { useSidebar } from './useSidebar';
 import {
@@ -25,6 +26,8 @@ import {
   ActionButtonsContainer,
   ButtonContainer,
   SidebarBorder,
+  LoadingMessage,
+  ErrorMessage,
 } from './Sidebar.styled';
 import { ResetFiltersButton, UnderstandingDataButton } from './SidebarButtons';
 
@@ -45,19 +48,16 @@ function Sidebar({ className }: SidebarProps) {
           <LogoImage src={SIDEBAR_LOGO_IMAGE} />
         </LogoContainer>
 
-        {isLoading && (
-          <div className="p-4 text-sm text-gray-500">Loading filters...</div>
-        )}
+        <When condition={isLoading}>
+          <LoadingMessage>Loading filters...</LoadingMessage>
+        </When>
 
-        {error && (
-          <div className="p-4 text-sm text-red-500">
-            Error loading filters: {error}
-          </div>
-        )}
+        <When condition={!!error}>
+          <ErrorMessage>Error loading filters: {error}</ErrorMessage>
+        </When>
 
-        {!isLoading &&
-          !error &&
-          filterSections.map((section) => {
+        <When condition={!isLoading && !error}>
+          {filterSections.map((section) => {
             let sectionSize: 'small' | 'default' | 'large' = 'default';
 
             if (section.id === 'project-status') {
@@ -72,7 +72,7 @@ function Sidebar({ className }: SidebarProps) {
               <FilterSectionContainer key={section.id} size={sectionSize}>
                 <FilterSectionHeader>
                   <FilterSectionTitle>{section.title}</FilterSectionTitle>
-                  {section.hasFilterIcon && (
+                  <When condition={section.hasFilterIcon}>
                     <FilterIconContainer>
                       <FilterIconWrapper>
                         <FilterIcon
@@ -81,7 +81,7 @@ function Sidebar({ className }: SidebarProps) {
                         />
                       </FilterIconWrapper>
                     </FilterIconContainer>
-                  )}
+                  </When>
                 </FilterSectionHeader>
 
                 <FilterOptionsContainer>
@@ -102,6 +102,7 @@ function Sidebar({ className }: SidebarProps) {
               </FilterSectionContainer>
             );
           })}
+        </When>
 
         <ActionButtonsContainer>
           <ButtonContainer>
