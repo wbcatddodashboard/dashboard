@@ -1,107 +1,29 @@
 import { useMemo } from 'react';
 import type { PriorAction } from '../../interfaces';
+import { useFetchPriorActions } from '@/hooks/useFetchPriorActions';
 
 export function useTablePriorActions() {
-  const rows = useMemo((): PriorAction[] => {
-    // Data extracted from the Figma design
-    const sampleData: PriorAction[] = [
-      {
-        id: '1',
-        projectNumber: 'P112544',
-        country: 'Guatemala',
-        pillar:
-          'Strengthening institutions and planning capacity for risk management.',
-        priorAction:
-          'SEGEPLAN has published and started dissemination/training programs on a methodology for the inclusion of disaster risk management in investments.',
-        resultIndicator:
-          'SEGEPLAN will have developed the instruments, applying the methodology, for the inclusion of disaster risk management in investments.',
-        drmPolicyArea: 'Territorial and urban planning',
-        typeOfLegalEvidence: '-',
-      },
-      {
-        id: '2',
-        projectNumber: 'P112544',
-        country: 'Colombia',
-        pillar:
-          'Strengthening institutions and planning capacity for risk management.',
-        priorAction:
-          'SEGEPLAN has published and started dissemination/training programs on a methodology for the inclusion of disaster risk management in investments.',
-        resultIndicator:
-          'SEGEPLAN will have developed the instruments, applying the methodology, for the inclusion of disaster risk management in investments.',
-        drmPolicyArea: 'Territorial and urban planning',
-        typeOfLegalEvidence: '-',
-      },
-      {
-        id: '3',
-        projectNumber: 'P112544',
-        country: 'Cabo Verde',
-        pillar:
-          'Strengthening institutions and planning capacity for risk management.',
-        priorAction:
-          'SEGEPLAN has published and started dissemination/training programs on a methodology for the inclusion of disaster risk management in investments.',
-        resultIndicator:
-          'SEGEPLAN will have developed the instruments, applying the methodology, for the inclusion of disaster risk management in investments.',
-        drmPolicyArea: 'Territorial and urban planning',
-        typeOfLegalEvidence: '-',
-      },
-      {
-        id: '4',
-        projectNumber: 'P112544',
-        country: 'Kenya',
-        pillar:
-          'Strengthening institutions and planning capacity for risk management.',
-        priorAction:
-          'SEGEPLAN has published and started dissemination/training programs on a methodology for the inclusion of disaster risk management in investments.',
-        resultIndicator:
-          'SEGEPLAN will have developed the instruments, applying the methodology, for the inclusion of disaster risk management in investments.',
-        drmPolicyArea: 'Territorial and urban planning',
-        typeOfLegalEvidence: '-',
-      },
-      {
-        id: '5',
-        projectNumber: 'P112544',
-        country: 'Kenya',
-        pillar:
-          'Strengthening institutions and planning capacity for risk management.',
-        priorAction:
-          'SEGEPLAN has published and started dissemination/training programs on a methodology for the inclusion of disaster risk management in investments.',
-        resultIndicator:
-          'SEGEPLAN will have developed the instruments, applying the methodology, for the inclusion of disaster risk management in investments.',
-        drmPolicyArea: 'Territorial and urban planning',
-        typeOfLegalEvidence: '-',
-      },
-      {
-        id: '6',
-        projectNumber: 'P112544',
-        country: 'Malawi',
-        pillar:
-          'Strengthening institutions and planning capacity for risk management.',
-        priorAction:
-          'SEGEPLAN has published and started dissemination/training programs on a methodology for the inclusion of disaster risk management in investments.',
-        resultIndicator:
-          'SEGEPLAN will have developed the instruments, applying the methodology, for the inclusion of disaster risk management in investments.',
-        drmPolicyArea: 'Territorial and urban planning',
-        typeOfLegalEvidence: '-',
-      },
-      {
-        id: '7',
-        projectNumber: 'P112544',
-        country: 'Samoa',
-        pillar:
-          'Strengthening institutions and planning capacity for risk management.',
-        priorAction:
-          'SEGEPLAN has published and started dissemination/training programs on a methodology for the inclusion of disaster risk management in investments.',
-        resultIndicator:
-          'SEGEPLAN will have developed the instruments, applying the methodology, for the inclusion of disaster risk management in investments.',
-        drmPolicyArea: 'Territorial and urban planning',
-        typeOfLegalEvidence: '-',
-      },
-    ];
+  const { tableData, isLoading, error } = useFetchPriorActions();
 
-    return sampleData;
-  }, []);
+  const rows = useMemo((): PriorAction[] => {
+    if (!tableData?.length) return [];
+
+    return tableData.map((row, index) => ({
+      id: `${index + 1}`,
+      projectNumber: row['P#'] ?? '',
+      country: row['Country'] ?? '',
+      pillar: row['Pillar'] ?? '',
+      priorAction: row['Prior Action'] ?? '',
+      resultIndicator: row['Result Indicator'] ?? '',
+      drmPolicyArea: row['PA Typology Description'] ?? '',
+      typeOfLegalEvidence: row['Type of legal evidence'] ?? '',
+      isTotal: false,
+    }));
+  }, [tableData]);
 
   return {
     rows,
+    isLoading,
+    errorMessage: error,
   };
 }

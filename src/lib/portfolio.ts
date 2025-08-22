@@ -1,6 +1,7 @@
 import {
   getPortfolioCsvPath,
   getMetadataCsvPath,
+  getPriorActionsCsvPath,
   readCsvAsObjects,
   toNumberLoose,
 } from './csv';
@@ -13,6 +14,16 @@ export type PortfolioRow = Record<string, string> & {
   Country?: string;
   'Standalone/Mixed'?: 'Standalone' | 'Mixed' | string;
   'P#'?: string;
+};
+
+export type PriorActionRow = Record<string, string> & {
+  'P#'?: string;
+  Country?: string;
+  Pillar?: string;
+  'Prior Action'?: string;
+  'Result Indicator'?: string;
+  'PA Typology Description'?: string;
+  'Type of legal evidence'?: string;
 };
 
 export type Metadata = {
@@ -41,6 +52,10 @@ export function loadPortfolio(): PortfolioRow[] {
   return rows.filter(
     (r) => (r['Status'] ?? '').toString().trim() !== 'Dropped'
   );
+}
+
+export function loadPriorActions(): PriorActionRow[] {
+  return readCsvAsObjects(getPriorActionsCsvPath());
 }
 
 export function getFiscalYearLabel(fy: string | undefined): string {
