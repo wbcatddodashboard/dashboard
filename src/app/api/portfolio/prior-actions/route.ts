@@ -11,8 +11,8 @@ export async function GET() {
     const typologyCounts = new Map<string, number>();
 
     for (const row of priorActions) {
-      const typology = row['PA Typology Description'] || 'Unknown';
-      typologyCounts.set(typology, (typologyCounts.get(typology) || 0) + 1);
+      const typology = row['PA Typology Description'] ?? 'Unknown';
+      typologyCounts.set(typology, (typologyCounts.get(typology) ?? 0) + 1);
     }
 
     // Convert to chart data format
