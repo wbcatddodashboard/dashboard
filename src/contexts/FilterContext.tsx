@@ -43,9 +43,9 @@ export function FilterProvider({ children }: FilterProviderProps) {
   };
 
   const hasActiveFilters =
-    filters.statuses.length > 0 ||
-    filters.regions.length > 0 ||
-    filters.countries.length > 0;
+    !!filters.statuses.length ||
+    !!filters.regions.length ||
+    !!filters.countries.length;
 
   const value: FilterContextType = {
     filters,

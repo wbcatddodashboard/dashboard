@@ -15,3 +15,13 @@ export function buildApiUrl(baseUrl: string, filters: FilterState): string {
 
   return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
 }
+
+export function parseFiltersFromRequest(request: Request): FilterState {
+  const { searchParams } = new URL(request.url);
+
+  return {
+    statuses: searchParams.get('statuses')?.split(',').filter(Boolean) ?? [],
+    regions: searchParams.get('regions')?.split(',').filter(Boolean) ?? [],
+    countries: searchParams.get('countries')?.split(',').filter(Boolean) ?? [],
+  };
+}
