@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PORTFOLIO_ENDPOINTS, fetchJson } from '@/api.settings';
 import { useFilters } from '@/contexts/FilterContext';
+import { buildApiUrl } from '@/lib/api-utils';
 
 export interface RegionByStatusResponse {
   regions: string[];
@@ -20,20 +21,7 @@ export const useFetchRegionByStatus = () => {
       try {
         setIsLoading(true);
 
-        const params = new URLSearchParams();
-        if (!!filters.statuses.length) {
-          params.append('statuses', filters.statuses.join(','));
-        }
-        if (!!filters.regions.length) {
-          params.append('regions', filters.regions.join(','));
-        }
-        if (!!filters.countries.length) {
-          params.append('countries', filters.countries.join(','));
-        }
-
-        const url = params.toString()
-          ? `${PORTFOLIO_ENDPOINTS.regionByStatus}?${params.toString()}`
-          : PORTFOLIO_ENDPOINTS.regionByStatus;
+        const url = buildApiUrl(PORTFOLIO_ENDPOINTS.regionByStatus, filters);
 
         const json = await fetchJson<RegionByStatusResponse>(url, {
           signal: abortController.signal,
