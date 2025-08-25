@@ -88,13 +88,13 @@ const DRMPolicyPillarsModal: React.FC<DRMPolicyPillarsModalProps> = ({
 
   return (
     <StepModal.Root isOpen={isOpen} onClose={onClose}>
-      <div className="fixed inset-0 z-[9999] bg-black/30 flex items-center justify-center p-4">
+      <StepModal.Overlay className="z-[9999]">
         <StepModal.Content
           size="xl"
-          className="w-auto max-w-[95vw] min-w-[800px] relative z-[10000] max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-xl"
+          className="!w-[900px] max-w-[900px] max-h-[90vh] overflow-y-auto z-[10000]"
         >
           <StepModal.Header>
-            <StepModal.Title className="text-[32px] font-bold text-[#295e84] leading-[40px]">
+            <StepModal.Title className="text-[32px] font-bold !text-[#295e84] leading-[40px]">
               The DRM Policy Pillars
             </StepModal.Title>
             <StepModal.Close />
@@ -103,7 +103,6 @@ const DRMPolicyPillarsModal: React.FC<DRMPolicyPillarsModalProps> = ({
           <StepModal.Body className="px-8 py-[41px]">
             <StepModal.Step>
               <ContentContainer>
-                {/* Description paragraphs */}
                 <DescriptionContainer>
                   <DescriptionText>
                     To analyze trends and distribution patterns in policy
@@ -131,17 +130,14 @@ const DRMPolicyPillarsModal: React.FC<DRMPolicyPillarsModalProps> = ({
                   </DescriptionText>
                 </DescriptionContainer>
 
-                {/* DRM Policy Pillars Diagram */}
                 <DiagramContainer>
                   <PillarsRow>
                     {pillars.map((pillar) => (
                       <PillarColumn key={pillar.id}>
-                        {/* Main pillar */}
                         <PillarBox backgroundColor={pillar.color}>
                           <PillarText>{pillar.name}</PillarText>
                         </PillarBox>
 
-                        {/* Sub-pillars */}
                         {pillar.subPillars.map((subPillar, index) => (
                           <SubPillarBox
                             key={index}
@@ -166,12 +162,12 @@ const DRMPolicyPillarsModal: React.FC<DRMPolicyPillarsModalProps> = ({
                 onClick={onClose}
                 className="bg-[#295e84] text-white px-6 py-[13px] rounded-[99px] font-bold text-[14px] leading-[20px] tracking-[-0.15px] hover:bg-[#1e4a6b] transition-colors"
               >
-                Enter
+                Close
               </Button>
             </ButtonContainer>
           </StepModal.Footer>
         </StepModal.Content>
-      </div>
+      </StepModal.Overlay>
     </StepModal.Root>
   );
 };

@@ -17,8 +17,22 @@ export function TabContentWithIcon({ children }: ChildrenProps) {
   return <div className="flex flex-row gap-[5px] items-center">{children}</div>;
 }
 
-export function IconContainer({ children }: ChildrenProps) {
-  return <div className="relative shrink-0 size-5">{children}</div>;
+export function IconContainer({
+  children,
+  onClick,
+  className,
+}: ChildrenProps & {
+  onClick?: (e: React.MouseEvent) => void;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`relative shrink-0 size-5 ${className || ''}`}
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  );
 }
 
 export function TabsWrapper({ children }: ChildrenProps) {

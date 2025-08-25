@@ -55,7 +55,7 @@ export function DiagramContainer({
 }: ChildrenProps & { className?: string }) {
   const containerClasses = classNames(
     'border border-[rgba(41,94,132,0.1)] rounded-lg p-1',
-    'overflow-x-auto',
+    'w-full overflow-x-auto',
     className
   );
 
@@ -67,8 +67,8 @@ export function PillarsRow({
   className,
 }: ChildrenProps & { className?: string }) {
   const rowClasses = classNames(
-    'flex flex-wrap gap-2 justify-center',
-    'lg:flex-nowrap lg:justify-start',
+    'flex flex-nowrap gap-2 justify-start',
+    'min-w-full',
     className
   );
 
@@ -96,8 +96,7 @@ export function PillarBox({
   className?: string;
 }) {
   const boxClasses = classNames(
-    'h-[50px] w-[120px] rounded-lg flex items-center justify-center p-1',
-    'sm:w-[110px] md:w-[120px] lg:w-[130px]',
+    'h-[50px] w-[130px] rounded-lg flex items-center justify-center p-1',
     className
   );
 
@@ -117,8 +116,7 @@ export function SubPillarBox({
   className?: string;
 }) {
   const boxClasses = classNames(
-    'w-[120px] rounded-lg flex items-center justify-center p-1',
-    'sm:w-[110px] md:w-[120px] lg:w-[130px]',
+    'w-[130px] rounded-lg flex items-center justify-center p-1',
     className
   );
 
@@ -135,7 +133,7 @@ export function PillarText({
 }: ChildrenProps & { className?: string }) {
   const textClasses = classNames(
     'text-[10px] font-semibold text-[#295e84] text-center leading-[14px] tracking-[-0.15px]',
-    'w-full max-w-[110px] sm:max-w-[100px] md:max-w-[110px] lg:max-w-[120px]',
+    'w-full max-w-[120px]',
     'break-words',
     className
   );
@@ -149,7 +147,7 @@ export function SubPillarText({
 }: ChildrenProps & { className?: string }) {
   const textClasses = classNames(
     'text-[10px] text-[#295e84] text-center leading-[14px] tracking-[-0.15px]',
-    'w-full max-w-[110px] sm:max-w-[100px] md:max-w-[110px] lg:max-w-[120px]',
+    'w-full max-w-[120px]',
     'break-words',
     className
   );
@@ -164,4 +162,58 @@ export function ButtonContainer({
   const containerClasses = classNames('flex justify-start', className);
 
   return <div className={containerClasses}>{children}</div>;
+}
+
+export function ModalOverlay({
+  children,
+  className,
+}: ChildrenProps & { className?: string }) {
+  const overlayClasses = classNames('z-[9999]', className);
+
+  return <div className={overlayClasses}>{children}</div>;
+}
+
+export function ModalContent({
+  children,
+  className,
+}: ChildrenProps & { className?: string }) {
+  const contentClasses = classNames(
+    '!w-[900px] max-w-[900px] max-h-[90vh] overflow-y-auto z-[10000]',
+    className
+  );
+
+  return <div className={contentClasses}>{children}</div>;
+}
+
+export function ModalTitle({
+  children,
+  className,
+}: ChildrenProps & { className?: string }) {
+  const titleClasses = classNames(
+    'text-[32px] font-bold text-[#1e4a6b] leading-[40px]',
+    className
+  );
+
+  return <div className={titleClasses}>{children}</div>;
+}
+
+export function ModalBody({
+  children,
+  className,
+}: ChildrenProps & { className?: string }) {
+  const bodyClasses = classNames('px-8 py-[41px]', className);
+
+  return <div className={bodyClasses}>{children}</div>;
+}
+
+export function ModalButton({
+  children,
+  className,
+}: ChildrenProps & { className?: string }) {
+  const buttonClasses = classNames(
+    'bg-[#295e84] text-white px-6 py-[13px] rounded-[99px] font-bold text-[14px] leading-[20px] tracking-[-0.15px] hover:bg-[#1e4a6b] transition-colors',
+    className
+  );
+
+  return <div className={buttonClasses}>{children}</div>;
 }
