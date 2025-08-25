@@ -41,7 +41,7 @@ export function NoDataMessage({ children }: ChildrenProps) {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '400px',
+        height: '200px',
         fontSize: '16px',
         color: '#666',
       }}

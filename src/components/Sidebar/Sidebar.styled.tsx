@@ -31,7 +31,11 @@ export function SidebarContent({ children }: ChildrenProps) {
     'justify-start',
     'p-[16px]',
     'relative',
-    'h-full'
+    'h-full',
+    'overflow-y-auto',
+    'scrollbar-thin',
+    'scrollbar-thumb-gray-300',
+    'scrollbar-track-gray-100'
   );
 
   return <div className={containerClasses}>{children}</div>;
@@ -76,7 +80,16 @@ export function LogoImage({ src }: { src: string }) {
   );
 }
 
-export function FilterSectionContainer({ children }: ChildrenProps) {
+export function FilterSectionContainer({
+  children,
+  size = 'default',
+}: ChildrenProps & { size?: 'small' | 'default' | 'large' }) {
+  const heightClasses = {
+    small: 'h-[15vh]', // Smaller for status (3 options)
+    default: 'h-[25vh]', // Default for regions
+    large: 'h-[35vh]', // Larger for countries (many options)
+  };
+
   const containerClasses = classNames(
     'box-border',
     'content-stretch',
@@ -88,7 +101,28 @@ export function FilterSectionContainer({ children }: ChildrenProps) {
     'p-0',
     'relative',
     'shrink-0',
-    'w-full'
+    'w-full',
+    heightClasses[size],
+    'overflow-hidden', // Hide overflow on container
+    'min-h-[120px]', // Minimum height for very small screens
+    'max-h-[300px]' // Maximum height for very large screens
+  );
+
+  return <div className={containerClasses}>{children}</div>;
+}
+
+export function FilterOptionsContainer({ children }: ChildrenProps) {
+  const containerClasses = classNames(
+    'flex',
+    'flex-col',
+    'gap-1.5',
+    'w-full',
+    'h-full',
+    'overflow-y-auto',
+    'pr-1', // Add some padding for scrollbar
+    'scrollbar-thin',
+    'scrollbar-thumb-gray-300',
+    'scrollbar-track-gray-100'
   );
 
   return <div className={containerClasses}>{children}</div>;
@@ -336,4 +370,16 @@ export function SidebarBorder() {
   );
 
   return <div className={borderClasses} />;
+}
+
+export function LoadingMessage({ children }: ChildrenProps) {
+  const loadingClasses = classNames('p-4', 'text-sm', 'text-gray-500');
+
+  return <div className={loadingClasses}>{children}</div>;
+}
+
+export function ErrorMessage({ children }: ChildrenProps) {
+  const errorClasses = classNames('p-4', 'text-sm', 'text-red-500');
+
+  return <div className={errorClasses}>{children}</div>;
 }

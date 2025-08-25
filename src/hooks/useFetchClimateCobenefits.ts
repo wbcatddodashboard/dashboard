@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useFilters } from '@/contexts/FilterContext';
+import { buildApiUrl } from '@/lib/api-utils';
 
 interface ClimateCobenefitsResponse {
   standalone: {
@@ -18,6 +20,7 @@ interface ClimateCobenefitsResponse {
 }
 
 export function useFetchClimateCobenefits() {
+  const { filters } = useFilters();
   const [data, setData] = useState<ClimateCobenefitsResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>('');
@@ -28,7 +31,8 @@ export function useFetchClimateCobenefits() {
         setIsLoading(true);
         setError('');
 
-        const response = await fetch('/api/climate/cobenefits-bars');
+        const url = buildApiUrl('/api/climate/cobenefits-bars', filters);
+        const response = await fetch(url);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -48,7 +52,7 @@ export function useFetchClimateCobenefits() {
     }
 
     fetchData();
-  }, []);
+  }, [filters]);
 
   return { data, isLoading, error };
 }

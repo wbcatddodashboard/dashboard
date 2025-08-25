@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useFilters } from '@/contexts/FilterContext';
+import { buildApiUrl } from '@/lib/api-utils';
 
 interface DisbursementRegionData {
   region: string;
@@ -11,6 +13,7 @@ interface DisbursementsByRegionResponse {
 }
 
 export const useFetchDisbursementsByRegion = () => {
+  const { filters } = useFilters();
   const [data, setData] = useState<DisbursementRegionData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +24,11 @@ export const useFetchDisbursementsByRegion = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch('/api/portfolio/disbursements-by-region');
+        const url = buildApiUrl(
+          '/api/portfolio/disbursements-by-region',
+          filters
+        );
+        const response = await fetch(url);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -41,7 +48,7 @@ export const useFetchDisbursementsByRegion = () => {
     };
 
     fetchData();
-  }, []);
+  }, [filters]);
 
   return { data, isLoading, error };
 };

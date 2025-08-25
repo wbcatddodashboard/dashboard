@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { loadPortfolio } from '@/lib/portfolio';
+import { loadPortfolioFiltered } from '@/lib/portfolio';
+import { parseFiltersFromRequest } from '@/lib/api-utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,12 +18,14 @@ type ListRow = {
   operationType: string;
 };
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const rows = loadPortfolio();
+    const filters = parseFiltersFromRequest(request);
+
+    const rows = loadPortfolioFiltered(filters);
     const list: ListRow[] = rows.map((r, index) => {
       const pid = (r['P#'] ?? '').toString().trim();
-      const safeId = pid || `row-${index + 1}`;
+      const safeId = pid ?? `row-${index + 1}`;
       return {
         id: safeId,
         projectId: pid,

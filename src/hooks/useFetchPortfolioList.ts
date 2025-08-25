@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PORTFOLIO_ENDPOINTS, fetchJson } from '@/api.settings';
+import { useFilters } from '@/contexts/FilterContext';
 
 export type PortfolioListItem = {
   id: string;
@@ -18,6 +19,7 @@ export type PortfolioListItem = {
 type ResponseShape = { data: PortfolioListItem[] };
 
 export const useFetchPortfolioList = () => {
+  const { filters } = useFilters();
   const [data, setData] = useState<PortfolioListItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -27,7 +29,24 @@ export const useFetchPortfolioList = () => {
     const load = async () => {
       try {
         setIsLoading(true);
-        const json = await fetchJson<ResponseShape>(PORTFOLIO_ENDPOINTS.list, {
+
+        // Build query parameters from filters
+        const params = new URLSearchParams();
+        if (filters.statuses.length) {
+          params.append('statuses', filters.statuses.join(','));
+        }
+        if (filters.regions.length) {
+          params.append('regions', filters.regions.join(','));
+        }
+        if (filters.countries.length) {
+          params.append('countries', filters.countries.join(','));
+        }
+
+        const url = params.toString()
+          ? `${PORTFOLIO_ENDPOINTS.list}?${params.toString()}`
+          : PORTFOLIO_ENDPOINTS.list;
+
+        const json = await fetchJson<ResponseShape>(url, {
           signal: abortController.signal,
         });
         setData(json.data ?? []);
@@ -41,7 +60,7 @@ export const useFetchPortfolioList = () => {
     };
     load();
     return () => abortController.abort();
-  }, []);
+  }, [filters]);
 
   return { data, isLoading, errorMessage };
 };

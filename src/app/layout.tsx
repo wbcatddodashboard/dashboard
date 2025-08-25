@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { LayoutContainer, MainContent } from '@/components/Layout';
 import Sidebar from '@/components/Sidebar';
+import { FilterProvider } from '@/contexts/FilterContext';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,10 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans antialiased`}>
-        <LayoutContainer>
-          <Sidebar />
-          <MainContent>{children}</MainContent>
-        </LayoutContainer>
+        <FilterProvider>
+          <LayoutContainer>
+            <Sidebar />
+            <MainContent>{children}</MainContent>
+          </LayoutContainer>
+        </FilterProvider>
       </body>
     </html>
   );
