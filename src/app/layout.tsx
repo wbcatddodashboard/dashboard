@@ -4,6 +4,7 @@ import './globals.css';
 import { LayoutContainer, MainContent } from '@/components/Layout';
 import Sidebar from '@/components/Sidebar';
 import { FilterProvider } from '@/contexts/FilterContext';
+import WelcomeModalProvider from '@/components/WelcomeModalProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,6 +29,9 @@ export default function RootLayout({
             <Sidebar />
             <MainContent>{children}</MainContent>
           </LayoutContainer>
+          <WelcomeModalProvider>
+            <div />
+          </WelcomeModalProvider>
         </FilterProvider>
       </body>
     </html>
