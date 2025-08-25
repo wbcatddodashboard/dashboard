@@ -18,6 +18,7 @@ export const useSidebar = () => {
   const { filterData, isLoading, error } = useFetchFilters();
   const { filters, updateFilter } = useFilters();
   const [filterSections, setFilterSections] = useState<FilterSection[]>([]);
+  const [isDRMModalOpen, setIsDRMModalOpen] = useState(false);
 
   useEffect(() => {
     if (filterData) {
@@ -137,7 +138,11 @@ export const useSidebar = () => {
   }, [updateFilter]);
 
   const handleUnderstandingData = useCallback(() => {
-    // TODO: Implement understanding data functionality
+    setIsDRMModalOpen(true);
+  }, []);
+
+  const handleCloseDRMModal = useCallback(() => {
+    setIsDRMModalOpen(false);
   }, []);
 
   return {
@@ -147,5 +152,7 @@ export const useSidebar = () => {
     handleFilterToggle,
     handleResetFilters,
     handleUnderstandingData,
+    isDRMModalOpen,
+    handleCloseDRMModal,
   };
 };

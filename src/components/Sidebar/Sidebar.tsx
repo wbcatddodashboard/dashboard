@@ -30,6 +30,7 @@ import {
   ErrorMessage,
 } from './Sidebar.styled';
 import { ResetFiltersButton, UnderstandingDataButton } from './SidebarButtons';
+import DRMPolicyPillarsModal from '../DRMPolicyPillarsModal';
 
 function Sidebar({ className }: SidebarProps) {
   const {
@@ -39,6 +40,8 @@ function Sidebar({ className }: SidebarProps) {
     handleFilterToggle,
     handleResetFilters,
     handleUnderstandingData,
+    isDRMModalOpen,
+    handleCloseDRMModal,
   } = useSidebar();
 
   return (
@@ -118,6 +121,11 @@ function Sidebar({ className }: SidebarProps) {
         </ActionButtonsContainer>
       </SidebarContent>
       <SidebarBorder />
+
+      <DRMPolicyPillarsModal
+        isOpen={isDRMModalOpen}
+        onClose={handleCloseDRMModal}
+      />
     </SidebarContainer>
   );
 }
