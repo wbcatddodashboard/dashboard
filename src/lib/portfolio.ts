@@ -6,6 +6,12 @@ import {
   toNumberLoose,
 } from './csv';
 
+export interface FilterState {
+  statuses: string[];
+  regions: string[];
+  countries: string[];
+}
+
 export type PortfolioRow = Record<string, string> & {
   Status?: string;
   'Fiscal Year'?: string;
@@ -52,6 +58,30 @@ export function loadPortfolio(): PortfolioRow[] {
   return rows.filter(
     (r) => (r['Status'] ?? '').toString().trim() !== 'Dropped'
   );
+}
+
+export function loadPortfolioFiltered(filters: FilterState): PortfolioRow[] {
+  const rows = loadPortfolio();
+
+  return rows.filter((row) => {
+    const status = (row['Status'] ?? '').toString().trim();
+    const region = (row['Region'] ?? '').toString().trim();
+    const country = (row['Country'] ?? '').toString().trim();
+
+    if (!!filters.statuses.length && !filters.statuses.includes(status)) {
+      return false;
+    }
+
+    if (!!filters.regions.length && !filters.regions.includes(region)) {
+      return false;
+    }
+
+    if (!!filters.countries.length && !filters.countries.includes(country)) {
+      return false;
+    }
+
+    return true;
+  });
 }
 
 export function loadPriorActions(): PriorActionRow[] {

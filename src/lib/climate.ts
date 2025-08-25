@@ -51,12 +51,22 @@ export function loadClimateDataFiltered(): ClimateComputedRow[] {
   return filtered;
 }
 
-export function cobenefitsBars() {
+export function cobenefitsBars(filteredProjectIds?: Set<string>) {
   const portfolio = loadPortfolio();
+
+  // Use filtered Project IDs if provided, otherwise use all portfolio Project IDs
+  const projectIdsToUse =
+    filteredProjectIds ||
+    new Set(
+      portfolio.map((r) => (r['P#'] ?? '').toString().trim()).filter(Boolean)
+    );
+
   const standaloneIds = new Set(
     portfolio
       .filter(
-        (r) => (r['Standalone/Mixed'] ?? '').toString().trim() === 'Standalone'
+        (r) =>
+          (r['Standalone/Mixed'] ?? '').toString().trim() === 'Standalone' &&
+          projectIdsToUse.has((r['P#'] ?? '').toString().trim())
       )
       .map((r) => (r['P#'] ?? '').toString().trim())
       .filter(Boolean)
@@ -64,7 +74,9 @@ export function cobenefitsBars() {
   const mixedIds = new Set(
     portfolio
       .filter(
-        (r) => (r['Standalone/Mixed'] ?? '').toString().trim() === 'Mixed'
+        (r) =>
+          (r['Standalone/Mixed'] ?? '').toString().trim() === 'Mixed' &&
+          projectIdsToUse.has((r['P#'] ?? '').toString().trim())
       )
       .map((r) => (r['P#'] ?? '').toString().trim())
       .filter(Boolean)

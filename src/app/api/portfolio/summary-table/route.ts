@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
-import { buildSummaryTable, loadPortfolio } from '@/lib/portfolio';
+import { buildSummaryTable, loadPortfolioFiltered } from '@/lib/portfolio';
+import { parseFiltersFromRequest } from '@/lib/api-utils';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const portfolio = loadPortfolio();
+    const filters = parseFiltersFromRequest(request);
+
+    const portfolio = loadPortfolioFiltered(filters);
     const result = buildSummaryTable(portfolio);
     return NextResponse.json(result);
   } catch (err: unknown) {

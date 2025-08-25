@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
-import { crosstabRegionStatus, loadPortfolio } from '@/lib/portfolio';
+import { crosstabRegionStatus, loadPortfolioFiltered } from '@/lib/portfolio';
+import { parseFiltersFromRequest } from '@/lib/api-utils';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const portfolio = loadPortfolio();
+    const filters = parseFiltersFromRequest(request);
+
+    const portfolio = loadPortfolioFiltered(filters);
     const { regions, statuses, matrix } = crosstabRegionStatus(portfolio);
     return NextResponse.json({ regions, statuses, matrix });
   } catch (err: unknown) {
