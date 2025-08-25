@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { PortfolioContent } from './PortfolioContent';
 import { PolicyProgramContent } from './PolicyProgramContent';
 import { DisbursementTriggersContent } from './DisbursementTriggersContent';
+import DRMPolicyPillarsModal from '../DRMPolicyPillarsModal';
 import {
   TabTextContainer,
   TabContentWithIcon,
@@ -23,6 +24,7 @@ export function TabText({ children }: { children: React.ReactNode }) {
 
 export function CatDDOTabs() {
   const [activeTabId, setActiveTabId] = useState<string>('portfolio');
+  const [isDRMModalOpen, setIsDRMModalOpen] = useState(false);
 
   const tabs = [
     {
@@ -35,7 +37,13 @@ export function CatDDOTabs() {
       label: (
         <TabContentWithIcon>
           <TabText>Cat DDO Policy Program</TabText>
-          <IconContainer>
+          <IconContainer
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsDRMModalOpen(true);
+            }}
+            className="cursor-pointer hover:opacity-80 transition-opacity"
+          >
             <Image
               src="/info-icon-figma.svg"
               alt="Info"
@@ -65,6 +73,11 @@ export function CatDDOTabs() {
           onTabChange={setActiveTabId}
         />
       </TabsInnerContainer>
+
+      <DRMPolicyPillarsModal
+        isOpen={isDRMModalOpen}
+        onClose={() => setIsDRMModalOpen(false)}
+      />
     </TabsWrapper>
   );
 }
