@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PORTFOLIO_ENDPOINTS, fetchJson } from '@/api.settings';
+import { useFilters } from '@/contexts/FilterContext';
+import { buildApiUrl } from '@/lib/api-utils';
 
 export interface DisbursementsByFySourceResponse {
   fiscalYears: string[];
@@ -10,6 +12,7 @@ export interface DisbursementsByFySourceResponse {
 }
 
 export const useFetchDisbursementsByFySource = () => {
+  const { filters } = useFilters();
   const [data, setData] = useState<DisbursementsByFySourceResponse | null>(
     null
   );
@@ -21,10 +24,15 @@ export const useFetchDisbursementsByFySource = () => {
     const load = async () => {
       try {
         setIsLoading(true);
-        const json = await fetchJson<DisbursementsByFySourceResponse>(
+
+        const url = buildApiUrl(
           PORTFOLIO_ENDPOINTS.disbursementsByFySource,
-          { signal: abortController.signal }
+          filters
         );
+
+        const json = await fetchJson<DisbursementsByFySourceResponse>(url, {
+          signal: abortController.signal,
+        });
         setData(json);
         setErrorMessage('');
       } catch (err: unknown) {
@@ -36,7 +44,7 @@ export const useFetchDisbursementsByFySource = () => {
     };
     load();
     return () => abortController.abort();
-  }, []);
+  }, [filters]);
 
   return { data, isLoading, errorMessage };
 };

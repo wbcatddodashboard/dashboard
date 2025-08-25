@@ -5,12 +5,14 @@ interface ChildrenProps {
 }
 
 export function LayoutContainer({ children }: ChildrenProps) {
-  return <div className="flex min-h-screen bg-gray-50">{children}</div>;
+  return (
+    <div className="flex h-screen bg-gray-50 overflow-hidden">{children}</div>
+  );
 }
 
 export function Sidebar({ children }: ChildrenProps) {
   return (
-    <aside className="w-64 bg-white shadow-sm border-r border-gray-200 flex-shrink-0">
+    <aside className="w-64 bg-white shadow-sm border-r border-gray-200 flex-shrink-0 h-full overflow-y-auto">
       {children}
     </aside>
   );
@@ -85,5 +87,5 @@ export function FilterItem({ children }: ChildrenProps) {
 }
 
 export function MainContent({ children }: ChildrenProps) {
-  return <main className="flex-1 overflow-hidden">{children}</main>;
+  return <main className="flex-1 overflow-y-auto">{children}</main>;
 }
