@@ -1,24 +1,13 @@
 import { NextResponse } from 'next/server';
-import {
-  loadPriorActions,
-  loadPortfolioFiltered,
-  type FilterState,
-} from '@/lib/portfolio';
+import { loadPriorActions, loadPortfolioFiltered } from '@/lib/portfolio';
+import { parseFiltersFromRequest } from '@/lib/api-utils';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
+    const filters = parseFiltersFromRequest(request);
 
-    const filters: FilterState = {
-      statuses: searchParams.get('statuses')?.split(',').filter(Boolean) || [],
-      regions: searchParams.get('regions')?.split(',').filter(Boolean) || [],
-      countries:
-        searchParams.get('countries')?.split(',').filter(Boolean) || [],
-    };
-
-    // Filter the portfolio first to get the relevant Project IDs
     const filteredPortfolio = loadPortfolioFiltered(filters);
     const filteredProjectIds = new Set(
       filteredPortfolio
@@ -36,8 +25,8 @@ export async function GET(request: Request) {
     const typologyCounts = new Map<string, number>();
 
     for (const row of priorActions) {
-      const typology = row['PA Typology Description'] || 'Unknown';
-      typologyCounts.set(typology, (typologyCounts.get(typology) || 0) + 1);
+      const typology = row['PA Typology Description'] ?? 'Unknown';
+      typologyCounts.set(typology, (typologyCounts.get(typology) ?? 0) + 1);
     }
 
     // Convert to chart data format

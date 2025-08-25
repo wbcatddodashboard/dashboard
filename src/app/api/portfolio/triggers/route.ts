@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import path from 'node:path';
 import { getDataDir, readCsvAsObjects } from '@/lib/csv';
+import { loadPortfolioFiltered } from '@/lib/portfolio';
+import { parseFiltersFromRequest } from '@/lib/api-utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,10 +25,26 @@ type TriggerRow = {
   link: string;
 };
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const filters = parseFiltersFromRequest(request);
+
+    // Filter the portfolio first to get the relevant Project IDs
+    const filteredPortfolio = loadPortfolioFiltered(filters);
+    const filteredProjectIds = new Set(
+      filteredPortfolio
+        .map((row) => (row['P#'] ?? '').toString().trim())
+        .filter(Boolean)
+    );
+
     const csvPath = path.join(getDataDir(), 'Cat_DDO_Triggers.csv');
-    const rows = readCsvAsObjects(csvPath);
+    const allRows = readCsvAsObjects(csvPath);
+
+    // Filter triggers by Project IDs
+    const rows = allRows.filter((row) =>
+      filteredProjectIds.has((row['P#'] ?? '').toString().trim())
+    );
+
     const data: TriggerRow[] = rows.map((r) => ({
       id: (r['P#'] ?? '').toString().trim(),
       projectId: (r['P#'] ?? '').toString().trim(),
