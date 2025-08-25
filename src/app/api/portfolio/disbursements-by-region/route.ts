@@ -1,11 +1,17 @@
 import { NextResponse } from 'next/server';
-import { loadPortfolio, sumDisbursementsByRegion } from '@/lib/portfolio';
+import {
+  loadPortfolioFiltered,
+  sumDisbursementsByRegion,
+} from '@/lib/portfolio';
+import { parseFiltersFromRequest } from '@/lib/api-utils';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const portfolio = loadPortfolio();
+    const filters = parseFiltersFromRequest(request);
+
+    const portfolio = loadPortfolioFiltered(filters);
     const regions = sumDisbursementsByRegion(portfolio);
     return NextResponse.json({ regions });
   } catch (err: unknown) {

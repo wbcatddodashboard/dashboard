@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PORTFOLIO_ENDPOINTS, fetchJson } from '@/api.settings';
+import { useFilters } from '@/contexts/FilterContext';
+import { buildApiUrl } from '@/lib/api-utils';
 
 export interface SummaryTableResponse {
   table: {
@@ -10,6 +12,7 @@ export interface SummaryTableResponse {
 }
 
 export const useFetchSummaryTable = () => {
+  const { filters } = useFilters();
   const [data, setData] = useState<SummaryTableResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -19,10 +22,12 @@ export const useFetchSummaryTable = () => {
     const load = async () => {
       try {
         setIsLoading(true);
-        const json = await fetchJson<SummaryTableResponse>(
-          PORTFOLIO_ENDPOINTS.summaryTable,
-          { signal: abortController.signal }
-        );
+
+        const url = buildApiUrl(PORTFOLIO_ENDPOINTS.summaryTable, filters);
+
+        const json = await fetchJson<SummaryTableResponse>(url, {
+          signal: abortController.signal,
+        });
         setData(json);
         setErrorMessage('');
       } catch (err: unknown) {
@@ -34,7 +39,7 @@ export const useFetchSummaryTable = () => {
     };
     load();
     return () => abortController.abort();
-  }, []);
+  }, [filters]);
 
   return { data, isLoading, errorMessage };
 };

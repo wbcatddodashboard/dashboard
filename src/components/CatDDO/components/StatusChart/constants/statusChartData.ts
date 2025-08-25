@@ -12,6 +12,6 @@ export const statusChartData: StackedBarChartDataPoint[] = [
 
 export const statusSeries: BarChartSeries[] = [
   { key: 'Active', label: 'Active', color: '#a3c0e4' },
-  { key: 'Close', label: 'Close', color: '#295e84' },
+  { key: 'Closed', label: 'Closed', color: '#295e84' },
   { key: 'Pipeline', label: 'Pipeline', color: '#89a3c5' },
 ];

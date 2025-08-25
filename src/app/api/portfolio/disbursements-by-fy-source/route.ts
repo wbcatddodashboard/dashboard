@@ -2,15 +2,18 @@ import { NextResponse } from 'next/server';
 import {
   getFyColumns,
   loadMetadata,
-  loadPortfolio,
+  loadPortfolioFiltered,
   sumDisbursementsByFyAndSource,
 } from '@/lib/portfolio';
+import { parseFiltersFromRequest } from '@/lib/api-utils';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const portfolio = loadPortfolio();
+    const filters = parseFiltersFromRequest(request);
+
+    const portfolio = loadPortfolioFiltered(filters);
     const metadata = loadMetadata();
     const { fyColumns, fyShortLabels } = getFyColumns(portfolio, metadata);
     const { ibrd, ida } = sumDisbursementsByFyAndSource(portfolio, fyColumns);
