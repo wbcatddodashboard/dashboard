@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { useFetchPortfolioList } from '@/hooks/useFetchPortfolioList';
 import { useFetchPortfolioTriggers } from '@/hooks/useFetchPortfolioTriggers';
 import type { PortfolioListRow } from './TablePortfolioList.d';
@@ -11,7 +12,7 @@ export const useTablePortfolioList = () => {
     const triggerMap = new Map(triggers.map((t) => [t.projectId, t] as const));
 
     return data.map((d) => ({
-      id: d.id,
+      id: `${d.id}-${uuidv4()}`,
       projectId: d.projectId,
       country: d.country,
       projectName: d.projectName,
@@ -22,7 +23,6 @@ export const useTablePortfolioList = () => {
       region: d.region,
       globalPractice: d.globalPractice,
       operationType: d.operationType,
-      // Optional trigger fields will be used if columns are added later
       triggerText: triggerMap.get(d.projectId)?.triggerText ?? '',
       additionalInfo: triggerMap.get(d.projectId)?.additionalInfo ?? '',
       healthRelatedEmergencies:
