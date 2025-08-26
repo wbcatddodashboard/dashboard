@@ -8,7 +8,6 @@ export async function GET(request: Request) {
   try {
     const filters = parseFiltersFromRequest(request);
 
-    // Filter the portfolio first to get the relevant Project IDs
     const filteredPortfolio = loadPortfolioFiltered(filters);
     const filteredProjectIds = new Set(
       filteredPortfolio
