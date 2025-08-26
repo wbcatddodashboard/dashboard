@@ -2,14 +2,11 @@
 
 import React from 'react';
 import { BarChart } from '@/lib/BarChart';
-import { Image } from 'vizonomy';
 import {
   ChartContainer,
   ChartHeader,
   ChartTitle,
-  ChartIcon,
   ChartWrapper,
-  DownloadIconWrapper,
 } from './styled/DisbursementChart.styled';
 import { useDisbursementChart } from './useDisbursementChart';
 import { formatTotalLabel, formatValueLabel } from './DisbursementChart.utils';
@@ -25,17 +22,6 @@ export function DisbursementChart() {
         <ChartTitle>
           Cat DDO disbursements (in million US$) per funding source
         </ChartTitle>
-        <ChartIcon>
-          <DownloadIconWrapper>
-            <Image
-              src="/download-icon.svg"
-              alt="Download icon"
-              width={24}
-              height={24}
-              className="block max-w-none size-full"
-            />
-          </DownloadIconWrapper>
-        </ChartIcon>
       </ChartHeader>
       <ChartWrapper>
         <ClientOnlyChart width={1040} height={385}>

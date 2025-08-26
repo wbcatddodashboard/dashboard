@@ -61,15 +61,7 @@ function Sidebar({ className }: SidebarProps) {
 
         <When condition={!isLoading && !error}>
           {filterSections.map((section) => {
-            let sectionSize: 'small' | 'default' | 'large' = 'default';
-
-            if (section.id === 'project-status') {
-              sectionSize = 'small'; // Only 3 options
-            } else if (section.id === 'country') {
-              sectionSize = 'large'; // Many country options
-            } else {
-              sectionSize = 'default'; // Regions
-            }
+            const sectionSize: 'small' | 'default' | 'large' = 'default';
 
             return (
               <FilterSectionContainer key={section.id} size={sectionSize}>

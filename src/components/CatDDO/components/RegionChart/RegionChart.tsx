@@ -2,14 +2,11 @@
 
 import React from 'react';
 import { BarChart } from '@/lib/BarChart';
-import { Image } from 'vizonomy';
 import {
   ChartContainer,
   ChartHeader,
   ChartTitle,
-  ChartIcon,
   ChartWrapper,
-  DownloadIconWrapper,
 } from './styled/RegionChart.styled';
 import { Tooltip } from '../Tooltip';
 import { useRegionChart } from './useRegionChart';
@@ -22,17 +19,6 @@ export function RegionChart() {
     <ChartContainer>
       <ChartHeader>
         <ChartTitle>Number of Cat DDOs by Region</ChartTitle>
-        <ChartIcon>
-          <DownloadIconWrapper>
-            <Image
-              src="/download-icon.svg"
-              alt="Download icon"
-              width={24}
-              height={24}
-              className="block max-w-none size-full"
-            />
-          </DownloadIconWrapper>
-        </ChartIcon>
       </ChartHeader>
       <ChartWrapper>
         <ClientOnlyChart width={681} height={385}>
