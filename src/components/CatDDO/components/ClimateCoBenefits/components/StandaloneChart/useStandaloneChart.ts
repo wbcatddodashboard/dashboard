@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
+import type { StackedBarChartDataPoint, BarChartSeries } from '@/lib/BarChart';
 import { useFetchClimateCobenefits } from '@/hooks/useFetchClimateCobenefits';
 
 export const useStandaloneChart = () => {

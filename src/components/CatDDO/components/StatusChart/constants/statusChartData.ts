@@ -1,4 +1,4 @@
-import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
+import type { StackedBarChartDataPoint, BarChartSeries } from '@/lib/BarChart';
 
 export const statusChartData: StackedBarChartDataPoint[] = [
   { id: 'AFE', label: 'AFE', values: { Active: 4, Close: 4, Pipeline: 4 } },

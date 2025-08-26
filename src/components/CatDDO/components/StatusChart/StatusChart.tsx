@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { BarChart } from 'vizonomy-d3';
+import { BarChart } from '@/lib/BarChart';
 import { Image } from 'vizonomy';
 import {
   ChartContainer,
@@ -13,6 +13,7 @@ import {
 } from './styled/StatusChart.styled';
 import { useStatusChart } from './useStatusChart';
 import { ClientOnlyChart } from '../ChartWrapper';
+import Tooltip from '../Tooltip';
 
 export function StatusChart() {
   const { data, series } = useStatusChart();
@@ -49,6 +50,19 @@ export function StatusChart() {
             barPadding={0.3}
             legendItemGap={10}
             margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
+            styleProps={{
+              barOutlineStyle: '2px solid white',
+            }}
+            onOpenTooltip={(dataPoint, seriesKey) => {
+              const seriesInfo = series.find((s) => s.key === seriesKey);
+              const value = dataPoint.values[seriesKey] ?? 0;
+              return (
+                <Tooltip
+                  title="Number of Cat DDOs by Region"
+                  content={`${seriesInfo?.label} (${dataPoint.label}): ${value}`}
+                />
+              );
+            }}
           />
         </ClientOnlyChart>
       </ChartWrapper>
