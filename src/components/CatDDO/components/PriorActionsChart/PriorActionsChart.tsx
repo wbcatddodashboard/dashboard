@@ -43,6 +43,9 @@ export function PriorActionsChart() {
             yAxisLabelOffset={10}
             barPadding={0.4}
             margin={{ top: 20, right: 20, bottom: 60, left: 200 }}
+            styleProps={{
+              barOutlineStyle: '2px solid white',
+            }}
             onOpenTooltip={(dataPoint, seriesKey) => {
               const seriesInfo = series.find((s) => s.key === seriesKey);
               const value = dataPoint.values[seriesKey] ?? 0;

@@ -43,6 +43,9 @@ export function GlobalChart() {
             yAxisLabelOffset={10}
             barPadding={0.3}
             margin={{ top: 20, right: 20, bottom: 80, left: 60 }}
+            styleProps={{
+              barOutlineStyle: '2px solid white',
+            }}
             onOpenTooltip={(dataPoint, seriesKey) => {
               const seriesInfo = series.find((s) => s.key === seriesKey);
               const value = dataPoint.values[seriesKey] ?? 0;

@@ -51,7 +51,7 @@ export function StatusChart() {
             legendItemGap={10}
             margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
             styleProps={{
-              barOutlineStyle: '2px solid blue',
+              barOutlineStyle: '2px solid white',
             }}
             onOpenTooltip={(dataPoint, seriesKey) => {
               const seriesInfo = series.find((s) => s.key === seriesKey);
