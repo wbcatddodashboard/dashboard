@@ -56,7 +56,7 @@ export function DisbursementChart() {
             formatTotalLabel={formatTotalLabel}
             formatValueLabel={formatValueLabel}
             styleProps={{
-              barOutlineStyle: '2px solid white',
+              barOutlineStyle: '2px solid #002f54',
             }}
             onOpenTooltip={(dataPoint, seriesKey) => {
               const seriesInfo = series.find((s) => s.key === seriesKey);
