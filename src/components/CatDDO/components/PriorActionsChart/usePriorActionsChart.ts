@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { BarChartSeries } from 'vizonomy';
+import type { BarChartSeries } from '@/lib/BarChart';
 import { useFetchPriorActions } from '@/hooks/useFetchPriorActions';
 
 export function usePriorActionsChart() {
