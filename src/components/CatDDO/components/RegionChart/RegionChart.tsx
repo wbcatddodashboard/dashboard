@@ -52,7 +52,7 @@ export function RegionChart() {
             barPadding={0.3}
             margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
             styleProps={{
-              barOutlineStyle: '2px solid white',
+              barOutlineStyle: '2px solid #002f54',
             }}
             onOpenTooltip={(dataPoint, seriesKey) => {
               const seriesInfo = series.find((s) => s.key === seriesKey);
