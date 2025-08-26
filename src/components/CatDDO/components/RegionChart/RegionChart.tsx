@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { BarChart } from 'vizonomy-d3';
+import { BarChart } from '@/lib/BarChart';
 import { Image } from 'vizonomy';
 import {
   ChartContainer,
@@ -11,6 +11,7 @@ import {
   ChartWrapper,
   DownloadIconWrapper,
 } from './styled/RegionChart.styled';
+import { Tooltip } from '../Tooltip';
 import { useRegionChart } from './useRegionChart';
 import { ClientOnlyChart } from '../ChartWrapper';
 
@@ -50,6 +51,19 @@ export function RegionChart() {
             legendItemGap={10}
             barPadding={0.3}
             margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
+            styleProps={{
+              barOutlineStyle: '2px solid blue',
+            }}
+            onOpenTooltip={(dataPoint, seriesKey) => {
+              const seriesInfo = series.find((s) => s.key === seriesKey);
+              const value = dataPoint.values[seriesKey] ?? 0;
+              return (
+                <Tooltip
+                  title="Number of Cat DDOs by Region"
+                  content={`${seriesInfo?.label} (${dataPoint.label}): ${value}`}
+                />
+              );
+            }}
           />
         </ClientOnlyChart>
       </ChartWrapper>

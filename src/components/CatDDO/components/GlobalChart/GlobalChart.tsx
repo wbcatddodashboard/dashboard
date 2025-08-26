@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { BarChart } from 'vizonomy-d3';
+import { BarChart } from '@/lib/BarChart';
 import {
   ChartContainer,
   ChartWrapper,
@@ -9,6 +9,7 @@ import {
 } from './styled/GlobalChart.styled';
 import { useGlobalChart } from './useGlobalChart';
 import { ClientOnlyChart } from '../ChartWrapper';
+import Tooltip from '../Tooltip';
 
 export function GlobalChart() {
   const { data, series } = useGlobalChart();
@@ -42,6 +43,16 @@ export function GlobalChart() {
             yAxisLabelOffset={10}
             barPadding={0.3}
             margin={{ top: 20, right: 20, bottom: 80, left: 60 }}
+            onOpenTooltip={(dataPoint, seriesKey) => {
+              const seriesInfo = series.find((s) => s.key === seriesKey);
+              const value = dataPoint.values[seriesKey] ?? 0;
+              return (
+                <Tooltip
+                  title="Number of Cat DDOs by Region"
+                  content={`${seriesInfo?.label} (${dataPoint.label}): ${value}`}
+                />
+              );
+            }}
           />
         </ClientOnlyChart>
       </ChartWrapper>

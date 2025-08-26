@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
+import type { StackedBarChartDataPoint, BarChartSeries } from '@/lib/BarChart';
 import type { PriorActionRow } from '@/lib/portfolio';
 import { useFilters } from '@/contexts/FilterContext';
 import { buildApiUrl } from '@/lib/api-utils';

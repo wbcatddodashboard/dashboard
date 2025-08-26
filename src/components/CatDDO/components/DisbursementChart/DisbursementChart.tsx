@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { BarChart } from 'vizonomy-d3';
+import { BarChart } from '@/lib/BarChart';
 import { Image } from 'vizonomy';
 import {
   ChartContainer,
@@ -14,6 +14,7 @@ import {
 import { useDisbursementChart } from './useDisbursementChart';
 import { formatTotalLabel, formatValueLabel } from './DisbursementChart.utils';
 import { ClientOnlyChart } from '../ChartWrapper';
+import Tooltip from '../Tooltip';
 
 export function DisbursementChart() {
   const { data, series } = useDisbursementChart();
@@ -54,6 +55,16 @@ export function DisbursementChart() {
             margin={{ top: 20, right: 20, bottom: 80, left: 80 }}
             formatTotalLabel={formatTotalLabel}
             formatValueLabel={formatValueLabel}
+            onOpenTooltip={(dataPoint, seriesKey) => {
+              const seriesInfo = series.find((s) => s.key === seriesKey);
+              const value = dataPoint.values[seriesKey] ?? 0;
+              return (
+                <Tooltip
+                  title="Number of Cat DDOs by Region"
+                  content={`${seriesInfo?.label} (${dataPoint.label}): ${formatValueLabel(value)}`}
+                />
+              );
+            }}
           />
         </ClientOnlyChart>
       </ChartWrapper>

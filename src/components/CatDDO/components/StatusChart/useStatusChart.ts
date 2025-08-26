@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
+import type { StackedBarChartDataPoint, BarChartSeries } from '@/lib/BarChart';
 import { statusSeries } from './constants/statusChartData';
 import { useFetchRegionByStatus } from '@/hooks/useFetchRegionByStatus';
 

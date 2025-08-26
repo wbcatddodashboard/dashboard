@@ -1,4 +1,4 @@
-import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
+import type { StackedBarChartDataPoint, BarChartSeries } from '@/lib/BarChart';
 
 export type GlobalChartProps = object;
 
