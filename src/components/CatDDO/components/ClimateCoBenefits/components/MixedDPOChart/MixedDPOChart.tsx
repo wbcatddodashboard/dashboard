@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { BarChart } from 'vizonomy-d3';
 import {
   ChartContainer,
   ChartWrapper,
@@ -11,6 +10,8 @@ import {
 import { useMixedDPOChart } from './useMixedDPOChart';
 import { ClientOnlyChart } from '../../../ChartWrapper';
 import { BAR_HEIGHT, CHART_PADDING } from './constants/mixedDPOChartData';
+import { BarChart } from '@/lib/BarChart';
+import Tooltip from '../../../Tooltip';
 
 export function MixedDPOChart() {
   const { data, series } = useMixedDPOChart();
@@ -46,6 +47,19 @@ export function MixedDPOChart() {
             showTooltip={true}
             barPadding={0.3}
             margin={{ top: 20, right: 20, bottom: 40, left: 200 }}
+            styleProps={{
+              barOutlineStyle: '2px solid white',
+            }}
+            onOpenTooltip={(dataPoint, seriesKey) => {
+              const seriesInfo = series.find((s) => s.key === seriesKey);
+              const value = dataPoint.values[seriesKey] ?? 0;
+              return (
+                <Tooltip
+                  title="Number of Cat DDOs by Region"
+                  content={`${seriesInfo?.label} (${dataPoint.label}): ${value}`}
+                />
+              );
+            }}
           />
         </ClientOnlyChart>
       </ChartWrapper>

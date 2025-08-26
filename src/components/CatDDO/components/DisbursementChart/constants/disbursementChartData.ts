@@ -1,4 +1,4 @@
-import type { StackedBarChartDataPoint, BarChartSeries } from 'vizonomy';
+import type { StackedBarChartDataPoint, BarChartSeries } from '@/lib/BarChart';
 
 // Mock data based on the Figma design showing disbursements by fiscal year and funding source
 export const disbursementChartData: StackedBarChartDataPoint[] = [

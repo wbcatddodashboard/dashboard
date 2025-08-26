@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { StackedBarChartDataPoint } from 'vizonomy';
+import type { StackedBarChartDataPoint } from '@/lib/BarChart';
 import { disbursementSeries } from './constants/disbursementChartData';
 import { useFetchDisbursementsByFySource } from '@/hooks/useFetchDisbursementsByFySource';
 
