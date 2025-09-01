@@ -236,14 +236,13 @@ export function FilterOptionButton({
     'content-stretch',
     'flex',
     'flex-row',
-    'h-[30px]',
+    'min-h-[32px]',
     'items-center',
     'justify-between',
-    'overflow-clip',
+    'overflow-hidden',
     'px-1.5',
-    'py-3',
+    'py-2.5',
     'relative',
-    'shrink-0',
     'w-full',
     'cursor-pointer',
     {
@@ -279,15 +278,15 @@ export function FilterOptionLabel({ children }: ChildrenProps) {
     'flex-row',
     'gap-2',
     'grow',
-    'h-4',
+    'min-h-5',
     'items-center',
     'justify-start',
     'min-h-px',
-    'min-w-px',
+    'min-w-0',
     'px-2',
     'py-0',
     'relative',
-    'shrink-0'
+    'overflow-hidden'
   );
 
   return <div className={labelClasses}>{children}</div>;
@@ -302,12 +301,14 @@ export function FilterOptionText({
     'font-normal',
     'leading-[0]',
     'relative',
-    'shrink-0',
+    'min-w-0',
+    'flex-1',
     'text-[#295e84]',
     'text-[14px]',
     'text-left',
-    'text-nowrap',
+    'break-words',
     'tracking-[0.25px]',
+    'overflow-hidden',
     {
       'font-["Inter:Semi_Bold",_sans-serif] font-semibold tracking-[-0.14px]':
         isSelected,
@@ -317,7 +318,8 @@ export function FilterOptionText({
   const paragraphClasses = classNames(
     'block',
     'leading-[20px]',
-    'whitespace-pre',
+    'whitespace-normal',
+    'overflow-hidden',
     {
       'leading-[16px]': isSelected,
     }
