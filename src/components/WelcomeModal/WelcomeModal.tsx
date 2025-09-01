@@ -46,9 +46,11 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) => {
                       <DescriptionText>
                         This dashboard was made possible with the financial
                         support from the Japan-Bank Program for <br />
-                        Mainstreaming DRM in Developing Countries, which is
-                        financed by the Government of Japan and receives <br />
-                        technical support from the World Bank GFDRR Tokyo
+                        Mainstreaming Disaster Risk Management in Developing
+                        Countries, which is financed by the Government of Japan
+                        and receives <br />
+                        technical support from the World Bank Global Facility
+                        for Disaster Reduction and Recovery (GFDRR) Tokyo
                         Disaster Risk Management Hub.
                       </DescriptionText>
                     </TextContainer>

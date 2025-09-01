@@ -25,12 +25,12 @@ export function DashboardHero() {
 
           <DescriptionSection>
             <DescriptionParagraph>
-              This dashboard shows key insights from DPF with Cat DDO
-              operations. The Cat DDO is an instrument that provides countries
-              with timely access to liquidity following disasters or public
-              health-related emergencies, while supporting institutional and
-              policy reforms that strengthen disaster risk management and
-              enhance resilience.
+              This dashboard shows key insights from Development Policy
+              Financing (DPF) with Catastrophe Deferred Drawdown Option (Cat
+              DDO) operations. with timely access to liquidity following
+              disasters or public health-related emergencies, while supporting
+              institutional and policy reforms that strengthen disaster risk
+              management and enhance resilience.
             </DescriptionParagraph>
             <DescriptionParagraphLast>
               <span>
