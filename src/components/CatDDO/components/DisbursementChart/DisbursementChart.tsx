@@ -38,6 +38,7 @@ export function DisbursementChart() {
             showGrid
             yAxisLabelOffset={45}
             barPadding={0.3}
+            legendItemGap={10}
             margin={{ top: 20, right: 20, bottom: 80, left: 80 }}
             formatTotalLabel={formatTotalLabel}
             formatValueLabel={formatValueLabel}
