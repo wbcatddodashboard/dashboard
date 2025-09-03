@@ -222,8 +222,6 @@ export function crosstabFiscalYearRegion(portfolioRows: PortfolioRow[]) {
     );
     if (fyLabel) yearsSet.add(fyLabel);
   }
-  // Ensure "'10" exists as in the python script
-  yearsSet.add("'10");
 
   const regions = Array.from(regionsSet).sort();
   const years = Array.from(yearsSet).sort();
