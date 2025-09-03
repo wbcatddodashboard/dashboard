@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { PortfolioContent } from './PortfolioContent';
 import { PolicyProgramContent } from './PolicyProgramContent';
 import { DisbursementTriggersContent } from './DisbursementTriggersContent';
-import DRMPolicyPillarsModal from '../DRMPolicyPillarsModal';
 import {
   TabTextContainer,
-  TabContentWithIcon,
-  IconContainer,
   TabsWrapper,
   TabsInnerContainer,
   TabStyledWrapper,
@@ -24,7 +20,6 @@ export function TabText({ children }: { children: React.ReactNode }) {
 
 export function CatDDOTabs() {
   const [activeTabId, setActiveTabId] = useState<string>('portfolio');
-  const [isDRMModalOpen, setIsDRMModalOpen] = useState(false);
 
   const tabs = [
     {
@@ -34,26 +29,7 @@ export function CatDDOTabs() {
     },
     {
       id: 'policy',
-      label: (
-        <TabContentWithIcon>
-          <TabText>Cat DDO Policy Program</TabText>
-          <IconContainer
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsDRMModalOpen(true);
-            }}
-            className="cursor-pointer hover:opacity-80 transition-opacity"
-          >
-            <Image
-              src="/info-icon-figma.svg"
-              alt="Info"
-              width={20}
-              height={20}
-              className="block max-w-none size-full"
-            />
-          </IconContainer>
-        </TabContentWithIcon>
-      ),
+      label: <TabText>Cat DDO Policy Program</TabText>,
       content: <PolicyProgramContent />,
     },
     {
@@ -73,11 +49,6 @@ export function CatDDOTabs() {
           onTabChange={setActiveTabId}
         />
       </TabsInnerContainer>
-
-      <DRMPolicyPillarsModal
-        isOpen={isDRMModalOpen}
-        onClose={() => setIsDRMModalOpen(false)}
-      />
     </TabsWrapper>
   );
 }
