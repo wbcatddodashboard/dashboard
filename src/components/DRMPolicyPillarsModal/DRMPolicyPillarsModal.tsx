@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button, StepModal } from 'vizonomy';
+import { useFetchMetadata } from '@/hooks/useFetchMetadata';
+import { formatLastUpdate } from '@/utils/date-utils';
 import {
   ContentContainer,
   DescriptionContainer,
   DescriptionText,
-  LinkText,
   DiagramContainer,
   PillarsRow,
   PillarColumn,
@@ -24,6 +25,8 @@ const DRMPolicyPillarsModal: React.FC<DRMPolicyPillarsModalProps> = ({
   isOpen,
   onClose,
 }) => {
+  const { metadata, isLoading } = useFetchMetadata();
+
   const pillars = [
     {
       id: 1,
@@ -91,11 +94,11 @@ const DRMPolicyPillarsModal: React.FC<DRMPolicyPillarsModalProps> = ({
       <StepModal.Overlay className="z-[9999]">
         <StepModal.Content
           size="xl"
-          className="!w-[900px] max-w-[900px] max-h-[90vh] overflow-y-auto z-[10000]"
+          className="!w-[900px] max-w-[900px] max-h-[90vh] overflow-y-auto z-[10000] !bg-[#f9fafb] shadow-2xl"
         >
           <StepModal.Header>
             <StepModal.Title className="text-[32px] font-bold !text-[#295e84] leading-[40px]">
-              The DRM Policy Pillars
+              Understanding Data
             </StepModal.Title>
             <StepModal.Close />
           </StepModal.Header>
@@ -105,28 +108,13 @@ const DRMPolicyPillarsModal: React.FC<DRMPolicyPillarsModalProps> = ({
               <ContentContainer>
                 <DescriptionContainer>
                   <DescriptionText>
-                    To analyze trends and distribution patterns in policy
-                    reforms supported by Cat DDOs, Prior Actions were classified
-                    according to the World Bank's DRM framework. Originally
-                    proposed by <LinkText>Ghesquiere et al. (2012)</LinkText>{' '}
-                    and fully aligned with the Sendai Framework for DRR, this
-                    framework comprises six pillars that reflect the key areas
-                    of engagement typically supported through Cat DDOs. Where
-                    relevant, the pillars are further disaggregated into
-                    sub-pillars to provide greater analytical granularity.
-                  </DescriptionText>
-
-                  <DescriptionText>
-                    The DRM framework offers a standardized structure to map
-                    reforms, track progress, and identify policy gaps across
-                    critical dimensions of resilience-building. It also serves
-                    as a practical tool to inform the design of DRM policy
-                    programs that adopt a systems-based approach to
-                    strengthening resilience. While individual PAs may
-                    contribute to multiple pillars, a simplifying assumption was
-                    applied for classification purposes: each DRM-related PA was
-                    assigned to a single pillar based on predefined keywords and
-                    expert judgment.
+                    This dashboard compiles information extracted from the World
+                    Bank operations portal as of{' '}
+                    {formatLastUpdate(metadata, isLoading)}. It covers three
+                    essential dimensions related to Cat DDOs: (i) portfolio
+                    financial trends, (ii) Cat DDO policy program and
+                    DRM-related reforms supported through past operations, and
+                    (iii) Cat DDO disbursement triggers' definition and use.
                   </DescriptionText>
                 </DescriptionContainer>
 

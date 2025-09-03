@@ -31,7 +31,7 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) => {
       <StepModal.Overlay className="z-[9999]">
         <StepModal.Content
           size="xl"
-          className="!w-[800px] max-w-[800px] max-h-[90vh] overflow-y-auto z-[10000]"
+          className="!w-[900px] max-w-[900px] max-h-[90vh] overflow-y-auto z-[10000] !bg-[#f9fafb] shadow-2xl"
         >
           <StepModal.Body className="px-8 py-[41px]">
             <StepModal.Step>

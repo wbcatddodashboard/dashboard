@@ -14,26 +14,12 @@ import {
   MainMapContainer,
 } from '@/components/Welcome/Welcome.styled';
 import { useFetchMetadata } from '@/hooks/useFetchMetadata';
+import { formatLastUpdate } from '@/utils/date-utils';
 
 export function DashboardHero() {
   const { metadata, isLoading } = useFetchMetadata();
 
-  const formatLastUpdate = () => {
-    if (
-      isLoading ||
-      !metadata.Update_Day ||
-      !metadata.Update_Month ||
-      !metadata.Update_Year
-    ) {
-      return 'Loading...';
-    }
-
-    const day = metadata.Update_Day.padStart(2, '0');
-    const month = metadata.Update_Month.substring(0, 3);
-    const year = metadata.Update_Year;
-
-    return `${day} ${month} ${year}`;
-  };
+  const formattedDate = formatLastUpdate(metadata, isLoading);
 
   return (
     <DashboardInnerContainer>
@@ -60,8 +46,8 @@ export function DashboardHero() {
                 DDOs.{' '}
               </span>
               <ItalicText>
-                Data last updated: {formatLastUpdate()}. The data will be
-                updated semiannually.
+                Data last updated: {formattedDate}. The data will be updated
+                semiannually.
               </ItalicText>
             </DescriptionParagraphLast>
           </DescriptionSection>
