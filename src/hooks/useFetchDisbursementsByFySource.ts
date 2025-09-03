@@ -8,6 +8,7 @@ export interface DisbursementsByFySourceResponse {
   labels: string[];
   ibrd: number[];
   ida: number[];
+  ibrdAndIda: number[];
   total: number[];
 }
 

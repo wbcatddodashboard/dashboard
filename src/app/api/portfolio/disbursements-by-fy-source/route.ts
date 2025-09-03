@@ -16,13 +16,17 @@ export async function GET(request: Request) {
     const portfolio = loadPortfolioFiltered(filters);
     const metadata = loadMetadata();
     const { fyColumns, fyShortLabels } = getFyColumns(portfolio, metadata);
-    const { ibrd, ida } = sumDisbursementsByFyAndSource(portfolio, fyColumns);
-    const total = ibrd.map((v, i) => v + ida[i]);
+    const { ibrd, ida, ibrdAndIda } = sumDisbursementsByFyAndSource(
+      portfolio,
+      fyColumns
+    );
+    const total = ibrd.map((v, i) => v + ida[i] + ibrdAndIda[i]);
     return NextResponse.json({
       fiscalYears: fyColumns,
       labels: fyShortLabels,
       ibrd,
       ida,
+      ibrdAndIda,
       total,
     });
   } catch (err: unknown) {
