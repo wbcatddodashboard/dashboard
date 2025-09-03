@@ -125,17 +125,22 @@ export function sumDisbursementsByFyAndSource(
 ) {
   const sumsIBRD = new Array<number>(fyColumns.length).fill(0);
   const sumsIDA = new Array<number>(fyColumns.length).fill(0);
+  const sumsIBRDAndIDA = new Array<number>(fyColumns.length).fill(0);
 
   for (const row of portfolioRows) {
-    const isIBRD = (row['Source'] ?? '').toString().trim() === 'IBRD';
-    const isIDA = (row['Source'] ?? '').toString().trim() === 'IDA';
+    const source = (row['Source'] ?? '').toString().trim();
+    const isIBRD = source === 'IBRD';
+    const isIDA = source === 'IDA';
+    const isIBRDAndIDA = source === 'IBRD and IDA';
+
     fyColumns.forEach((col, i) => {
       const val = toNumberLoose(row[col]);
       if (isIBRD) sumsIBRD[i] += val;
       if (isIDA) sumsIDA[i] += val;
+      if (isIBRDAndIDA) sumsIBRDAndIDA[i] += val;
     });
   }
-  return { ibrd: sumsIBRD, ida: sumsIDA };
+  return { ibrd: sumsIBRD, ida: sumsIDA, ibrdAndIda: sumsIBRDAndIDA };
 }
 
 export function sumDisbursementsByRegion(portfolioRows: PortfolioRow[]) {
