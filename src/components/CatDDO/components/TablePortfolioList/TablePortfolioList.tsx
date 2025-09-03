@@ -6,7 +6,6 @@ import {
   TableFundingContainer,
   TableFundingWrapper,
   TableCellText,
-  TableFundingNote,
 } from '../TableFundingDDO/styled/TableFundingDDO.styled';
 import { useTablePortfolioList } from './useTablePortfolioList';
 import type { PortfolioListRow } from './TablePortfolioList.d';
@@ -131,13 +130,6 @@ export function TablePortfolioList() {
         scroll={{ x: 2600 }}
         sorting={{ multiple: false }}
       />
-      <TableFundingNote>
-        Cat_DDO_Portfolio.csv columns mapped as: P# → Project ID; Country →
-        Country; Description → Project Name; Fiscal Year → Fiscal Year; Status →
-        Status; Activation for COVID → Activation for COVID; Source → Project
-        Financier; Region → Region; Global Practice → Global Practice;
-        Standalone/Mixed → Mixed/Standalone.
-      </TableFundingNote>
     </TableFundingContainer>
   );
 }
