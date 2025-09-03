@@ -13,8 +13,28 @@ import {
   BackgroundMapContainer,
   MainMapContainer,
 } from '@/components/Welcome/Welcome.styled';
+import { useFetchMetadata } from '@/hooks/useFetchMetadata';
 
 export function DashboardHero() {
+  const { metadata, isLoading } = useFetchMetadata();
+
+  const formatLastUpdate = () => {
+    if (
+      isLoading ||
+      !metadata.Update_Day ||
+      !metadata.Update_Month ||
+      !metadata.Update_Year
+    ) {
+      return 'Loading...';
+    }
+
+    const day = metadata.Update_Day.padStart(2, '0');
+    const month = metadata.Update_Month.substring(0, 3);
+    const year = metadata.Update_Year;
+
+    return `${day} ${month} ${year}`;
+  };
+
   return (
     <DashboardInnerContainer>
       <HeroWrapper>
@@ -39,7 +59,10 @@ export function DashboardHero() {
                 core statistics, and patterns of policy reform from Cat
                 DDOs.{' '}
               </span>
-              <ItalicText>Last update: 08 Aug 2025.</ItalicText>
+              <ItalicText>
+                Data last updated: {formatLastUpdate()}. The data will be
+                updated semiannually.
+              </ItalicText>
             </DescriptionParagraphLast>
           </DescriptionSection>
         </TextContentSection>

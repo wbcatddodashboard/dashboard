@@ -33,6 +33,7 @@ export type PriorActionRow = Record<string, string> & {
 };
 
 export type Metadata = {
+  Update_Day?: string;
   Update_Month?: string;
   Update_Year?: string;
   Last_FY?: string; // e.g., FY24
@@ -47,6 +48,7 @@ export function loadMetadata(): Metadata {
     if (key) map[key] = value;
   }
   return {
+    Update_Day: map['Update_Day'],
     Update_Month: map['Update_Month'],
     Update_Year: map['Update_Year'],
     Last_FY: map['Last_FY'],
