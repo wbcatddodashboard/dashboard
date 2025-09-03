@@ -1,4 +1,5 @@
 import React from 'react';
+import { When } from 'vizonomy';
 import {
   PortfolioContainer,
   PortfolioTitle,
@@ -10,8 +11,21 @@ import { DisbursementChart, RegionChart, StatusChart } from './components';
 import { GlobalCatDDO } from './GlobalCatDDO';
 import DisbursementTables from './DisbursementTables';
 import { ClimateCoBenefits } from './ClimateCoBenefits';
+import { usePortfolioStats } from '@/hooks/usePortfolioStats';
+import { useFetchMetadata } from '@/hooks/useFetchMetadata';
+import { formatLastUpdate } from '@/utils/date-utils';
 
 export const PortfolioContent = () => {
+  const {
+    totalApproved,
+    totalCountries,
+    totalClosed,
+    isLoading: statsLoading,
+  } = usePortfolioStats();
+  const { metadata, isLoading: metadataLoading } = useFetchMetadata();
+
+  const formattedDate = formatLastUpdate(metadata, metadataLoading);
+
   return (
     <PortfolioWrapper>
       <PortfolioContainer>
@@ -19,9 +33,14 @@ export const PortfolioContent = () => {
           Overview of the evolution and composition of the Cat DDO portfolio
         </PortfolioTitle>
         <PortfolioDescription>
-          As of DATE, 58 Cat DDOs have been approved in 36 countries, with 32 of
-          these operations having already been closed. There are additional 15
-          Cat DDOs currently in the pipeline.
+          <When condition={statsLoading || metadataLoading}>
+            Loading portfolio information...
+          </When>
+          <When condition={!statsLoading && !metadataLoading}>
+            As of {formattedDate}, {totalApproved} Cat DDOs have been approved
+            in {totalCountries} countries, with {totalClosed} of these
+            operations having already been closed.
+          </When>
         </PortfolioDescription>
       </PortfolioContainer>
 
