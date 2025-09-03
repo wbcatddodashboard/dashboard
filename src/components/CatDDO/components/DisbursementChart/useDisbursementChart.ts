@@ -20,6 +20,7 @@ export const useDisbursementChart = () => {
       const values: Record<string, number> = {
         IBRD: data.ibrd[index] || 0,
         IDA: data.ida[index] || 0,
+        'IBRD and IDA': data.ibrdAndIda?.[index] || 0,
       };
 
       return {

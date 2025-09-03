@@ -92,4 +92,5 @@ export const disbursementChartData: StackedBarChartDataPoint[] = [
 export const disbursementSeries: BarChartSeries[] = [
   { key: 'IBRD', label: 'IBRD', color: '#295e84' },
   { key: 'IDA', label: 'IDA', color: '#89a3c5' },
+  { key: 'IBRD and IDA', label: 'IBRD and IDA', color: '#5a7ba8' },
 ];
