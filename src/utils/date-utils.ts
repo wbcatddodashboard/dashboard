@@ -1,4 +1,4 @@
-import type { Metadata } from '../lib/portfolio';
+import type { Metadata } from '@/lib/portfolio';
 
 export function formatLastUpdate(
   metadata: Metadata,
