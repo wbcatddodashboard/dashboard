@@ -45,7 +45,6 @@ export function RegionChart() {
               const value = dataPoint.values[seriesKey] ?? 0;
               return (
                 <Tooltip
-                  title="Number of Cat DDOs by Region"
                   content={`${seriesInfo?.label} (${dataPoint.label}): ${value}`}
                 />
               );
