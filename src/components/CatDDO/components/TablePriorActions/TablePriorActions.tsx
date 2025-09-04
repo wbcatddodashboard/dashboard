@@ -8,11 +8,16 @@ import {
   TablePriorActionsWrapper,
   NoDataMessage,
 } from './styled/TablePriorActions.styled';
-import { useTablePriorActions } from './useTablePriorActions';
 
-export const TablePriorActions = () => {
-  const { rows, isLoading } = useTablePriorActions();
+interface TablePriorActionsProps {
+  rows?: PriorAction[];
+  isLoading?: boolean;
+}
 
+export const TablePriorActions = ({
+  rows = [],
+  isLoading = false,
+}: TablePriorActionsProps) => {
   const columns: TableColumn<PriorAction>[] = [
     {
       id: 'projectNumber',

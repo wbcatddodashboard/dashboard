@@ -5,6 +5,8 @@ import { useFetchDisbursementsByCountry } from '@/hooks/useFetchDisbursementsByC
 export const useTableDisbursementCountry = () => {
   const { data, isLoading, error } = useFetchDisbursementsByCountry();
 
+  const rawData = useMemo(() => data, [data]);
+
   const rows = useMemo<DisbursementCountry[]>(() => {
     if (!data.length) return [];
 
@@ -42,5 +44,5 @@ export const useTableDisbursementCountry = () => {
     return [...dataRows, totalRow];
   }, [data]);
 
-  return { rows, isLoading, errorMessage: error };
+  return { rows, rawData, isLoading, errorMessage: error };
 };

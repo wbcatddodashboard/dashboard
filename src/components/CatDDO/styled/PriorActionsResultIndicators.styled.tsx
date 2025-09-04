@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Button } from 'vizonomy';
 
 interface ChildrenProps {
   children: ReactNode;
@@ -18,8 +19,10 @@ export function PriorActionsContainer({ children }: ChildrenProps) {
 
 export function PriorActionsTitle({ children }: ChildrenProps) {
   return (
-    <div className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[0] min-w-full not-italic relative shrink-0 text-[#295e84] text-[24px] text-left tracking-[-0.18px]">
-      <p className="block leading-[24px]">{children}</p>
+    <div className="flex items-center justify-between mb-4 w-full">
+      <div className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[0] not-italic relative shrink-0 text-[#295e84] text-[24px] text-left tracking-[-0.18px]">
+        <p className="block leading-[24px]">{children}</p>
+      </div>
     </div>
   );
 }
@@ -45,5 +48,26 @@ export function PriorActionsTableSection({ children }: ChildrenProps) {
     <div className="box-border content-stretch flex flex-row items-start justify-between p-0 relative shrink-0 w-full">
       {children}
     </div>
+  );
+}
+
+export function DownloadButton({
+  children,
+  onClick,
+  disabled,
+}: {
+  children: ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
+}) {
+  return (
+    <Button
+      onClick={onClick}
+      disabled={disabled}
+      className="p-2 hover:bg-gray-100 rounded-md transition-colors duration-200 cursor-pointer bg-transparent border-none"
+      title="Download CSV"
+    >
+      {children}
+    </Button>
   );
 }
