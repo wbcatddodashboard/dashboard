@@ -17,42 +17,58 @@ export async function GET(request: Request) {
 
     // Load all prior actions and filter by Project IDs
     const allPriorActions = loadPriorActions();
-    const priorActions = allPriorActions.filter((row) =>
-      filteredProjectIds.has((row['P#'] ?? '').toString().trim())
-    );
+    const priorActions = allPriorActions
+      .filter((row) =>
+        filteredProjectIds.has((row['P#'] ?? '').toString().trim())
+      )
+      .filter((row) => {
+        const drmPillar = (row['DRM Pillar'] ?? '').toString().trim();
+        return drmPillar !== '' && !drmPillar.toLowerCase().includes('not drm');
+      });
 
-    // Group by PA Typology Description for chart data
-    const typologyCounts = new Map<string, number>();
+    const pillarColorMap: Record<string, string> = {
+      'Legal and Institutional DRM Framework': '#e4a3a3',
+      'DRM policies and institutions': '#e4a3a3',
+      'Mainstreaming DRM into national development plans': '#e4a3a3',
+      'Risk Identification': '#e4e4a3',
+      'Risk Reduction': '#a3e4a3',
+      'Territorial and urban planning': '#a3e4a3',
+      'Public investment at the central level': '#a3e4a3',
+      'Sector-specific risk reduction measures': '#a3e4a3',
+      Preparedness: '#a3e4e4',
+      'Early Warning Systems': '#a3e4e4',
+      'Emergency Preparedness and Response': '#a3e4e4',
+      'Adaptive Social Protection': '#a3e4e4',
+      'Financial Protection': '#a3a3e4',
+      'Fiscal Risk': '#a3a3e4',
+      'Disaster Risk Financing strategies and instruments': '#a3a3e4',
+      'Resilient Reconstruction': '#e4a3e4',
+    };
+
+    const pillarCounts = new Map<string, number>();
 
     for (const row of priorActions) {
-      const typology = row['PA Typology Description'] ?? 'Unknown';
-      typologyCounts.set(typology, (typologyCounts.get(typology) ?? 0) + 1);
+      const pillar = row['DRM Pillar'] ?? 'Unknown';
+      pillarCounts.set(pillar, (pillarCounts.get(pillar) ?? 0) + 1);
     }
 
-    // Convert to chart data format
-    const chartData = Array.from(typologyCounts.entries()).map(
-      ([typology, count]) => ({
-        id: typology,
-        label: typology,
-        values: {
-          'Prior Actions': count,
-        },
-      })
-    );
+    const sortedPillars = Array.from(pillarCounts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([pillar]) => pillar);
 
-    // Sort by count descending
-    chartData.sort(
-      (a, b) => b.values['Prior Actions'] - a.values['Prior Actions']
-    );
-
-    // Define series for the chart
-    const series = [
-      {
-        key: 'Prior Actions',
-        label: 'Prior Actions',
-        color: '#295e84',
+    const chartData = sortedPillars.map((pillar) => ({
+      id: pillar,
+      label: pillar,
+      values: {
+        [pillar]: pillarCounts.get(pillar) || 0,
       },
-    ];
+    }));
+
+    const series = sortedPillars.map((pillar) => ({
+      key: pillar,
+      label: pillar,
+      color: pillarColorMap[pillar] || '#cccccc',
+    }));
 
     return NextResponse.json({
       chartData,

@@ -36,7 +36,7 @@ export function PriorActionsChart() {
             xAxisLabel=""
             yAxisLabel=""
             orientation="horizontal"
-            showLegend
+            showLegend={false}
             showGrid={true}
             showTooltip={false}
             legendItemGap={10}
@@ -47,13 +47,8 @@ export function PriorActionsChart() {
               barOutlineStyle: '2px solid #002f54',
             }}
             onOpenTooltip={(dataPoint, seriesKey) => {
-              const seriesInfo = series.find((s) => s.key === seriesKey);
               const value = dataPoint.values[seriesKey] ?? 0;
-              return (
-                <Tooltip
-                  content={`${seriesInfo?.label} (${dataPoint.label}): ${value}`}
-                />
-              );
+              return <Tooltip content={`${dataPoint.label}: ${value}`} />;
             }}
           />
         </ClientOnlyChart>

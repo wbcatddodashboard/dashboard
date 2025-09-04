@@ -25,11 +25,9 @@ export type PortfolioRow = Record<string, string> & {
 export type PriorActionRow = Record<string, string> & {
   'P#'?: string;
   Country?: string;
-  Pillar?: string;
+  'DRM Pillar'?: string;
   'Prior Action'?: string;
   'Result Indicator'?: string;
-  'PA Typology Description'?: string;
-  'Type of legal evidence'?: string;
 };
 
 export type Metadata = {
