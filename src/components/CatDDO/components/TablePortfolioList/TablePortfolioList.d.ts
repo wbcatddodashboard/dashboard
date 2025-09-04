@@ -14,4 +14,5 @@ export interface PortfolioListRow {
   additionalInfo?: string;
   healthRelatedEmergencies?: string;
   disastersTriggered?: string;
+  link?: string;
 }
