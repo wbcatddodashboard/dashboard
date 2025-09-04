@@ -1,24 +1,16 @@
-import { useMemo } from 'react';
-import type { BarChartSeries } from '@/lib/BarChart';
 import { useFetchPriorActions } from '@/hooks/useFetchPriorActions';
 
 export function usePriorActionsChart() {
-  const { chartData, isLoading, error } = useFetchPriorActions();
-
-  const memoizedSeries = useMemo<BarChartSeries[]>(
-    () => [
-      {
-        key: 'Prior Actions',
-        label: 'Prior Actions',
-        color: '#295e84',
-      },
-    ],
-    []
-  );
+  const {
+    chartData,
+    series: apiSeries,
+    isLoading,
+    error,
+  } = useFetchPriorActions();
 
   return {
     data: chartData,
-    series: memoizedSeries,
+    series: apiSeries,
     isLoading,
     errorMessage: error,
   };

@@ -18,7 +18,7 @@ export const TablePriorActions = () => {
       id: 'projectNumber',
       key: 'projectNumber',
       label: 'P#',
-      width: '8%',
+      width: '10%',
       render: (value: string, row: PriorAction) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
@@ -27,15 +27,15 @@ export const TablePriorActions = () => {
       id: 'country',
       key: 'country',
       label: 'Country',
-      width: '12%',
+      width: '15%',
       render: (value: string, row: PriorAction) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
     },
     {
-      id: 'pillar',
-      key: 'pillar',
-      label: 'Pillar',
+      id: 'drmPillar',
+      key: 'drmPillar',
+      label: 'DRM Pillar',
       width: '20%',
       render: (value: string, row: PriorAction) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
@@ -45,7 +45,7 @@ export const TablePriorActions = () => {
       id: 'priorAction',
       key: 'priorAction',
       label: 'Prior Action',
-      width: '20%',
+      width: '27.5%',
       render: (value: string, row: PriorAction) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
@@ -54,25 +54,7 @@ export const TablePriorActions = () => {
       id: 'resultIndicator',
       key: 'resultIndicator',
       label: 'Result Indicator',
-      width: '20%',
-      render: (value: string, row: PriorAction) => (
-        <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
-      ),
-    },
-    {
-      id: 'drmPolicyArea',
-      key: 'drmPolicyArea',
-      label: 'DRM Policy Area',
-      width: '15%',
-      render: (value: string, row: PriorAction) => (
-        <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
-      ),
-    },
-    {
-      id: 'typeOfLegalEvidence',
-      key: 'typeOfLegalEvidence',
-      label: 'Type of legal evidence',
-      width: '15%',
+      width: '27.5%',
       render: (value: string, row: PriorAction) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
