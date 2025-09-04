@@ -1,12 +1,14 @@
 'use client';
 
 import React from 'react';
+import { When } from 'vizonomy';
 import type { TableColumn } from 'vizonomy';
 import {
   TableFundingContainer,
   TableFundingWrapper,
   TableCellText,
 } from '../TableFundingDDO/styled/TableFundingDDO.styled';
+import { TableLink } from './styled/TablePortfolioList.styled';
 import { useTablePortfolioList } from './useTablePortfolioList';
 import type { PortfolioListRow } from './TablePortfolioList.d';
 
@@ -118,6 +120,20 @@ export function TablePortfolioList() {
       width: 320,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
+    {
+      id: 'link',
+      key: 'link',
+      label: 'Link to Financing or Loan Agreement',
+      width: 300,
+      render: (v: string) => (
+        <TableCellText>
+          <When condition={!!v}>
+            <TableLink href={v}>{v}</TableLink>
+          </When>
+          <When condition={!v}>-</When>
+        </TableCellText>
+      ),
+    },
   ];
 
   return (
@@ -126,8 +142,8 @@ export function TablePortfolioList() {
         data={rows}
         columns={columns}
         rowKey="id"
-        maxBodyHeight={420}
-        scroll={{ x: 2600 }}
+        maxBodyHeight={600}
+        scroll={{ x: 2900 }}
         sorting={{ multiple: false }}
       />
     </TableFundingContainer>
