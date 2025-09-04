@@ -144,24 +144,34 @@ export function sumDisbursementsByFyAndSource(
 export function sumDisbursementsByRegion(portfolioRows: PortfolioRow[]) {
   const regionMap = new Map<
     string,
-    { netCommitment: number; disbursements: number }
+    {
+      netCommitment: number;
+      disbursements: number;
+      rawNetCommitment: number;
+      rawDisbursements: number;
+    }
   >();
 
   for (const row of portfolioRows) {
     const region = (row['Region'] ?? '').toString().trim();
     if (!region) continue;
 
-    const netCommitment = toNumberLoose(row['Commitment (Cat DDO only)']) / 1e6;
-    const disbursements =
-      toNumberLoose(row['Disbursements - Cat DDO Cum.']) / 1e6;
+    const rawNetCommitment = toNumberLoose(row['Commitment (Cat DDO only)']);
+    const rawDisbursements = toNumberLoose(row['Disbursements - Cat DDO Cum.']);
+    const netCommitment = rawNetCommitment / 1e6;
+    const disbursements = rawDisbursements / 1e6;
 
     const existing = regionMap.get(region) || {
       netCommitment: 0,
       disbursements: 0,
+      rawNetCommitment: 0,
+      rawDisbursements: 0,
     };
     regionMap.set(region, {
       netCommitment: existing.netCommitment + netCommitment,
       disbursements: existing.disbursements + disbursements,
+      rawNetCommitment: existing.rawNetCommitment + rawNetCommitment,
+      rawDisbursements: existing.rawDisbursements + rawDisbursements,
     });
   }
 
@@ -171,6 +181,8 @@ export function sumDisbursementsByRegion(portfolioRows: PortfolioRow[]) {
       region,
       netCommitment: data.netCommitment,
       disbursements: data.disbursements,
+      rawNetCommitment: data.rawNetCommitment,
+      rawDisbursements: data.rawDisbursements,
     }))
     .sort((a, b) => b.disbursements - a.disbursements);
 
@@ -180,24 +192,34 @@ export function sumDisbursementsByRegion(portfolioRows: PortfolioRow[]) {
 export function sumDisbursementsByCountry(portfolioRows: PortfolioRow[]) {
   const countryMap = new Map<
     string,
-    { netCommitment: number; disbursements: number }
+    {
+      netCommitment: number;
+      disbursements: number;
+      rawNetCommitment: number;
+      rawDisbursements: number;
+    }
   >();
 
   for (const row of portfolioRows) {
     const country = (row['Country'] ?? '').toString().trim();
     if (!country) continue;
 
-    const netCommitment = toNumberLoose(row['Commitment (Cat DDO only)']) / 1e6;
-    const disbursements =
-      toNumberLoose(row['Disbursements - Cat DDO Cum.']) / 1e6;
+    const rawNetCommitment = toNumberLoose(row['Commitment (Cat DDO only)']);
+    const rawDisbursements = toNumberLoose(row['Disbursements - Cat DDO Cum.']);
+    const netCommitment = rawNetCommitment / 1e6;
+    const disbursements = rawDisbursements / 1e6;
 
     const existing = countryMap.get(country) || {
       netCommitment: 0,
       disbursements: 0,
+      rawNetCommitment: 0,
+      rawDisbursements: 0,
     };
     countryMap.set(country, {
       netCommitment: existing.netCommitment + netCommitment,
       disbursements: existing.disbursements + disbursements,
+      rawNetCommitment: existing.rawNetCommitment + rawNetCommitment,
+      rawDisbursements: existing.rawDisbursements + rawDisbursements,
     });
   }
 
@@ -207,6 +229,8 @@ export function sumDisbursementsByCountry(portfolioRows: PortfolioRow[]) {
       country,
       netCommitment: data.netCommitment,
       disbursements: data.disbursements,
+      rawNetCommitment: data.rawNetCommitment,
+      rawDisbursements: data.rawDisbursements,
     }))
     .sort((a, b) => b.disbursements - a.disbursements);
 

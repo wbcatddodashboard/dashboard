@@ -5,6 +5,8 @@ import { useFetchDisbursementsByRegion } from '@/hooks/useFetchDisbursementsByRe
 export const useTableDisbursementRegion = () => {
   const { data, isLoading, error } = useFetchDisbursementsByRegion();
 
+  const rawData = useMemo(() => data, [data]);
+
   const rows = useMemo<DisbursementRegion[]>(() => {
     if (!data.length) return [];
 
@@ -42,5 +44,5 @@ export const useTableDisbursementRegion = () => {
     return [...dataRows, totalRow];
   }, [data]);
 
-  return { rows, isLoading, errorMessage: error };
+  return { rows, rawData, isLoading, errorMessage: error };
 };

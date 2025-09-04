@@ -1,5 +1,6 @@
 import React from 'react';
 import type { TableColumn } from 'vizonomy';
+import { Image } from 'vizonomy';
 import type { DisbursementRegion } from '../../interfaces';
 import {
   TableDisbursementRegionContainer,
@@ -7,11 +8,26 @@ import {
   TableDisbursementRegionTitle,
   TableCellText,
   TableDisbursementRegionWrapper,
+  DownloadButton,
 } from './styled/TableDisbursementRegion.styled';
 import { useTableDisbursementRegion } from './useTableDisbursementRegion';
+import { useCSVDownloader } from '@/hooks/useCSVDownloader';
 
 export const TableDisbursementRegion = () => {
-  const { rows } = useTableDisbursementRegion();
+  const { rows, rawData, isLoading } = useTableDisbursementRegion();
+  const { downloadCSV } = useCSVDownloader();
+
+  const handleDownloadCSV = () => {
+    if (!rawData?.length) return;
+
+    const csvData = rawData.map((row) => ({
+      Region: row.region,
+      'Net Commitment Amount ($)': row.rawNetCommitment,
+      'Cumulative Disbursements ($)': row.rawDisbursements,
+    }));
+
+    downloadCSV(csvData, 'disbursements-by-region');
+  };
 
   const columns: TableColumn<DisbursementRegion>[] = [
     {
@@ -49,6 +65,16 @@ export const TableDisbursementRegion = () => {
     <TableDisbursementRegionContainer>
       <TableDisbursementRegionTitle>
         Disbursements by Region
+        <DownloadButton
+          onClick={handleDownloadCSV}
+          disabled={isLoading || !rawData || rawData.length === 0}
+        >
+          <Image
+            src="/download-icon.svg"
+            alt="Download CSV"
+            className="w-6 h-6"
+          />
+        </DownloadButton>
       </TableDisbursementRegionTitle>
       <TableDisbursementRegionWrapper_Container>
         <TableDisbursementRegionWrapper

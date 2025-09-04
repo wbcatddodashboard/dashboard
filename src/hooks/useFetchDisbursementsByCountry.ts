@@ -6,6 +6,8 @@ interface DisbursementCountryData {
   country: string;
   netCommitment: number;
   disbursements: number;
+  rawNetCommitment: number;
+  rawDisbursements: number;
 }
 
 interface DisbursementsByCountryResponse {
