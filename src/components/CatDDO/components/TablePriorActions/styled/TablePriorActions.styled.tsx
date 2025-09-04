@@ -19,8 +19,10 @@ export function TablePriorActionsContainer({ children }: ChildrenProps) {
 
 export function TablePriorActionsTitle({ children }: ChildrenProps) {
   return (
-    <div className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[0] not-italic relative shrink-0 text-[#295e84] text-[18px] text-left tracking-[-0.14px]">
-      <p className="block leading-[22px]">{children}</p>
+    <div className="flex items-center justify-between mb-4 w-full">
+      <div className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[0] not-italic relative shrink-0 text-[#295e84] text-[18px] text-left tracking-[-0.14px]">
+        <p className="block leading-[22px]">{children}</p>
+      </div>
     </div>
   );
 }

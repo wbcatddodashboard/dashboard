@@ -6,6 +6,8 @@ interface DisbursementRegionData {
   region: string;
   netCommitment: number;
   disbursements: number;
+  rawNetCommitment: number;
+  rawDisbursements: number;
 }
 
 interface DisbursementsByRegionResponse {

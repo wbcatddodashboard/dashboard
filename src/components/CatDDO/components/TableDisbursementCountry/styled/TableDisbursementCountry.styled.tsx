@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Table, type TableProps, type TableColumn } from 'vizonomy';
+import { Table, type TableProps, type TableColumn, Button } from 'vizonomy';
 
 interface ChildrenProps {
   children: ReactNode;
@@ -17,8 +17,10 @@ export function TableDisbursementCountryWrapper_Container({
 
 export function TableDisbursementCountryTitle({ children }: ChildrenProps) {
   return (
-    <div className="font-['Inter:Semi_Bold',_sans-serif] font-semibold h-6 leading-[0] not-italic relative shrink-0 text-[#295e84] text-[24px] text-left tracking-[-0.18px] w-full">
-      <p className="block leading-[24px]">{children}</p>
+    <div className="flex items-center justify-between mb-4 w-full">
+      <div className="font-['Inter:Semi_Bold',_sans-serif] font-semibold h-6 leading-[0] not-italic relative shrink-0 text-[#295e84] text-[24px] text-left tracking-[-0.18px]">
+        <p className="block leading-[24px]">{children}</p>
+      </div>
     </div>
   );
 }
@@ -83,3 +85,24 @@ export const TableDisbursementCountryWrapper = <T,>(
     />
   );
 };
+
+export function DownloadButton({
+  children,
+  onClick,
+  disabled,
+}: {
+  children: ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
+}) {
+  return (
+    <Button
+      onClick={onClick}
+      disabled={disabled}
+      className="p-2 hover:bg-gray-100 rounded-md transition-colors duration-200 cursor-pointer bg-transparent border-none"
+      title="Download CSV"
+    >
+      {children}
+    </Button>
+  );
+}
