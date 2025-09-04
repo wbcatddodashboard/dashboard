@@ -12,7 +12,9 @@ export function DisbursementTriggersContainer({ children }: ChildrenProps) {
 export function DisbursementTriggersTitle({ children }: ChildrenProps) {
   return (
     <div className="flex items-center justify-between mb-4 w-full">
-      {children}
+      <div className="font-['Inter:Semi_Bold',_sans-serif] font-semibold h-6 leading-[0] not-italic relative shrink-0 text-[#295e84] text-[24px] text-left tracking-[-0.18px]">
+        <p className="block leading-[24px]">{children}</p>
+      </div>
     </div>
   );
 }
