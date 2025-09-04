@@ -46,9 +46,7 @@ export const DisbursementTriggersContent = () => {
   return (
     <DisbursementTriggersContainer>
       <DisbursementTriggersTitle>
-        <h3 className="text-lg font-semibold">
-          Cat DDO Disbursement Triggers Content
-        </h3>
+        Cat DDO Disbursement Triggers Content
         <DownloadButtonTrigger
           onClick={handleDownloadCSV}
           disabled={isLoading || !rows || rows.length === 0}
