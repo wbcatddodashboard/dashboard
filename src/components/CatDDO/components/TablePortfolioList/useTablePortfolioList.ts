@@ -28,6 +28,7 @@ export const useTablePortfolioList = () => {
       healthRelatedEmergencies:
         triggerMap.get(d.projectId)?.healthRelatedEmergencies ?? '',
       disastersTriggered: triggerMap.get(d.projectId)?.disastersTriggered ?? '',
+      link: triggerMap.get(d.projectId)?.link ?? '',
     }));
   }, [data, triggers]);
 
