@@ -6,6 +6,7 @@ export interface FilterState {
   statuses: string[];
   regions: string[];
   countries: string[];
+  pillars: string[];
 }
 
 interface FilterContextType {
@@ -22,6 +23,7 @@ const initialFilters: FilterState = {
   statuses: [],
   regions: [],
   countries: [],
+  pillars: [],
 };
 
 interface FilterProviderProps {
@@ -45,7 +47,8 @@ export function FilterProvider({ children }: FilterProviderProps) {
   const hasActiveFilters =
     !!filters.statuses.length ||
     !!filters.regions.length ||
-    !!filters.countries.length;
+    !!filters.countries.length ||
+    !!filters.pillars.length;
 
   const value: FilterContextType = {
     filters,

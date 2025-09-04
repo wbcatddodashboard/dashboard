@@ -4,6 +4,7 @@ type FilterData = {
   regions: string[];
   countries: string[];
   statuses: string[];
+  pillars: string[];
 };
 
 type UseFetchFiltersReturn = {
