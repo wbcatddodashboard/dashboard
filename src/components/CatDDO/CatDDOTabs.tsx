@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useTab } from '@/contexts/TabContext';
 import { PortfolioContent } from './PortfolioContent';
 import { PolicyProgramContent } from './PolicyProgramContent';
 import { DisbursementTriggersContent } from './DisbursementTriggersContent';
@@ -19,7 +20,7 @@ export function TabText({ children }: { children: React.ReactNode }) {
 }
 
 export function CatDDOTabs() {
-  const [activeTabId, setActiveTabId] = useState<string>('portfolio');
+  const { activeTab, setActiveTab } = useTab();
 
   const tabs = [
     {
@@ -45,8 +46,8 @@ export function CatDDOTabs() {
         <TabStyledWrapper
           tabs={tabs}
           defaultActiveTabId="portfolio"
-          activeTabId={activeTabId}
-          onTabChange={setActiveTabId}
+          activeTabId={activeTab}
+          onTabChange={setActiveTab}
         />
       </TabsInnerContainer>
     </TabsWrapper>
