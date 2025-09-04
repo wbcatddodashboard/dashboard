@@ -9,12 +9,17 @@ import {
   TableCellText,
 } from '../TableFundingDDO/styled/TableFundingDDO.styled';
 import { TableLink } from './styled/TablePortfolioList.styled';
-import { useTablePortfolioList } from './useTablePortfolioList';
 import type { PortfolioListRow } from './TablePortfolioList.d';
 
-export function TablePortfolioList() {
-  const { rows } = useTablePortfolioList();
+interface TablePortfolioListProps {
+  rows: PortfolioListRow[];
+  isLoading: boolean;
+}
 
+export function TablePortfolioList({
+  rows,
+  isLoading,
+}: TablePortfolioListProps) {
   const columns: TableColumn<PortfolioListRow>[] = [
     {
       id: 'projectId',
@@ -135,6 +140,26 @@ export function TablePortfolioList() {
       ),
     },
   ];
+
+  if (isLoading) {
+    return (
+      <TableFundingContainer>
+        <div className="flex items-center justify-center py-8">
+          <div className="text-gray-500">Loading portfolio data...</div>
+        </div>
+      </TableFundingContainer>
+    );
+  }
+
+  if (!rows?.length) {
+    return (
+      <TableFundingContainer>
+        <div className="flex items-center justify-center py-8">
+          <div className="text-gray-500">No portfolio data available</div>
+        </div>
+      </TableFundingContainer>
+    );
+  }
 
   return (
     <TableFundingContainer>
