@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useFetchFilters } from '@/hooks/useFetchFilters';
 import { useFilters } from '@/contexts/FilterContext';
+import { useTab } from '@/contexts/TabContext';
 import { REGION_LABELS } from './Sidebar.constants';
 
 export type FilterSection = {
@@ -17,6 +18,7 @@ export type FilterSection = {
 export const useSidebar = () => {
   const { filterData, isLoading, error } = useFetchFilters();
   const { filters, updateFilter } = useFilters();
+  const { activeTab } = useTab();
   const [filterSections, setFilterSections] = useState<FilterSection[]>([]);
   const [isDRMModalOpen, setIsDRMModalOpen] = useState(false);
 
@@ -54,9 +56,23 @@ export const useSidebar = () => {
           })),
         },
       ];
+
+      if (activeTab === 'policy' && filterData.pillars) {
+        sections.push({
+          id: 'pillar',
+          title: 'DRM Pillar',
+          hasFilterIcon: true,
+          options: filterData.pillars.map((pillar) => ({
+            id: pillar.toLowerCase().replace(/\s+/g, '-'),
+            label: pillar,
+            isSelected: filters.pillars.includes(pillar),
+          })),
+        });
+      }
+
       setFilterSections(sections);
     }
-  }, [filterData, filters]);
+  }, [filterData, filters, activeTab]);
 
   const handleFilterToggle = useCallback(
     (sectionId: string, optionId: string) => {
@@ -113,6 +129,17 @@ export const useSidebar = () => {
               : [...filters.countries, country];
             updateFilter('countries', newCountries);
           }
+        } else if (sectionId === 'pillar') {
+          const pillar = filterData?.pillars?.find(
+            (p) => p.toLowerCase().replace(/\s+/g, '-') === optionId
+          );
+          if (pillar) {
+            const isCurrentlySelected = filters.pillars.includes(pillar);
+            const newPillars = isCurrentlySelected
+              ? filters.pillars.filter((p) => p !== pillar)
+              : [...filters.pillars, pillar];
+            updateFilter('pillars', newPillars);
+          }
         }
       }, 0);
     },
@@ -134,6 +161,7 @@ export const useSidebar = () => {
       updateFilter('statuses', []);
       updateFilter('regions', []);
       updateFilter('countries', []);
+      updateFilter('pillars', []);
     }, 0);
   }, [updateFilter]);
 

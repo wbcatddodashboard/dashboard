@@ -24,6 +24,11 @@ export async function GET(request: Request) {
       .filter((row) => {
         const drmPillar = (row['DRM Pillar'] ?? '').toString().trim();
         return drmPillar !== '' && !drmPillar.toLowerCase().includes('not drm');
+      })
+      .filter((row) => {
+        if (!filters.pillars.length) return true;
+        const rowPillar = (row['DRM Pillar'] ?? '').toString().trim();
+        return filters.pillars.includes(rowPillar);
       });
 
     const pillarColorMap: Record<string, string> = {
