@@ -12,6 +12,9 @@ export function buildApiUrl(baseUrl: string, filters: FilterState): string {
   if (filters.countries.length) {
     params.append('countries', filters.countries.join(','));
   }
+  if (filters.pillars.length) {
+    params.append('pillars', filters.pillars.join(','));
+  }
 
   return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
 }
@@ -23,5 +26,6 @@ export function parseFiltersFromRequest(request: Request): FilterState {
     statuses: searchParams.get('statuses')?.split(',').filter(Boolean) ?? [],
     regions: searchParams.get('regions')?.split(',').filter(Boolean) ?? [],
     countries: searchParams.get('countries')?.split(',').filter(Boolean) ?? [],
+    pillars: searchParams.get('pillars')?.split(',').filter(Boolean) ?? [],
   };
 }

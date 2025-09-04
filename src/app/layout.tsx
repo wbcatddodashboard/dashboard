@@ -4,6 +4,7 @@ import './globals.css';
 import { LayoutContainer, MainContent } from '@/components/Layout';
 import Sidebar from '@/components/Sidebar';
 import { FilterProvider } from '@/contexts/FilterContext';
+import { TabProvider } from '@/contexts/TabContext';
 import WelcomeModalProvider from '@/components/WelcomeModalProvider';
 
 const inter = Inter({
@@ -25,13 +26,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} font-sans antialiased`}>
         <FilterProvider>
-          <LayoutContainer>
-            <Sidebar />
-            <MainContent>{children}</MainContent>
-          </LayoutContainer>
-          <WelcomeModalProvider>
-            <div />
-          </WelcomeModalProvider>
+          <TabProvider>
+            <LayoutContainer>
+              <Sidebar />
+              <MainContent>{children}</MainContent>
+            </LayoutContainer>
+            <WelcomeModalProvider>
+              <div />
+            </WelcomeModalProvider>
+          </TabProvider>
         </FilterProvider>
       </body>
     </html>

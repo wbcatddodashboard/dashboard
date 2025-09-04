@@ -1,33 +1,47 @@
 import { NextResponse } from 'next/server';
-import { loadPortfolio } from '@/lib/portfolio';
-
-export const dynamic = 'force-dynamic';
+import { loadPortfolio, loadPriorActions } from '@/lib/portfolio';
 
 type FilterData = {
   regions: string[];
   countries: string[];
   statuses: string[];
+  pillars: string[];
 };
 
 export async function GET() {
   try {
-    const rows = loadPortfolio();
+    const portfolioRows = loadPortfolio();
+    const priorActionsRows = loadPriorActions();
 
     const regions = Array.from(
       new Set(
-        rows.map((r) => (r['Region'] ?? '').toString().trim()).filter(Boolean)
+        portfolioRows
+          .map((r) => (r['Region'] ?? '').toString().trim())
+          .filter(Boolean)
       )
     ).sort();
 
     const countries = Array.from(
       new Set(
-        rows.map((r) => (r['Country'] ?? '').toString().trim()).filter(Boolean)
+        portfolioRows
+          .map((r) => (r['Country'] ?? '').toString().trim())
+          .filter(Boolean)
       )
     ).sort();
 
     const statuses = Array.from(
       new Set(
-        rows.map((r) => (r['Status'] ?? '').toString().trim()).filter(Boolean)
+        portfolioRows
+          .map((r) => (r['Status'] ?? '').toString().trim())
+          .filter(Boolean)
+      )
+    ).sort();
+
+    const pillars = Array.from(
+      new Set(
+        priorActionsRows
+          .map((r) => (r['DRM Pillar'] ?? '').toString().trim())
+          .filter(Boolean)
       )
     ).sort();
 
@@ -35,6 +49,7 @@ export async function GET() {
       regions,
       countries,
       statuses,
+      pillars,
     };
 
     return NextResponse.json({ data: filterData });
