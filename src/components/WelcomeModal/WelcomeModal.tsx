@@ -45,10 +45,9 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) => {
                       </TitleContainer>
                       <DescriptionText>
                         This dashboard was made possible with the financial
-                        support from the Japan-Bank Program for <br />
-                        Mainstreaming Disaster Risk Management in Developing
-                        Countries, which is financed by the Government of Japan
-                        and receives <br />
+                        support from the Japan-Bank Program for Mainstreaming
+                        Disaster Risk Management in Developing Countries, which
+                        is financed by the Government of Japan and receives
                         technical support from the World Bank Global Facility
                         for Disaster Reduction and Recovery (GFDRR) Tokyo
                         Disaster Risk Management Hub.
