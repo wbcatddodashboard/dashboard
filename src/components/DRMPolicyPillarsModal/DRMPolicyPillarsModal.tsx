@@ -97,16 +97,16 @@ const DRMPolicyPillarsModal: React.FC<DRMPolicyPillarsModalProps> = ({
           className="!w-[900px] max-w-[900px] max-h-[90vh] overflow-y-auto z-[10000] !bg-[#f9fafb] shadow-2xl"
         >
           <StepModal.Header>
-            <StepModal.Title className="text-[32px] font-bold !text-[#295e84] leading-[40px]">
+            <StepModal.Title className="text-[32px] font-bold !text-[#295e84] leading-[32px]">
               Understanding Data
             </StepModal.Title>
-            <StepModal.Close />
+            <StepModal.Close className="!text-[#295e84] hover:!text-[#1e4a6b]" />
           </StepModal.Header>
 
-          <StepModal.Body className="px-8 py-[41px]">
+          <StepModal.Body className="px-8 pt-2 pb-[41px]">
             <StepModal.Step>
               <ContentContainer>
-                <DescriptionContainer>
+                <DescriptionContainer className="gap-2">
                   <DescriptionText>
                     This dashboard compiles information extracted from the World
                     Bank operations portal as of{' '}
