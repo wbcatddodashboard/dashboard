@@ -31,6 +31,11 @@ import {
 } from './Sidebar.styled';
 import { ResetFiltersButton, UnderstandingDataButton } from './SidebarButtons';
 import DRMPolicyPillarsModal from '../DRMPolicyPillarsModal';
+import Collapse, {
+  CollapseTrigger,
+  CollapseContent,
+  CollapseContainer,
+} from '../../lib/Collapse';
 
 function Sidebar({ className }: SidebarProps) {
   const {
@@ -73,35 +78,62 @@ function Sidebar({ className }: SidebarProps) {
 
             return (
               <FilterSectionContainer key={section.id} size={sectionSize}>
-                <FilterSectionHeader>
-                  <FilterSectionTitle>{section.title}</FilterSectionTitle>
-                  <When condition={section.hasFilterIcon}>
-                    <FilterIconContainer>
-                      <FilterIconWrapper>
-                        <FilterIcon
-                          groupSrc={FILTER_ICON_GROUP}
-                          imageSrc={FILTER_ICON_IMAGE}
-                        />
-                      </FilterIconWrapper>
-                    </FilterIconContainer>
-                  </When>
-                </FilterSectionHeader>
+                <Collapse defaultOpen={true} animated={true} duration={300}>
+                  {() => (
+                    <CollapseContainer>
+                      <FilterSectionHeader>
+                        <CollapseTrigger>
+                          <FilterSectionTitle>
+                            {section.title}
+                          </FilterSectionTitle>
+                          <When condition={section.hasFilterIcon}>
+                            <FilterIconContainer>
+                              <FilterIconWrapper>
+                                <FilterIcon
+                                  groupSrc={FILTER_ICON_GROUP}
+                                  imageSrc={FILTER_ICON_IMAGE}
+                                />
+                              </FilterIconWrapper>
+                            </FilterIconContainer>
+                          </When>
+                        </CollapseTrigger>
+                      </FilterSectionHeader>
 
-                <FilterOptionsContainer>
-                  {section.options.map((option) => (
-                    <FilterOptionButton
-                      key={option.id}
-                      isSelected={option.isSelected}
-                      onClick={() => handleFilterToggle(section.id, option.id)}
-                    >
-                      <FilterOptionLabel>
-                        <FilterOptionText isSelected={option.isSelected}>
-                          {option.label}
-                        </FilterOptionText>
-                      </FilterOptionLabel>
-                    </FilterOptionButton>
-                  ))}
-                </FilterOptionsContainer>
+                      <CollapseContent>
+                        <div style={{ marginTop: '8px', marginBottom: '12px' }}>
+                          <FilterOptionsContainer
+                            style={{
+                              maxHeight:
+                                sectionSize === 'small'
+                                  ? '200px'
+                                  : sectionSize === 'large'
+                                    ? '500px'
+                                    : '300px',
+                            }}
+                          >
+                            {section.options.map((option) => (
+                              <FilterOptionButton
+                                key={option.id}
+                                isSelected={option.isSelected}
+                                onClick={() =>
+                                  handleFilterToggle(section.id, option.id)
+                                }
+                              >
+                                <FilterOptionLabel>
+                                  <FilterOptionText
+                                    isSelected={option.isSelected}
+                                  >
+                                    {option.label}
+                                  </FilterOptionText>
+                                </FilterOptionLabel>
+                              </FilterOptionButton>
+                            ))}
+                          </FilterOptionsContainer>
+                        </div>
+                      </CollapseContent>
+                    </CollapseContainer>
+                  )}
+                </Collapse>
               </FilterSectionContainer>
             );
           })}
