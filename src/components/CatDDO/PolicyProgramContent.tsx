@@ -72,10 +72,7 @@ export const PolicyProgramContent = () => {
       name: 'Resilient Reconstruction',
       color: '#e4a3e4',
       lightColor: 'rgba(228, 163, 228, 0.4)',
-      subPillars: [
-        'DRM policies and institutions',
-        'DRM policies and institutions',
-      ],
+      subPillars: [],
     },
   ];
 
