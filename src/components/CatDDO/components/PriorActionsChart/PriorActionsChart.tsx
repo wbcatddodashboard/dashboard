@@ -42,6 +42,8 @@ export function PriorActionsChart() {
             legendItemGap={10}
             yAxisLabelOffset={10}
             barPadding={0.4}
+            yAxisLabelMaxWidth={150}
+            yAxisLabelShowPopup={true}
             margin={{ top: 20, right: 20, bottom: 60, left: 200 }}
             styleProps={{
               barOutlineStyle: '2px solid #002f54',
