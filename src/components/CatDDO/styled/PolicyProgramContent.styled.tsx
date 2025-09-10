@@ -51,11 +51,26 @@ export function DescriptionText({
 export function LinkText({
   children,
   className,
-}: ChildrenProps & { className?: string }) {
+  href,
+}: ChildrenProps & { className?: string; href?: string }) {
   const linkClasses = classNames(
     'text-[#26a0f8] underline decoration-solid underline-offset-1',
+    'cursor-pointer hover:text-[#1e7bb8] transition-colors duration-200',
     className
   );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={linkClasses}
+      >
+        {children}
+      </a>
+    );
+  }
 
   return <span className={linkClasses}>{children}</span>;
 }
