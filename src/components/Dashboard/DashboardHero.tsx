@@ -33,10 +33,10 @@ export function DashboardHero() {
             <DescriptionParagraph>
               This dashboard shows key insights from Development Policy
               Financing (DPF) with Catastrophe Deferred Drawdown Option (Cat
-              DDO) operations. with timely access to liquidity following
-              disasters or public health-related emergencies, while supporting
-              institutional and policy reforms that strengthen disaster risk
-              management and enhance resilience.
+              DDO) operations, which provide timely access to liquidity
+              following disasters or public health-related emergencies, while
+              supporting institutional and policy reforms that strengthen
+              disaster risk management and enhance resilience.
             </DescriptionParagraph>
             <DescriptionParagraphLast>
               <span>
