@@ -58,7 +58,7 @@ export async function GET(request: Request) {
     }
 
     const sortedPillars = Array.from(pillarCounts.entries())
-      .sort((a, b) => b[1] - a[1])
+      .sort((a, b) => a[0].localeCompare(b[0]))
       .map(([pillar]) => pillar);
 
     const chartData = sortedPillars.map((pillar) => ({
