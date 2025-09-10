@@ -42,8 +42,9 @@ export async function GET() {
         priorActionsRows
           .map((r) => (r['DRM Pillar'] ?? '').toString().trim())
           .filter(Boolean)
+          .filter((pillar) => pillar !== 'Not DRM')
       )
-    ).sort();
+    ).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
     const filterData: FilterData = {
       regions,
