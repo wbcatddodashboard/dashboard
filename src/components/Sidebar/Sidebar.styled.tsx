@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 interface ChildrenProps {
@@ -26,7 +27,7 @@ export function SidebarContent({ children }: ChildrenProps) {
     'content-stretch',
     'flex',
     'flex-col',
-    'gap-6',
+    'gap-3',
     'items-start',
     'justify-start',
     'p-[16px]',
@@ -82,26 +83,16 @@ export function LogoImage({ src }: { src: string }) {
 
 export function FilterSectionContainer({
   children,
-  size = 'default',
 }: ChildrenProps & { size?: 'small' | 'default' | 'large' }) {
-  const maxHeightClasses = {
-    small: 'max-h-[200px]',
-    default: 'max-h-[300px]',
-    large: 'max-h-[500px]',
-  };
-
-  const containerClasses = classNames(
-    'flex',
-    'flex-col',
-    'w-full',
-    'mb-6',
-    maxHeightClasses[size]
-  );
+  const containerClasses = classNames('flex', 'flex-col', 'w-full');
 
   return <div className={containerClasses}>{children}</div>;
 }
 
-export function FilterOptionsContainer({ children }: ChildrenProps) {
+export function FilterOptionsContainer({
+  children,
+  style,
+}: ChildrenProps & { style?: React.CSSProperties }) {
   const containerClasses = classNames(
     'flex',
     'flex-col',
@@ -112,7 +103,11 @@ export function FilterOptionsContainer({ children }: ChildrenProps) {
     'scrollbar-track-gray-100'
   );
 
-  return <div className={containerClasses}>{children}</div>;
+  return (
+    <div className={containerClasses} style={style}>
+      {children}
+    </div>
+  );
 }
 
 export function FilterSectionHeader({ children }: ChildrenProps) {
@@ -122,7 +117,7 @@ export function FilterSectionHeader({ children }: ChildrenProps) {
     'flex',
     'flex-row',
     'gap-2',
-    'h-8',
+    'h-6',
     'items-center',
     'justify-start',
     'px-2',
@@ -155,7 +150,7 @@ export function FilterSectionTitle({ children }: ChildrenProps) {
 
   return (
     <div className={titleClasses}>
-      <p className="block leading-[16px]">{children}</p>
+      <p className="block leading-[14px]">{children}</p>
     </div>
   );
 }
