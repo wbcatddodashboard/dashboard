@@ -6,13 +6,6 @@ import {
   ContentContainer,
   DescriptionContainer,
   DescriptionText,
-  DiagramContainer,
-  PillarsRow,
-  PillarColumn,
-  PillarBox,
-  SubPillarBox,
-  PillarText,
-  SubPillarText,
   ButtonContainer,
 } from './DRMPolicyPillarsModal.styled';
 
@@ -26,68 +19,6 @@ const DRMPolicyPillarsModal: React.FC<DRMPolicyPillarsModalProps> = ({
   onClose,
 }) => {
   const { metadata, isLoading } = useFetchMetadata();
-
-  const pillars = [
-    {
-      id: 1,
-      name: 'Legal and Institutional DRM Framework',
-      color: '#e4a3a3',
-      lightColor: 'rgba(228, 163, 163, 0.4)',
-      subPillars: [
-        'DRM policies and institutions',
-        'Mainstreaming DRM into national development plans',
-      ],
-    },
-    {
-      id: 2,
-      name: 'Risk Identification',
-      color: '#e4e4a3',
-      lightColor: 'rgba(228, 228, 163, 0.4)',
-      subPillars: [],
-    },
-    {
-      id: 3,
-      name: 'Risk Reduction',
-      color: '#a3e4a3',
-      lightColor: 'rgba(163, 228, 163, 0.4)',
-      subPillars: [
-        'Territorial and urban planning',
-        'Public investment at the central level',
-        'Sector-specific risk reduction measures',
-      ],
-    },
-    {
-      id: 4,
-      name: 'Preparedness',
-      color: '#a3e4e4',
-      lightColor: 'rgba(163, 228, 228, 0.4)',
-      subPillars: [
-        'Early Warning Systems',
-        'Emergency Preparedness and Response',
-        'Adaptive Social Protection',
-      ],
-    },
-    {
-      id: 5,
-      name: 'Financial Protection',
-      color: '#a3a3e4',
-      lightColor: 'rgba(163, 163, 228, 0.4)',
-      subPillars: [
-        'Fiscal risk',
-        'Disaster Risk Financing strategies and instruments',
-      ],
-    },
-    {
-      id: 6,
-      name: 'Resilient Reconstruction',
-      color: '#e4a3e4',
-      lightColor: 'rgba(228, 163, 228, 0.4)',
-      subPillars: [
-        'DRM policies and institutions',
-        'DRM policies and institutions',
-      ],
-    },
-  ];
 
   return (
     <StepModal.Root isOpen={isOpen} onClose={onClose}>
@@ -117,27 +48,6 @@ const DRMPolicyPillarsModal: React.FC<DRMPolicyPillarsModalProps> = ({
                     (iii) Cat DDO disbursement triggers' definition and use.
                   </DescriptionText>
                 </DescriptionContainer>
-
-                <DiagramContainer>
-                  <PillarsRow>
-                    {pillars.map((pillar) => (
-                      <PillarColumn key={pillar.id}>
-                        <PillarBox backgroundColor={pillar.color}>
-                          <PillarText>{pillar.name}</PillarText>
-                        </PillarBox>
-
-                        {pillar.subPillars.map((subPillar, index) => (
-                          <SubPillarBox
-                            key={index}
-                            backgroundColor={pillar.lightColor}
-                          >
-                            <SubPillarText>{subPillar}</SubPillarText>
-                          </SubPillarBox>
-                        ))}
-                      </PillarColumn>
-                    ))}
-                  </PillarsRow>
-                </DiagramContainer>
               </ContentContainer>
             </StepModal.Step>
           </StepModal.Body>
