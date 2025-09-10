@@ -44,6 +44,15 @@ export interface BarChartStyleProps {
   totalTextFontSize?: number;
   totalTextFontFamily?: string;
   barOutlineStyle?: string;
+  yAxisLabelPopupBackgroundColor?: string;
+  yAxisLabelPopupBorderColor?: string;
+  yAxisLabelPopupTextColor?: string;
+  yAxisLabelPopupFontSize?: number;
+  yAxisLabelPopupFontFamily?: string;
+  yAxisLabelPopupBorderRadius?: number;
+  yAxisLabelPopupPadding?: string;
+  yAxisLabelPopupMaxWidth?: number;
+  yAxisLabelPopupBoxShadow?: string;
 }
 
 export interface BarChartProps
@@ -69,6 +78,10 @@ export interface BarChartProps
   legendItemGap?: number;
   /** Logical width reserved per legend item when centering the legend row. Default: 80. */
   legendItemWidth?: number;
+  /** Maximum pixel width for Y-axis labels before truncation. Default: 150. */
+  yAxisLabelMaxWidth?: number;
+  /** Whether to show hover popup for truncated Y-axis labels. Default: true. */
+  yAxisLabelShowPopup?: boolean;
   margin?: BarChartMargin;
   styleProps?: BarChartStyleProps;
   /**

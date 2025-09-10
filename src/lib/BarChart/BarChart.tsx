@@ -36,6 +36,8 @@ function BarChart({
   barPadding = 0.1,
   legendItemGap = 0,
   legendItemWidth = 0,
+  yAxisLabelMaxWidth = 150,
+  yAxisLabelShowPopup = false,
   styleProps = {},
   formatCategoryLabel,
   formatValueLabel,
@@ -52,6 +54,11 @@ function BarChart({
     dataPoint: StackedBarChartDataPoint;
     seriesKey: string;
     content: string | React.ReactNode;
+    x: number;
+    y: number;
+  } | null>(null);
+  const [yAxisLabelPopup, setYAxisLabelPopup] = useState<{
+    text: string;
     x: number;
     y: number;
   } | null>(null);
@@ -180,6 +187,85 @@ function BarChart({
     });
   }, []);
 
+  const truncateText = useCallback(
+    (
+      text: string,
+      maxWidth: number,
+      fontSize: number,
+      fontFamily: string
+    ): string => {
+      if (!text || maxWidth <= 0) return text;
+
+      const canvas =
+        typeof document !== 'undefined'
+          ? document.createElement('canvas')
+          : null;
+      const ctx = canvas ? canvas.getContext('2d') : null;
+      if (!ctx) return text;
+
+      ctx.font = `${fontSize}px ${fontFamily}`;
+
+      if (ctx.measureText(text).width <= maxWidth) return text;
+
+      let left = 0;
+      let right = text.length;
+      let bestFit = text;
+
+      while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+        const testText = text.substring(0, mid) + '...';
+        const width = ctx.measureText(testText).width;
+
+        if (width <= maxWidth) {
+          bestFit = testText;
+          left = mid + 1;
+        } else {
+          right = mid - 1;
+        }
+      }
+
+      return bestFit;
+    },
+    []
+  );
+
+  const handleYAxisLabelMouseEnter = useCallback(
+    (event: React.MouseEvent, fullText: string) => {
+      if (!yAxisLabelShowPopup) return;
+
+      const canvas =
+        typeof document !== 'undefined'
+          ? document.createElement('canvas')
+          : null;
+      const ctx = canvas ? canvas.getContext('2d') : null;
+      if (!ctx) return;
+
+      const fontSize = styleProps.axisTextFontSize || 12;
+      const fontFamily = styleProps.axisTextFontFamily || 'Inter, sans-serif';
+      ctx.font = `${fontSize}px ${fontFamily}`;
+      const fullTextWidth = ctx.measureText(fullText).width;
+
+      if (fullTextWidth <= yAxisLabelMaxWidth) return;
+
+      const rect = event.currentTarget.getBoundingClientRect();
+      setYAxisLabelPopup({
+        text: fullText,
+        x: rect.left + rect.width / 2,
+        y: rect.top,
+      });
+    },
+    [
+      yAxisLabelShowPopup,
+      yAxisLabelMaxWidth,
+      styleProps.axisTextFontSize,
+      styleProps.axisTextFontFamily,
+    ]
+  );
+
+  const handleYAxisLabelMouseLeave = useCallback(() => {
+    setYAxisLabelPopup(null);
+  }, []);
+
   const legendItems = useMemo(() => {
     const canvas =
       typeof document !== 'undefined' ? document.createElement('canvas') : null;
@@ -274,6 +360,15 @@ function BarChart({
     totalTextFontSize = 12,
     totalTextFontFamily = 'Inter, sans-serif',
     barOutlineStyle = 'none',
+    yAxisLabelPopupBackgroundColor = 'white',
+    yAxisLabelPopupBorderColor = '#e5e7eb',
+    yAxisLabelPopupTextColor = '#374151',
+    yAxisLabelPopupFontSize = 14,
+    yAxisLabelPopupFontFamily = 'Inter, sans-serif',
+    yAxisLabelPopupBorderRadius = 4,
+    yAxisLabelPopupPadding = '8px 12px',
+    yAxisLabelPopupMaxWidth = 300,
+    yAxisLabelPopupBoxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
   } = styleProps;
 
   return (
@@ -328,30 +423,52 @@ function BarChart({
 
           {/* Y Axis */}
           <g>
-            {axisData.yAxisTicks.map((tick: string | number) => (
-              <g
-                key={tick}
-                transform={
-                  orientation === 'vertical'
-                    ? `translate(0, ${callScale(yScale, tick)})`
-                    : `translate(0, ${callScale(yScale, tick) + getBandwidth(yScale) / 2})`
-                }
-              >
-                <text
-                  x={-8}
-                  y={0}
-                  fill={axisTextColor}
-                  fontSize={axisTextFontSize}
-                  fontFamily={axisTextFontFamily}
-                  textAnchor="end"
-                  dominantBaseline="middle"
+            {axisData.yAxisTicks.map((tick: string | number) => {
+              const fullLabel =
+                orientation === 'vertical'
+                  ? formatNumeric(tick as number)
+                  : formatCategory(String(tick));
+
+              const displayLabel =
+                orientation === 'horizontal' && yAxisLabelMaxWidth > 0
+                  ? truncateText(
+                      fullLabel,
+                      yAxisLabelMaxWidth,
+                      axisTextFontSize,
+                      axisTextFontFamily
+                    )
+                  : fullLabel;
+
+              const isTruncated = fullLabel !== displayLabel;
+
+              return (
+                <g
+                  key={tick}
+                  transform={
+                    orientation === 'vertical'
+                      ? `translate(0, ${callScale(yScale, tick)})`
+                      : `translate(0, ${callScale(yScale, tick) + getBandwidth(yScale) / 2})`
+                  }
                 >
-                  {orientation === 'vertical'
-                    ? formatNumeric(tick as number)
-                    : formatCategory(String(tick))}
-                </text>
-              </g>
-            ))}
+                  <text
+                    x={-8}
+                    y={0}
+                    fill={axisTextColor}
+                    fontSize={axisTextFontSize}
+                    fontFamily={axisTextFontFamily}
+                    textAnchor="end"
+                    dominantBaseline="middle"
+                    style={{ cursor: isTruncated ? 'pointer' : 'default' }}
+                    onMouseEnter={(event) =>
+                      handleYAxisLabelMouseEnter(event, fullLabel)
+                    }
+                    onMouseLeave={handleYAxisLabelMouseLeave}
+                  >
+                    {displayLabel}
+                  </text>
+                </g>
+              );
+            })}
           </g>
 
           {/* Bars */}
@@ -587,6 +704,34 @@ function BarChart({
             }}
           >
             {customTooltip.content}
+          </div>,
+          document.body
+        )}
+
+      {yAxisLabelPopup &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            style={{
+              position: 'fixed',
+              left: yAxisLabelPopup.x,
+              top: yAxisLabelPopup.y,
+              transform: 'translate(-50%, -100%)',
+              pointerEvents: 'none',
+              zIndex: 9999,
+              backgroundColor: yAxisLabelPopupBackgroundColor,
+              border: `1px solid ${yAxisLabelPopupBorderColor}`,
+              borderRadius: `${yAxisLabelPopupBorderRadius}px`,
+              padding: yAxisLabelPopupPadding,
+              boxShadow: yAxisLabelPopupBoxShadow,
+              fontSize: `${yAxisLabelPopupFontSize}px`,
+              fontFamily: yAxisLabelPopupFontFamily,
+              color: yAxisLabelPopupTextColor,
+              maxWidth: `${yAxisLabelPopupMaxWidth}px`,
+              wordWrap: 'break-word',
+            }}
+          >
+            {yAxisLabelPopup.text}
           </div>,
           document.body
         )}
