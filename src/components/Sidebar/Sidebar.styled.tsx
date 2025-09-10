@@ -84,28 +84,18 @@ export function FilterSectionContainer({
   children,
   size = 'default',
 }: ChildrenProps & { size?: 'small' | 'default' | 'large' }) {
-  const heightClasses = {
-    small: 'h-[15vh]', // Smaller for status (3 options)
-    default: 'h-[25vh]', // Default for regions
-    large: 'h-[35vh]', // Larger for countries (many options)
+  const maxHeightClasses = {
+    small: 'max-h-[200px]',
+    default: 'max-h-[300px]',
+    large: 'max-h-[500px]',
   };
 
   const containerClasses = classNames(
-    'box-border',
-    'content-stretch',
     'flex',
     'flex-col',
-    'gap-1.5',
-    'items-start',
-    'justify-start',
-    'p-0',
-    'relative',
-    'shrink-0',
     'w-full',
-    heightClasses[size],
-    'overflow-hidden', // Hide overflow on container
-    'min-h-[120px]', // Minimum height for very small screens
-    'max-h-[300px]' // Maximum height for very large screens
+    'mb-6',
+    maxHeightClasses[size]
   );
 
   return <div className={containerClasses}>{children}</div>;
@@ -115,11 +105,8 @@ export function FilterOptionsContainer({ children }: ChildrenProps) {
   const containerClasses = classNames(
     'flex',
     'flex-col',
-    'gap-1.5',
     'w-full',
-    'h-full',
     'overflow-y-auto',
-    'pr-1', // Add some padding for scrollbar
     'scrollbar-thin',
     'scrollbar-thumb-gray-300',
     'scrollbar-track-gray-100'
@@ -232,21 +219,13 @@ export function FilterOptionButton({
   onClick: () => void;
 }) {
   const buttonClasses = classNames(
-    'box-border',
-    'content-stretch',
-    'flex',
-    'flex-row',
-    'min-h-[32px]',
-    'items-center',
-    'justify-between',
-    'overflow-hidden',
-    'px-1.5',
-    'py-2.5',
-    'relative',
     'w-full',
+    'px-3',
+    'py-1.5',
     'cursor-pointer',
+    'rounded',
     {
-      'bg-[#edeff0] rounded': isSelected,
+      'bg-[#edeff0]': isSelected,
     }
   );
 
@@ -270,26 +249,7 @@ export function FilterOptionButton({
 }
 
 export function FilterOptionLabel({ children }: ChildrenProps) {
-  const labelClasses = classNames(
-    'basis-0',
-    'box-border',
-    'content-stretch',
-    'flex',
-    'flex-row',
-    'gap-2',
-    'grow',
-    'min-h-5',
-    'items-center',
-    'justify-start',
-    'min-h-px',
-    'min-w-0',
-    'px-2',
-    'py-0',
-    'relative',
-    'overflow-hidden'
-  );
-
-  return <div className={labelClasses}>{children}</div>;
+  return <div>{children}</div>;
 }
 
 export function FilterOptionText({
@@ -297,39 +257,16 @@ export function FilterOptionText({
   isSelected,
 }: ChildrenProps & { isSelected?: boolean }) {
   const textClasses = classNames(
-    "font-['Roboto:Regular',_sans-serif]",
-    'font-normal',
-    'leading-[0]',
-    'relative',
-    'min-w-0',
-    'flex-1',
     'text-[#295e84]',
     'text-[14px]',
-    'text-left',
+    'leading-relaxed',
     'break-words',
-    'tracking-[0.25px]',
-    'overflow-hidden',
     {
-      'font-["Inter:Semi_Bold",_sans-serif] font-semibold tracking-[-0.14px]':
-        isSelected,
+      'font-semibold': isSelected,
     }
   );
 
-  const paragraphClasses = classNames(
-    'block',
-    'leading-[20px]',
-    'whitespace-normal',
-    'overflow-hidden',
-    {
-      'leading-[16px]': isSelected,
-    }
-  );
-
-  return (
-    <div className={textClasses}>
-      <p className={paragraphClasses}>{children}</p>
-    </div>
-  );
+  return <div className={textClasses}>{children}</div>;
 }
 
 export function ActionButtonsContainer({ children }: ChildrenProps) {

@@ -65,6 +65,8 @@ function Sidebar({ className }: SidebarProps) {
 
             if (section.id === 'project-status') {
               sectionSize = 'small';
+            } else if (section.id === 'pillar') {
+              sectionSize = 'large';
             } else {
               sectionSize = 'default';
             }
