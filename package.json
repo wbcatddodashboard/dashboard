@@ -22,7 +22,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "uuid": "^11.1.0",
-    "vizonomy": "^0.2.1"
+    "vizonomy": "^0.2.11"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
