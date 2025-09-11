@@ -26,6 +26,7 @@ export function TablePortfolioList({
       key: 'projectId',
       label: 'Project ID',
       width: 90,
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -33,6 +34,7 @@ export function TablePortfolioList({
       key: 'country',
       label: 'Country',
       width: 120,
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -40,6 +42,7 @@ export function TablePortfolioList({
       key: 'projectName',
       label: 'Project Name',
       width: 260,
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -48,6 +51,7 @@ export function TablePortfolioList({
       label: 'Fiscal Year',
       width: 80,
       align: 'center',
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -56,6 +60,7 @@ export function TablePortfolioList({
       label: 'Status',
       width: 90,
       align: 'center',
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -64,6 +69,7 @@ export function TablePortfolioList({
       label: 'Activation for COVID',
       width: 120,
       align: 'center',
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -72,6 +78,7 @@ export function TablePortfolioList({
       label: 'Project Financier',
       width: 120,
       align: 'center',
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -80,6 +87,7 @@ export function TablePortfolioList({
       label: 'Region',
       width: 80,
       align: 'center',
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -87,6 +95,7 @@ export function TablePortfolioList({
       key: 'globalPractice',
       label: 'Global Practice',
       width: 180,
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -95,6 +104,7 @@ export function TablePortfolioList({
       label: 'Mixed/Standalone',
       width: 140,
       align: 'center',
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -102,6 +112,7 @@ export function TablePortfolioList({
       key: 'triggerText',
       label: 'Trigger from Loan/Financing Agreements',
       width: 400,
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -109,6 +120,7 @@ export function TablePortfolioList({
       key: 'additionalInfo',
       label: 'Additional Information from Minutes & Program Document',
       width: 360,
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -116,6 +128,7 @@ export function TablePortfolioList({
       key: 'healthRelatedEmergencies',
       label: 'Health Related emergencies mentioned in the Trigger',
       width: 320,
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -123,6 +136,7 @@ export function TablePortfolioList({
       key: 'disastersTriggered',
       label: 'Disasters that have triggered the Cat DDO',
       width: 320,
+      sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -130,6 +144,7 @@ export function TablePortfolioList({
       key: 'link',
       label: 'Link to Financing or Loan Agreement',
       width: 300,
+      sortable: true,
       render: (v: string) => (
         <TableCellText>
           <When condition={!!v}>

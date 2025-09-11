@@ -557,7 +557,7 @@ function BarChart({
                     fontSize={totalTextFontSize}
                     fontFamily={totalTextFontFamily}
                     textAnchor="middle"
-                    dominantBaseline="baseline"
+                    dominantBaseline="alphabetic"
                   >
                     {formatTotal(total)}
                   </text>
