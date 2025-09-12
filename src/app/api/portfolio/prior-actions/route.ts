@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { loadPriorActions, loadPortfolioFiltered } from '@/lib/portfolio';
 import { parseFiltersFromRequest } from '@/lib/api-utils';
+import {
+  makeDrmPillarComparator,
+  DRM_PILLAR_COLORS,
+} from '@/constants/drmPillars';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,24 +35,7 @@ export async function GET(request: Request) {
         return filters.pillars.includes(rowPillar);
       });
 
-    const pillarColorMap: Record<string, string> = {
-      'Legal and Institutional DRM Framework': '#e4a3a3',
-      'DRM policies and institutions': '#e4a3a3',
-      'Mainstreaming DRM into national development plans': '#e4a3a3',
-      'Risk Identification': '#e4e4a3',
-      'Risk Reduction': '#a3e4a3',
-      'Territorial and urban planning': '#a3e4a3',
-      'Public investment at the central level': '#a3e4a3',
-      'Sector-specific risk reduction measures': '#a3e4a3',
-      Preparedness: '#a3e4e4',
-      'Early Warning Systems': '#a3e4e4',
-      'Emergency Preparedness and Response': '#a3e4e4',
-      'Adaptive Social Protection': '#a3e4e4',
-      'Financial Protection': '#a3a3e4',
-      'Fiscal Risk': '#a3a3e4',
-      'Disaster Risk Financing strategies and instruments': '#a3a3e4',
-      'Resilient Reconstruction': '#e4a3e4',
-    };
+    const pillarColorMap: Record<string, string> = DRM_PILLAR_COLORS;
 
     const pillarCounts = new Map<string, number>();
 
@@ -57,9 +44,8 @@ export async function GET(request: Request) {
       pillarCounts.set(pillar, (pillarCounts.get(pillar) ?? 0) + 1);
     }
 
-    const sortedPillars = Array.from(pillarCounts.entries())
-      .sort((a, b) => a[0].localeCompare(b[0]))
-      .map(([pillar]) => pillar);
+    const comparator = makeDrmPillarComparator();
+    const sortedPillars = Array.from(pillarCounts.keys()).sort(comparator);
 
     const chartData = sortedPillars.map((pillar) => ({
       id: pillar,

@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import { makeDrmPillarComparator } from '@/constants/drmPillars';
+export const dynamic = 'force-dynamic';
 import { loadPortfolio, loadPriorActions } from '@/lib/portfolio';
 
 type FilterData = {
@@ -37,14 +39,17 @@ export async function GET() {
       )
     ).sort();
 
-    const pillars = Array.from(
+    const rawPillars = Array.from(
       new Set(
         priorActionsRows
           .map((r) => (r['DRM Pillar'] ?? '').toString().trim())
           .filter(Boolean)
           .filter((pillar) => pillar !== 'Not DRM')
       )
-    ).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+    );
+
+    const comparator = makeDrmPillarComparator();
+    const pillars = rawPillars.sort(comparator);
 
     const filterData: FilterData = {
       regions,
