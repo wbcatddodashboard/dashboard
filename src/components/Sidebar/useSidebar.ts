@@ -3,6 +3,7 @@ import { useFetchFilters } from '@/hooks/useFetchFilters';
 import { useFilters } from '@/contexts/FilterContext';
 import { useTab } from '@/contexts/TabContext';
 import { REGION_LABELS } from './Sidebar.constants';
+import { makeDrmPillarComparator } from '@/constants/drmPillars';
 
 export type FilterSection = {
   id: string;
@@ -24,6 +25,11 @@ export const useSidebar = () => {
 
   useEffect(() => {
     if (filterData) {
+      const comparator = makeDrmPillarComparator();
+      const orderedPillars = (filterData.pillars ?? [])
+        .slice()
+        .sort(comparator);
+
       const sections: FilterSection[] = [
         {
           id: 'project-status',
@@ -62,7 +68,7 @@ export const useSidebar = () => {
           id: 'pillar',
           title: 'DRM Pillar',
           hasFilterIcon: true,
-          options: filterData.pillars.map((pillar) => ({
+          options: orderedPillars.map((pillar) => ({
             id: pillar.toLowerCase().replace(/\s+/g, '-'),
             label: pillar,
             isSelected: filters.pillars.includes(pillar),
