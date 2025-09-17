@@ -2,49 +2,11 @@ import { useState, useMemo, useCallback } from 'react';
 import type { Option } from 'vizonomy';
 import { debounce } from '@/utils/debounce';
 import type { PortfolioListRow } from '@/components/CatDDO/components/TablePortfolioList/TablePortfolioList.d';
-
-interface FilterConfig {
-  key: string;
-  property: string;
-  placeholder: string;
-}
-
-interface UseFilterTableDDOProps {
-  rows: PortfolioListRow[];
-}
-
-const FILTER_CONFIG: FilterConfig[] = [
-  { key: 'fiscalYear', property: 'fiscalYear', placeholder: 'Fiscal Year' },
-  { key: 'status', property: 'status', placeholder: 'Status' },
-  {
-    key: 'covidActivation',
-    property: 'activationForCovid',
-    placeholder: 'COVID Activation',
-  },
-  {
-    key: 'projectFinancier',
-    property: 'financier',
-    placeholder: 'Project Financier',
-  },
-  { key: 'region', property: 'region', placeholder: 'Region' },
-  {
-    key: 'globalPractice',
-    property: 'globalPractice',
-    placeholder: 'Global Practice',
-  },
-  {
-    key: 'mixedStandalone',
-    property: 'operationType',
-    placeholder: 'Mixed/Standalone',
-  },
-  { key: 'disaster', property: 'disastersTriggered', placeholder: 'Disaster' },
-];
-
-const COUNTRY_FILTER_CONFIG = {
-  key: 'country',
-  property: 'country',
-  placeholder: 'Country',
-};
+import type { UseFilterTableDDOProps } from './useFilterTableDDO.d';
+import {
+  FILTER_CONFIG,
+  COUNTRY_FILTER_CONFIG,
+} from '@/constants/FilterConstants';
 
 export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
   const [inputValue, setInputValue] = useState('');
@@ -77,7 +39,7 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
       prefix: string = '',
       sourceData?: PortfolioListRow[]
     ) => {
-      const dataToUse = sourceData || rows;
+      const dataToUse = sourceData ?? rows;
       if (!dataToUse) return [];
 
       const uniqueValues = Array.from(
@@ -85,12 +47,84 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
       ).sort();
 
       return uniqueValues.map((value) => ({
-        id: `${prefix}-${String(value).replace(/\s+/g, '-').toLowerCase()}`,
-        value: String(value),
-        label: String(value),
+        id: `${prefix}-${`${value ?? ''}`.replace(/\s+/g, '-').toLowerCase()}`,
+        value: value ?? '',
+        label: value ?? '',
       }));
     },
     [rows]
+  );
+
+  const applyFilterBySelectedValues = useMemo(
+    () =>
+      (
+        data: PortfolioListRow[],
+        selectedOptions: Option[],
+        property: keyof PortfolioListRow
+      ) => {
+        if (!selectedOptions?.length) return data;
+
+        const selectedValues = selectedOptions.map((option) => option.value);
+        return data.filter((row) =>
+          selectedValues.includes(`${row[property] ?? ''}`)
+        );
+      },
+    []
+  );
+
+  const applyFilters = useCallback(
+    (data: PortfolioListRow[]) => {
+      let filtered = data;
+
+      if (filterValue.trim()) {
+        const searchTerm = filterValue.toLowerCase().trim();
+        filtered = filtered.filter((row) => {
+          const projectId = `${row.projectId ?? ''}`.toLowerCase();
+          const projectName = `${row.projectName ?? ''}`.toLowerCase();
+          const country = `${row.country ?? ''}`.toLowerCase();
+          const region = `${row.region ?? ''}`.toLowerCase();
+          const globalPractice = `${row.globalPractice ?? ''}`.toLowerCase();
+          const financier = `${row.financier ?? ''}`.toLowerCase();
+
+          return (
+            projectId.includes(searchTerm) ||
+            projectName.includes(searchTerm) ||
+            country.includes(searchTerm) ||
+            region.includes(searchTerm) ||
+            globalPractice.includes(searchTerm) ||
+            financier.includes(searchTerm)
+          );
+        });
+      }
+
+      if (selectedCountryFilter?.length) {
+        const selectedCountryValues = selectedCountryFilter.map(
+          (option) => option.value
+        );
+        filtered = filtered.filter((row) =>
+          selectedCountryValues.includes(
+            `${row[COUNTRY_FILTER_CONFIG.property as keyof PortfolioListRow] ?? ''}`
+          )
+        );
+      }
+
+      FILTER_CONFIG.forEach((config) => {
+        const selectedOptions = selectedFilters[config.key];
+        filtered = applyFilterBySelectedValues(
+          filtered,
+          selectedOptions,
+          config.property as keyof PortfolioListRow
+        );
+      });
+
+      return filtered;
+    },
+    [
+      filterValue,
+      selectedCountryFilter,
+      selectedFilters,
+      applyFilterBySelectedValues,
+    ]
   );
 
   const filterOptions = useMemo((): Record<string, Option[]> => {
@@ -98,12 +132,12 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
     if (filterValue.trim()) {
       const searchTerm = filterValue.toLowerCase().trim();
       baseFilteredData = rows.filter((row) => {
-        const projectId = String(row.projectId || '').toLowerCase();
-        const projectName = String(row.projectName || '').toLowerCase();
-        const country = String(row.country || '').toLowerCase();
-        const region = String(row.region || '').toLowerCase();
-        const globalPractice = String(row.globalPractice || '').toLowerCase();
-        const financier = String(row.financier || '').toLowerCase();
+        const projectId = `${row.projectId ?? ''}`.toLowerCase();
+        const projectName = `${row.projectName ?? ''}`.toLowerCase();
+        const country = `${row.country ?? ''}`.toLowerCase();
+        const region = `${row.region ?? ''}`.toLowerCase();
+        const globalPractice = `${row.globalPractice ?? ''}`.toLowerCase();
+        const financier = `${row.financier ?? ''}`.toLowerCase();
 
         return (
           projectId.includes(searchTerm) ||
@@ -123,9 +157,7 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
       );
       countryFilteredData = baseFilteredData.filter((row) =>
         selectedCountryValues.includes(
-          String(
-            row[COUNTRY_FILTER_CONFIG.property as keyof PortfolioListRow] || ''
-          )
+          `${row[COUNTRY_FILTER_CONFIG.property as keyof PortfolioListRow] ?? ''}`
         )
       );
     }
@@ -133,14 +165,11 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
     let cascadingFilteredData = countryFilteredData;
     FILTER_CONFIG.forEach((config) => {
       const selectedOptions = selectedFilters[config.key];
-      if (selectedOptions?.length) {
-        const selectedValues = selectedOptions.map((option) => option.value);
-        cascadingFilteredData = cascadingFilteredData.filter((row) =>
-          selectedValues.includes(
-            String(row[config.property as keyof PortfolioListRow] || '')
-          )
-        );
-      }
+      cascadingFilteredData = applyFilterBySelectedValues(
+        cascadingFilteredData,
+        selectedOptions,
+        config.property as keyof PortfolioListRow
+      );
     });
 
     const regularFilterOptions = FILTER_CONFIG.reduce(
@@ -150,7 +179,7 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
           config.key,
           cascadingFilteredData
         );
-        const selectedOptions = selectedFilters[config.key] || [];
+        const selectedOptions = selectedFilters[config.key] ?? [];
 
         const availableOptionsMap = new Map(
           availableOptions.map((opt) => [opt.value, opt])
@@ -182,7 +211,7 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
       COUNTRY_FILTER_CONFIG.key,
       baseFilteredData
     );
-    const selectedCountryOptions = selectedCountryFilter || [];
+    const selectedCountryOptions = selectedCountryFilter ?? [];
 
     const countryOptionsMap = new Map(
       countryOptions.map((opt) => [opt.value, opt])
@@ -213,61 +242,13 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
     filterValue,
     selectedFilters,
     selectedCountryFilter,
+    applyFilterBySelectedValues,
   ]);
 
   const filteredRows = useMemo(() => {
     if (!rows) return rows;
-
-    let filtered = rows;
-
-    if (filterValue.trim()) {
-      const searchTerm = filterValue.toLowerCase().trim();
-      filtered = filtered.filter((row) => {
-        const projectId = String(row.projectId || '').toLowerCase();
-        const projectName = String(row.projectName || '').toLowerCase();
-        const country = String(row.country || '').toLowerCase();
-        const region = String(row.region || '').toLowerCase();
-        const globalPractice = String(row.globalPractice || '').toLowerCase();
-        const financier = String(row.financier || '').toLowerCase();
-
-        return (
-          projectId.includes(searchTerm) ||
-          projectName.includes(searchTerm) ||
-          country.includes(searchTerm) ||
-          region.includes(searchTerm) ||
-          globalPractice.includes(searchTerm) ||
-          financier.includes(searchTerm)
-        );
-      });
-    }
-
-    if (selectedCountryFilter?.length) {
-      const selectedCountryValues = selectedCountryFilter.map(
-        (option) => option.value
-      );
-      filtered = filtered.filter((row) =>
-        selectedCountryValues.includes(
-          String(
-            row[COUNTRY_FILTER_CONFIG.property as keyof PortfolioListRow] || ''
-          )
-        )
-      );
-    }
-
-    FILTER_CONFIG.forEach((config) => {
-      const selectedOptions = selectedFilters[config.key];
-      if (selectedOptions?.length) {
-        const selectedValues = selectedOptions.map((option) => option.value);
-        filtered = filtered.filter((row) =>
-          selectedValues.includes(
-            String(row[config.property as keyof PortfolioListRow] || '')
-          )
-        );
-      }
-    });
-
-    return filtered;
-  }, [rows, filterValue, selectedFilters, selectedCountryFilter]);
+    return applyFilters(rows);
+  }, [rows, applyFilters]);
 
   const handleInputChange = useCallback(
     (value: string) => {

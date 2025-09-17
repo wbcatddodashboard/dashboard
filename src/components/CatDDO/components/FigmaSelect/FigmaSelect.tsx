@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'vizonomy';
+import { Image, When } from 'vizonomy';
 import type { Option } from 'vizonomy-ui';
 import { useFigmaSelect } from './useFigmaSelect';
 import {
@@ -59,7 +59,7 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
     <FigmaSelectContainer ref={dropdownRef}>
       <FigmaSelectButton onClick={handleToggleDropdown}>
         <FigmaSelectContent>
-          {placeholder === 'Country' && (
+          <When condition={placeholder === 'Country'}>
             <FigmaSelectIcon>
               <Image
                 alt="Globe"
@@ -67,7 +67,7 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
                 src="/globe.svg"
               />
             </FigmaSelectIcon>
-          )}
+          </When>
           <FigmaSelectText>{getDisplayValue()}</FigmaSelectText>
         </FigmaSelectContent>
         <FigmaSelectIcon>
@@ -79,7 +79,7 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
         </FigmaSelectIcon>
       </FigmaSelectButton>
 
-      {isOpen && (
+      <When condition={isOpen}>
         <FigmaDropdownContainer>
           <FigmaSelectDropdown>
             <FigmaSelectHeader>
@@ -88,8 +88,8 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
             </FigmaSelectHeader>
 
             <FigmaSelectOptionsContainer>
-              {!!options?.length ? (
-                options.map((option) => (
+              <When condition={!!options?.length}>
+                {options.map((option) => (
                   <FigmaSelectOption
                     key={option.id}
                     isSelected={isSelected(option)}
@@ -97,12 +97,13 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
                   >
                     {option.label}
                   </FigmaSelectOption>
-                ))
-              ) : (
+                ))}
+              </When>
+              <When condition={!options?.length}>
                 <FigmaSelectNoOptions>
                   No options available
                 </FigmaSelectNoOptions>
-              )}
+              </When>
             </FigmaSelectOptionsContainer>
 
             <FigmaSelectFooter>
@@ -117,7 +118,7 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
             </FigmaSelectFooter>
           </FigmaSelectDropdown>
         </FigmaDropdownContainer>
-      )}
+      </When>
     </FigmaSelectContainer>
   );
 };

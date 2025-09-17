@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, When } from 'vizonomy-ui';
+import { When } from 'vizonomy-ui';
 import { Image } from 'vizonomy';
 import {
   DisbursementTriggersContainer,
@@ -16,6 +16,7 @@ import {
   TitleAndFiltersRow,
   TitleSection,
   FiltersSection,
+  StyledSearchInput,
 } from './styled';
 import { TablePortfolioList, FigmaSelect } from './components';
 import { useTablePortfolioList } from './components/TablePortfolioList/useTablePortfolioList';
@@ -40,7 +41,7 @@ export const DisbursementTriggersContent = () => {
     hasActiveFilters,
     filterConfig,
   } = useFilterTableDDO({
-    rows: rows || [],
+    rows: rows ?? [],
   });
 
   const handleDownloadCSV = () => {
@@ -79,7 +80,7 @@ export const DisbursementTriggersContent = () => {
         <TitleSection>
           <DownloadButtonTrigger
             onClick={handleDownloadCSV}
-            disabled={isLoading || !filteredRows || !filteredRows?.length}
+            disabled={isLoading || !filteredRows?.length}
           >
             <Image
               src="/download-icon.svg"
@@ -92,13 +93,12 @@ export const DisbursementTriggersContent = () => {
         <FiltersSection>
           <SearchInput>
             <SearchInputWrapper>
-              <Input
+              <StyledSearchInput
                 placeholder="Search projects..."
                 value={inputValue}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   handleInputChange(e.target.value);
                 }}
-                className="w-full pl-8 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm h-10 leading-10 box-border"
               />
               <SearchIcon>
                 <Image
@@ -112,8 +112,8 @@ export const DisbursementTriggersContent = () => {
 
           <CountryFilter>
             <FigmaSelect
-              options={filterOptions.country || []}
-              selected={selectedCountryFilter || []}
+              options={filterOptions.country ?? []}
+              selected={selectedCountryFilter ?? []}
               onChange={setCountryFilter}
               placeholder="Country"
             />
@@ -134,8 +134,8 @@ export const DisbursementTriggersContent = () => {
             {filterConfig.map((config) => (
               <FigmaSelect
                 key={config.key}
-                options={filterOptions[config.key] || []}
-                selected={selectedFilters[config.key] || []}
+                options={filterOptions[config.key] ?? []}
+                selected={selectedFilters[config.key] ?? []}
                 onChange={(options) => setFilter(config.key, options)}
                 placeholder={config.placeholder}
               />
