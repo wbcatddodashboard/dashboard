@@ -1,22 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Input, When } from 'vizonomy-ui';
 import { Image } from 'vizonomy';
 import {
   DisbursementTriggersContainer,
-  DisbursementTriggersTitle,
   DownloadButtonTrigger,
+  FilterSection,
+  SearchInput,
+  SearchInputWrapper,
+  SearchIcon,
+  CountryFilter,
+  MoreFiltersButton,
+  ResetAllButton,
+  AdditionalFiltersRow,
+  ResetButtonContainer,
+  TitleAndFiltersRow,
+  TitleSection,
+  FiltersSection,
 } from './styled';
-import { TablePortfolioList } from './components';
+import { TablePortfolioList, FigmaSelect } from './components';
 import { useTablePortfolioList } from './components/TablePortfolioList/useTablePortfolioList';
 import { useCSVDownloader } from '@/hooks/useCSVDownloader';
+import { useFilterTableDDO } from '@/hooks/useFilterTableDDO';
 
 export const DisbursementTriggersContent = () => {
   const { rows, isLoading } = useTablePortfolioList();
   const { downloadCSV } = useCSVDownloader();
+  const [showMoreFilters, setShowMoreFilters] = useState(false);
+
+  const {
+    inputValue,
+    selectedFilters,
+    selectedCountryFilter,
+    filterOptions,
+    filteredRows,
+    handleInputChange,
+    setFilter,
+    setCountryFilter,
+    resetAllFilters,
+    hasActiveFilters,
+    filterConfig,
+  } = useFilterTableDDO({
+    rows: rows || [],
+  });
 
   const handleDownloadCSV = () => {
-    if (!rows?.length) return;
+    if (!filteredRows?.length) return;
 
-    const csvData = rows.map((row) => ({
+    const csvData = filteredRows.map((row) => ({
       'Project ID': row.projectId,
       Country: row.country,
       'Project Name': row.projectName,
@@ -45,20 +75,85 @@ export const DisbursementTriggersContent = () => {
 
   return (
     <DisbursementTriggersContainer>
-      <DisbursementTriggersTitle>
-        Cat DDO Disbursement Triggers Content
-        <DownloadButtonTrigger
-          onClick={handleDownloadCSV}
-          disabled={isLoading || !rows || rows.length === 0}
-        >
-          <Image
-            src="/download-icon.svg"
-            alt="Download CSV"
-            className="w-6 h-6"
-          />
-        </DownloadButtonTrigger>
-      </DisbursementTriggersTitle>
-      <TablePortfolioList rows={rows} isLoading={isLoading} />
+      <TitleAndFiltersRow>
+        <TitleSection>
+          <DownloadButtonTrigger
+            onClick={handleDownloadCSV}
+            disabled={isLoading || !filteredRows || !filteredRows?.length}
+          >
+            <Image
+              src="/download-icon.svg"
+              alt="Download CSV"
+              className="w-5 h-5"
+            />
+          </DownloadButtonTrigger>
+        </TitleSection>
+
+        <FiltersSection>
+          <SearchInput>
+            <SearchInputWrapper>
+              <Input
+                placeholder="Search projects..."
+                value={inputValue}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  handleInputChange(e.target.value);
+                }}
+                className="w-full pl-8 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+              />
+              <SearchIcon>
+                <Image
+                  alt="Search"
+                  className="w-4 h-4"
+                  src="/search-icon.svg"
+                />
+              </SearchIcon>
+            </SearchInputWrapper>
+          </SearchInput>
+
+          <CountryFilter>
+            <FigmaSelect
+              options={filterOptions.country || []}
+              selected={selectedCountryFilter || []}
+              onChange={setCountryFilter}
+              placeholder="Country"
+            />
+          </CountryFilter>
+
+          <MoreFiltersButton
+            onClick={() => setShowMoreFilters(!showMoreFilters)}
+            isActive={showMoreFilters}
+          >
+            <Image alt="Filter" className="w-4 h-4" src="/filter-icon.svg" />
+          </MoreFiltersButton>
+        </FiltersSection>
+      </TitleAndFiltersRow>
+
+      <FilterSection>
+        <When condition={showMoreFilters}>
+          <AdditionalFiltersRow>
+            {filterConfig.map((config) => (
+              <FigmaSelect
+                key={config.key}
+                options={filterOptions[config.key] || []}
+                selected={selectedFilters[config.key] || []}
+                onChange={(options) => setFilter(config.key, options)}
+                placeholder={config.placeholder}
+              />
+            ))}
+          </AdditionalFiltersRow>
+        </When>
+
+        <When condition={hasActiveFilters}>
+          <ResetButtonContainer>
+            <ResetAllButton
+              onClick={resetAllFilters}
+              disabled={!hasActiveFilters}
+            />
+          </ResetButtonContainer>
+        </When>
+      </FilterSection>
+
+      <TablePortfolioList rows={filteredRows} isLoading={isLoading} />
     </DisbursementTriggersContainer>
   );
 };

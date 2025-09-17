@@ -12,3 +12,4 @@ export { PriorActionsChart } from './PriorActionsChart';
 export { TablePriorActions } from './TablePriorActions';
 
 export { ClientOnlyChart, withChartWrapper } from './ChartWrapper';
+export { FigmaSelect } from './FigmaSelect';

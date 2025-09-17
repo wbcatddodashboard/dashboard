@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import React from 'react';
 import classNames from 'classnames';
+import { Image } from 'vizonomy';
 
 interface ChildrenProps {
   children: ReactNode;
@@ -195,8 +196,7 @@ export function FilterIcon({
 
   return (
     <div className={iconClasses} style={{ maskImage: `url('${groupSrc}')` }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         alt="Filter icon"
         className="block max-w-none size-full"
         src={imageSrc}
