@@ -206,7 +206,9 @@ export function SearchContainer({ children }: ChildrenProps) {
 }
 
 export function SearchInputWrapper({ children }: ChildrenProps) {
-  return <div className="relative flex items-center">{children}</div>;
+  return (
+    <div className="relative flex items-center w-full h-full">{children}</div>
+  );
 }
 
 export function SearchIcon({ children }: ChildrenProps) {
@@ -291,7 +293,7 @@ export function TopFilterRow({ children }: ChildrenProps) {
 
 export function SearchInput({ children }: ChildrenProps) {
   return (
-    <div className="relative w-[150px] sm:w-[160px] md:w-[180px] flex-shrink-0">
+    <div className="relative w-[150px] sm:w-[160px] md:w-[180px] flex-shrink-0 min-h-[40px]">
       {children}
     </div>
   );
