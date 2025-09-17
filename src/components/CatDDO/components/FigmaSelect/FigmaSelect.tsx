@@ -1,22 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { Image } from 'vizonomy';
 import type { Option } from 'vizonomy-ui';
+import { useFigmaSelect } from './useFigmaSelect';
 import {
-  FilterSelectContainer,
-  FilterSelectButton,
-  FilterSelectContent,
-  FilterSelectText,
-  FilterSelectIcon,
-  CountrySelectContainer,
-  CountrySelectHeader,
-  CountrySelectTitle,
-  SelectAllButton,
-  CountrySelectContent,
-  CountryOption,
-  CountrySelectFooter,
-  ClearButton,
-  ApplyButton,
-} from '../../styled';
+  FigmaSelectContainer,
+  FigmaSelectButton,
+  FigmaSelectContent,
+  FigmaSelectText,
+  FigmaSelectIcon,
+  FigmaDropdownContainer,
+  FigmaSelectDropdown,
+  FigmaSelectHeader,
+  FigmaSelectTitle,
+  FigmaSelectAllButton,
+  FigmaSelectOptionsContainer,
+  FigmaSelectOption,
+  FigmaSelectFooter,
+  FigmaSelectClearButton,
+  FigmaSelectApplyButton,
+  FigmaSelectNoOptions,
+} from './FigmaSelect.styled';
 
 export interface FigmaSelectProps {
   options: Option[];
@@ -33,141 +36,87 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
   placeholder,
   disabled = false,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [pendingSelection, setPendingSelection] = useState<Option[]>(
-    selected || []
-  );
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setPendingSelection(selected || []);
-  }, [selected]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-        setPendingSelection(selected || []);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen, selected]);
-
-  const handleSelectAll = () => {
-    setPendingSelection(options);
-  };
-
-  const handleClear = () => {
-    setPendingSelection([]);
-    onChange([]);
-    setIsOpen(false);
-  };
-
-  const handleApply = () => {
-    onChange(pendingSelection);
-    setIsOpen(false);
-  };
-
-  const toggleOption = (option: Option) => {
-    const isSelected = pendingSelection.some((item) => item.id === option.id);
-    if (isSelected) {
-      setPendingSelection(
-        pendingSelection.filter((item) => item.id !== option.id)
-      );
-    } else {
-      setPendingSelection([...pendingSelection, option]);
-    }
-  };
-
-  const isSelected = (option: Option) => {
-    return pendingSelection.some((item) => item.id === option.id);
-  };
-
-  const getDisplayValue = () => {
-    if (!selected?.length) {
-      return placeholder;
-    }
-    const SHOW_ONE_SELECTED = 1;
-    if (selected.length === SHOW_ONE_SELECTED) {
-      return selected[0].label;
-    }
-
-    return `${selected.length} ${placeholder.toLowerCase()} selected`;
-  };
+  const {
+    isOpen,
+    dropdownRef,
+    handleSelectAll,
+    handleClear,
+    handleApply,
+    toggleOption,
+    isSelected,
+    getDisplayValue,
+    handleToggleDropdown,
+  } = useFigmaSelect({
+    options,
+    selected,
+    onChange,
+    placeholder,
+    disabled,
+  });
 
   return (
-    <FilterSelectContainer ref={dropdownRef}>
-      <FilterSelectButton onClick={() => !disabled && setIsOpen(!isOpen)}>
-        <FilterSelectContent>
+    <FigmaSelectContainer ref={dropdownRef}>
+      <FigmaSelectButton onClick={handleToggleDropdown}>
+        <FigmaSelectContent>
           {placeholder === 'Country' && (
-            <FilterSelectIcon>
+            <FigmaSelectIcon>
               <Image
                 alt="Globe"
                 className="w-4 h-4 flex-shrink-0"
                 src="/globe.svg"
               />
-            </FilterSelectIcon>
+            </FigmaSelectIcon>
           )}
-          <FilterSelectText>{getDisplayValue()}</FilterSelectText>
-        </FilterSelectContent>
-        <FilterSelectIcon>
+          <FigmaSelectText>{getDisplayValue()}</FigmaSelectText>
+        </FigmaSelectContent>
+        <FigmaSelectIcon>
           <Image
             alt="Arrow Down"
             className="w-4 h-4 flex-shrink-0"
             src="/chevron.svg"
           />
-        </FilterSelectIcon>
-      </FilterSelectButton>
+        </FigmaSelectIcon>
+      </FigmaSelectButton>
 
       {isOpen && (
-        <div className="absolute z-50 mt-1 w-80">
-          <CountrySelectContainer>
-            <CountrySelectHeader>
-              <CountrySelectTitle>{placeholder}</CountrySelectTitle>
-              <SelectAllButton onClick={handleSelectAll} />
-            </CountrySelectHeader>
+        <FigmaDropdownContainer>
+          <FigmaSelectDropdown>
+            <FigmaSelectHeader>
+              <FigmaSelectTitle>{placeholder}</FigmaSelectTitle>
+              <FigmaSelectAllButton onClick={handleSelectAll} />
+            </FigmaSelectHeader>
 
-            <CountrySelectContent>
+            <FigmaSelectOptionsContainer>
               {!!options?.length ? (
                 options.map((option) => (
-                  <CountryOption
+                  <FigmaSelectOption
                     key={option.id}
                     isSelected={isSelected(option)}
                     onClick={() => toggleOption(option)}
                   >
                     {option.label}
-                  </CountryOption>
+                  </FigmaSelectOption>
                 ))
               ) : (
-                <div className="p-3 text-center text-gray-500 text-sm">
+                <FigmaSelectNoOptions>
                   No options available
-                </div>
+                </FigmaSelectNoOptions>
               )}
-            </CountrySelectContent>
+            </FigmaSelectOptionsContainer>
 
-            <CountrySelectFooter>
-              <ClearButton
+            <FigmaSelectFooter>
+              <FigmaSelectClearButton
                 onClick={handleClear}
-                disabled={!pendingSelection?.length}
+                disabled={!selected?.length}
               />
-              <ApplyButton
+              <FigmaSelectApplyButton
                 onClick={handleApply}
-                disabled={!pendingSelection?.length}
+                disabled={!selected?.length}
               />
-            </CountrySelectFooter>
-          </CountrySelectContainer>
-        </div>
+            </FigmaSelectFooter>
+          </FigmaSelectDropdown>
+        </FigmaDropdownContainer>
       )}
-    </FilterSelectContainer>
+    </FigmaSelectContainer>
   );
 };
