@@ -94,11 +94,11 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
   };
 
   const getDisplayValue = () => {
-    if (!selected || selected.length === 0) {
+    if (!selected?.length) {
       return placeholder;
     }
-
-    if (selected.length === 1) {
+    const SHOW_ONE_SELECTED = 1;
+    if (selected.length === SHOW_ONE_SELECTED) {
       return selected[0].label;
     }
 
@@ -138,7 +138,7 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
             </CountrySelectHeader>
 
             <CountrySelectContent>
-              {options && options.length > 0 ? (
+              {!!options?.length ? (
                 options.map((option) => (
                   <CountryOption
                     key={option.id}
@@ -158,11 +158,11 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
             <CountrySelectFooter>
               <ClearButton
                 onClick={handleClear}
-                disabled={pendingSelection.length === 0}
+                disabled={!pendingSelection?.length}
               />
               <ApplyButton
                 onClick={handleApply}
-                disabled={pendingSelection.length === 0}
+                disabled={!pendingSelection?.length}
               />
             </CountrySelectFooter>
           </CountrySelectContainer>
