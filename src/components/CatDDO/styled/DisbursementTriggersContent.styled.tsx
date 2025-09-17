@@ -207,13 +207,15 @@ export function SearchContainer({ children }: ChildrenProps) {
 
 export function SearchInputWrapper({ children }: ChildrenProps) {
   return (
-    <div className="relative flex items-center w-full h-full">{children}</div>
+    <div className="relative flex items-center w-full min-h-[40px] h-auto">
+      {children}
+    </div>
   );
 }
 
 export function SearchIcon({ children }: ChildrenProps) {
   return (
-    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none flex items-center justify-center">
+    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none flex items-center justify-center z-10">
       {children}
     </div>
   );
@@ -293,7 +295,7 @@ export function TopFilterRow({ children }: ChildrenProps) {
 
 export function SearchInput({ children }: ChildrenProps) {
   return (
-    <div className="relative w-[150px] sm:w-[160px] md:w-[180px] flex-shrink-0 min-h-[40px]">
+    <div className="relative w-[150px] sm:w-[160px] md:w-[180px] flex-shrink-0 h-auto">
       {children}
     </div>
   );

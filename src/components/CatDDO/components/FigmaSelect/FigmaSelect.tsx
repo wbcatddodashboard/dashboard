@@ -38,6 +38,7 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
 }) => {
   const {
     isOpen,
+    pendingSelection,
     dropdownRef,
     handleSelectAll,
     handleClear,
@@ -107,11 +108,11 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
             <FigmaSelectFooter>
               <FigmaSelectClearButton
                 onClick={handleClear}
-                disabled={!selected?.length}
+                disabled={!pendingSelection?.length}
               />
               <FigmaSelectApplyButton
                 onClick={handleApply}
-                disabled={!selected?.length}
+                disabled={!pendingSelection?.length}
               />
             </FigmaSelectFooter>
           </FigmaSelectDropdown>
