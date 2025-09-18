@@ -7,14 +7,12 @@ import {
   FILTER_CONFIG,
   COUNTRY_FILTER_CONFIG,
 } from '@/constants/FilterConstants';
+import { useFilters } from '@/contexts/FilterContext';
 
 export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
   const [inputValue, setInputValue] = useState('');
   const [filterValue, setFilterValue] = useState('');
-
-  const [selectedCountryFilter, setSelectedCountryFilter] = useState<Option[]>(
-    []
-  );
+  const { filters, updateFilter } = useFilters();
 
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, Option[]>
@@ -97,12 +95,9 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
         });
       }
 
-      if (selectedCountryFilter?.length) {
-        const selectedCountryValues = selectedCountryFilter.map(
-          (option) => option.value
-        );
+      if (filters.countries?.length) {
         filtered = filtered.filter((row) =>
-          selectedCountryValues.includes(
+          filters.countries.includes(
             `${row[COUNTRY_FILTER_CONFIG.property as keyof PortfolioListRow] ?? ''}`
           )
         );
@@ -121,7 +116,7 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
     },
     [
       filterValue,
-      selectedCountryFilter,
+      filters.countries,
       selectedFilters,
       applyFilterBySelectedValues,
     ]
@@ -151,12 +146,9 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
     }
 
     let countryFilteredData = baseFilteredData;
-    if (selectedCountryFilter?.length) {
-      const selectedCountryValues = selectedCountryFilter.map(
-        (option) => option.value
-      );
+    if (filters.countries?.length) {
       countryFilteredData = baseFilteredData.filter((row) =>
-        selectedCountryValues.includes(
+        filters.countries.includes(
           `${row[COUNTRY_FILTER_CONFIG.property as keyof PortfolioListRow] ?? ''}`
         )
       );
@@ -211,7 +203,11 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
       COUNTRY_FILTER_CONFIG.key,
       baseFilteredData
     );
-    const selectedCountryOptions = selectedCountryFilter ?? [];
+    const selectedCountryOptions = filters.countries.map((country) => ({
+      id: `country-${country.replace(/\s+/g, '-').toLowerCase()}`,
+      value: country,
+      label: country,
+    }));
 
     const countryOptionsMap = new Map(
       countryOptions.map((opt) => [opt.value, opt])
@@ -241,7 +237,7 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
     rows,
     filterValue,
     selectedFilters,
-    selectedCountryFilter,
+    filters.countries,
     applyFilterBySelectedValues,
   ]);
 
@@ -265,9 +261,13 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
     }));
   }, []);
 
-  const setCountryFilter = useCallback((options: Option[]) => {
-    setSelectedCountryFilter(options);
-  }, []);
+  const setCountryFilter = useCallback(
+    (options: Option[]) => {
+      const countryValues = options.map((option) => option.value);
+      updateFilter('countries', countryValues);
+    },
+    [updateFilter]
+  );
 
   const resetFilter = useCallback((filterKey: string) => {
     setSelectedFilters((prev) => ({
@@ -277,13 +277,13 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
   }, []);
 
   const resetCountryFilter = useCallback(() => {
-    setSelectedCountryFilter([]);
-  }, []);
+    updateFilter('countries', []);
+  }, [updateFilter]);
 
   const resetAllFilters = useCallback(() => {
     setInputValue('');
     setFilterValue('');
-    setSelectedCountryFilter([]);
+    updateFilter('countries', []);
     setSelectedFilters(
       FILTER_CONFIG.reduce(
         (acc, config) => {
@@ -293,11 +293,11 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
         {} as Record<string, Option[]>
       )
     );
-  }, []);
+  }, [updateFilter]);
 
   const hasActiveFilters =
     filterValue.trim() ||
-    selectedCountryFilter?.length ||
+    filters.countries?.length ||
     Object.values(selectedFilters).some((filter) => filter?.length);
 
   const getFilterCounts = useCallback(() => {
@@ -323,10 +323,18 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
       {} as Record<string, number>
     );
 
-    counts.country = selectedCountryFilter?.length ?? 0;
+    counts.country = filters.countries?.length ?? 0;
 
     return counts;
-  }, [selectedFilters, selectedCountryFilter]);
+  }, [selectedFilters, filters.countries]);
+
+  const selectedCountryFilter = useMemo(() => {
+    return filters.countries.map((country) => ({
+      id: `country-${country.replace(/\s+/g, '-').toLowerCase()}`,
+      value: country,
+      label: country,
+    }));
+  }, [filters.countries]);
 
   return {
     inputValue,
