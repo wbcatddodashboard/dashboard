@@ -34,6 +34,7 @@ export function RegionChart() {
             showGrid
             showTooltip
             showTotals
+            showIntegersOnly
             legendItemGap={10}
             barPadding={0.3}
             margin={{ top: 20, right: 20, bottom: 80, left: 40 }}

@@ -35,6 +35,7 @@ export function StatusChart() {
             showTotals
             barPadding={0.3}
             legendItemGap={10}
+            showIntegersOnly
             margin={{ top: 20, right: 20, bottom: 80, left: 40 }}
             styleProps={{
               barOutlineStyle: '2px solid #002f54',
