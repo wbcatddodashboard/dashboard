@@ -148,7 +148,9 @@ export const DisbursementTriggersContent = () => {
             <ResetAllButton
               onClick={resetAllFilters}
               disabled={!hasActiveFilters}
-            />
+            >
+              Reset All
+            </ResetAllButton>
           </ResetButtonContainer>
         </When>
       </FilterSection>

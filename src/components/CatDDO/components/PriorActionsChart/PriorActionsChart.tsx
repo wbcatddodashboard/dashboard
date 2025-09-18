@@ -10,9 +10,14 @@ import {
 import { usePriorActionsChart } from './usePriorActionsChart';
 import { ClientOnlyChart } from '../ChartWrapper';
 import Tooltip from '../Tooltip';
+import type { PriorAction } from '@/components/CatDDO/interfaces/PriorAction';
 
-export function PriorActionsChart() {
-  const { data, series } = usePriorActionsChart();
+interface PriorActionsChartProps {
+  filteredRows?: PriorAction[];
+}
+
+export function PriorActionsChart({ filteredRows }: PriorActionsChartProps) {
+  const { data, series } = usePriorActionsChart(filteredRows);
 
   if (!data.length) {
     return (
