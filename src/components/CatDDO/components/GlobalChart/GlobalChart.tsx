@@ -42,6 +42,7 @@ export function GlobalChart() {
             legendItemGap={10}
             yAxisLabelOffset={10}
             barPadding={0.3}
+            showIntegersOnly
             margin={{ top: 20, right: 20, bottom: 80, left: 60 }}
             styleProps={{
               barOutlineStyle: '2px solid #002f54',
