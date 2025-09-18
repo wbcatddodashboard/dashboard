@@ -32,6 +32,7 @@ export const useBarChart = (props: UseBarChartProps): UseBarChartReturn => {
     margin = DEFAULT_MARGIN,
     orientation = 'vertical',
     barPadding = BAR_PADDING,
+    showIntegersOnly = false,
     onBarClick,
     onBarHover,
   } = props;
@@ -74,6 +75,22 @@ export const useBarChart = (props: UseBarChartProps): UseBarChartReturn => {
         .domain([0, maxValue])
         .range([dimensions.innerHeight, 0])
         .nice();
+
+      if (showIntegersOnly) {
+        yScale.ticks = function (count?: number) {
+          const originalTicks = d3
+            .scaleLinear()
+            .domain(this.domain())
+            .range(this.range())
+            .nice()
+            .ticks(count);
+
+          const integerTicks = [
+            ...new Set(originalTicks.map((tick) => Math.round(tick))),
+          ];
+          return integerTicks.sort((a, b) => a - b);
+        };
+      }
     } else {
       // Horizontal orientation
       xScale = d3
@@ -95,7 +112,14 @@ export const useBarChart = (props: UseBarChartProps): UseBarChartReturn => {
       .range(series.map((s) => s.color));
 
     return { xScale, yScale, colorScale };
-  }, [processedData, dimensions, series, orientation, barPadding]);
+  }, [
+    processedData,
+    dimensions,
+    series,
+    orientation,
+    barPadding,
+    showIntegersOnly,
+  ]);
 
   const stackedData = useMemo(() => {
     const stack = d3
@@ -140,9 +164,15 @@ export const useBarChart = (props: UseBarChartProps): UseBarChartReturn => {
     onBarHover?.(null);
   }, [onBarHover]);
 
-  const formatValue = useCallback((value: number) => {
-    return d3.format(',')(value);
-  }, []);
+  const formatValue = useCallback(
+    (value: number) => {
+      if (showIntegersOnly) {
+        return d3.format(',')(Math.round(value));
+      }
+      return d3.format(',')(value);
+    },
+    [showIntegersOnly]
+  );
 
   return {
     svgRef,

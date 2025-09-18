@@ -8,7 +8,7 @@ import {
   DescriptionSection,
   DescriptionParagraph,
   DescriptionParagraphLast,
-  ItalicText,
+  BoldText,
   MapVisualizationSection,
   BackgroundMapContainer,
   MainMapContainer,
@@ -45,10 +45,10 @@ export function DashboardHero() {
                 core statistics, and patterns of policy reform from Cat
                 DDOs.{' '}
               </span>
-              <ItalicText>
-                Data last updated: {formattedDate}. The data will be updated
-                semiannually.
-              </ItalicText>
+              <BoldText>
+                Data last updated: {formattedDate}. The data will be updated at
+                least semi-annually.
+              </BoldText>
             </DescriptionParagraphLast>
           </DescriptionSection>
         </TextContentSection>

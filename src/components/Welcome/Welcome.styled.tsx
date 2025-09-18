@@ -72,6 +72,10 @@ export function ItalicText({ children }: ChildrenProps) {
   return <span className="font-normal italic">{children}</span>;
 }
 
+export function BoldText({ children }: ChildrenProps) {
+  return <span className="font-bold">{children}</span>;
+}
+
 export function MapVisualizationSection({ children }: ChildrenProps) {
   return (
     <div className="flex-1 lg:flex-[0_0_50%] relative min-h-[250px] md:min-h-[300px] lg:min-h-[400px] overflow-hidden">
