@@ -103,7 +103,7 @@ export function PriorActionsStyledSearchInput({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className="w-full p-2 pl-10 border border-gray-300 rounded text-sm outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+      className="w-full p-2 pl-10 border border-gray-300 rounded text-sm outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-gray-700 placeholder:text-gray-500"
     />
   );
 }
