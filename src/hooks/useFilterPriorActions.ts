@@ -3,6 +3,7 @@ import type { Option } from 'vizonomy';
 import { debounce } from '@/utils/debounce';
 import type { PriorAction } from '@/components/CatDDO/interfaces/PriorAction';
 import { useFilters } from '@/contexts/FilterContext';
+import { makeDrmPillarComparator } from '@/constants/drmPillars';
 
 export interface UseFilterPriorActionsProps {
   rows: PriorAction[];
@@ -27,9 +28,14 @@ export function useFilterPriorActions({ rows }: UseFilterPriorActionsProps) {
 
       const uniqueValues = Array.from(
         new Set(rows.map((row) => row[property]).filter(Boolean))
-      ).sort();
+      ) as string[];
 
-      return uniqueValues.map((value) => ({
+      const sortedValues =
+        property === 'drmPillar'
+          ? uniqueValues.sort(makeDrmPillarComparator())
+          : uniqueValues.sort();
+
+      return sortedValues.map((value) => ({
         id: `${prefix}-${`${value ?? ''}`.replace(/\s+/g, '-').toLowerCase()}`,
         value: value ?? '',
         label: value ?? '',

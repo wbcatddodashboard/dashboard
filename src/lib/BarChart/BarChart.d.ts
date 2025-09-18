@@ -73,6 +73,7 @@ export interface BarChartProps
   showGrid?: boolean;
   showTooltip?: boolean;
   showTotals?: boolean;
+  showIntegersOnly?: boolean;
   barPadding?: number;
   /** Horizontal spacing (in pixels) between legend items. Default: 0 (previous behavior). */
   legendItemGap?: number;
