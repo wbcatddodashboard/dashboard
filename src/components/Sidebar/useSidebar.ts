@@ -41,27 +41,32 @@ export const useSidebar = () => {
             isSelected: filters.statuses.includes(status),
           })),
         },
-        {
-          id: 'region',
-          title: 'Region',
-          hasFilterIcon: true,
-          options: filterData.regions.map((region) => ({
-            id: region.toLowerCase().replace(/\s+/g, '-'),
-            label: REGION_LABELS[region] || region,
-            isSelected: filters.regions.includes(region),
-          })),
-        },
-        {
-          id: 'country',
-          title: 'Country',
-          hasFilterIcon: true,
-          options: filterData.countries.map((country) => ({
-            id: country.toLowerCase().replace(/\s+/g, '-'),
-            label: country,
-            isSelected: filters.countries.includes(country),
-          })),
-        },
       ];
+
+      if (activeTab !== 'policy') {
+        sections.push(
+          {
+            id: 'region',
+            title: 'Region',
+            hasFilterIcon: true,
+            options: filterData.regions.map((region) => ({
+              id: region.toLowerCase().replace(/\s+/g, '-'),
+              label: REGION_LABELS[region] || region,
+              isSelected: filters.regions.includes(region),
+            })),
+          },
+          {
+            id: 'country',
+            title: 'Country',
+            hasFilterIcon: true,
+            options: filterData.countries.map((country) => ({
+              id: country.toLowerCase().replace(/\s+/g, '-'),
+              label: country,
+              isSelected: filters.countries.includes(country),
+            })),
+          }
+        );
+      }
 
       if (activeTab === 'policy' && filterData.pillars) {
         sections.push({
