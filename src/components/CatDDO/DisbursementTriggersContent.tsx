@@ -116,6 +116,7 @@ export const DisbursementTriggersContent = () => {
               selected={selectedCountryFilter ?? []}
               onChange={setCountryFilter}
               placeholder="Country"
+              pluralPlaceholder="countries"
             />
           </CountryFilter>
 

@@ -6,6 +6,7 @@ export interface UseFigmaSelectProps {
   selected: Option[];
   onChange: (options: Option[]) => void;
   placeholder: string;
+  pluralPlaceholder?: string;
   disabled?: boolean;
 }
 
@@ -14,6 +15,7 @@ export function useFigmaSelect({
   selected,
   onChange,
   placeholder,
+  pluralPlaceholder,
   disabled = false,
 }: UseFigmaSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -85,11 +87,8 @@ export function useFigmaSelect({
       return selected[0].label;
     }
 
-    const pluralPlaceholder =
-      placeholder.toLowerCase() === 'country'
-        ? 'countries'
-        : placeholder.toLowerCase();
-    return `${selected.length} ${pluralPlaceholder} selected`;
+    const pluralText = pluralPlaceholder ?? placeholder.toLowerCase();
+    return `${selected.length} ${pluralText} selected`;
   };
 
   const handleToggleDropdown = () => {
