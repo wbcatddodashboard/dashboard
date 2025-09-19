@@ -26,6 +26,7 @@ export interface FigmaSelectProps {
   selected: Option[];
   onChange: (options: Option[]) => void;
   placeholder: string;
+  pluralPlaceholder?: string;
   disabled?: boolean;
 }
 
@@ -34,6 +35,7 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
   selected,
   onChange,
   placeholder,
+  pluralPlaceholder,
   disabled = false,
 }) => {
   const {
@@ -52,6 +54,7 @@ export const FigmaSelect: React.FC<FigmaSelectProps> = ({
     selected,
     onChange,
     placeholder,
+    pluralPlaceholder,
     disabled,
   });
 

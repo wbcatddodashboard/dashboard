@@ -21,7 +21,7 @@ export function StandaloneChart() {
   if (!data?.length) {
     return (
       <ChartContainer>
-        <ChartTitle>Standalone Cat DDOs</ChartTitle>
+        <ChartTitle>Standalone DBF Cat DDOs</ChartTitle>
         <ChartWrapper>
           <NoDataMessage>No data available</NoDataMessage>
         </ChartWrapper>
@@ -31,7 +31,7 @@ export function StandaloneChart() {
 
   return (
     <ChartContainer>
-      <ChartTitle>Standalone Cat DDOs</ChartTitle>
+      <ChartTitle>Standalone DBF Cat DDOs</ChartTitle>
       <ChartWrapper>
         <ClientOnlyChart width={493} height={chartHeight}>
           <BarChart
