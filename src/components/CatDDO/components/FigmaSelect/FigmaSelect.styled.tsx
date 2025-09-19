@@ -37,7 +37,7 @@ export function FigmaSelectButton({
 }
 
 export function FigmaSelectContent({ children }: ChildrenProps) {
-  return <div className="flex items-center gap-2 min-w-0">{children}</div>;
+  return <div className="flex items-center gap-4 min-w-0">{children}</div>;
 }
 
 export function FigmaSelectText({ children }: ChildrenProps) {
@@ -45,7 +45,7 @@ export function FigmaSelectText({ children }: ChildrenProps) {
 }
 
 export function FigmaSelectIcon({ children }: ChildrenProps) {
-  return <div className="w-4 h-4 flex-shrink-0">{children}</div>;
+  return <div className="w-4 h-4 flex-shrink-0 ml-2">{children}</div>;
 }
 
 export function FigmaDropdownContainer({ children }: ChildrenProps) {

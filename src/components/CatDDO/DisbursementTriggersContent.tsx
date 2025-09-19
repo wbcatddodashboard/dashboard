@@ -66,7 +66,7 @@ export const DisbursementTriggersContent = () => {
         row.additionalInfo?.replace(/\r?\n/g, ' | '),
       'Health Related emergencies mentioned in the Trigger':
         row.healthRelatedEmergencies?.replace(/\r?\n/g, ' | '),
-      'Disasters that have triggered the Cat DDO':
+      'Disasters that have triggered the DBF Cat DDO':
         row.disastersTriggered?.replace(/\r?\n/g, ' | '),
       'Link to Financing or Loan Agreement': row.link,
     }));

@@ -42,10 +42,10 @@ const DRMPolicyPillarsModal: React.FC<DRMPolicyPillarsModalProps> = ({
                     This dashboard compiles information extracted from the World
                     Bank operations portal as of{' '}
                     {formatLastUpdate(metadata, isLoading)}. It covers three
-                    essential dimensions related to Cat DDOs: (i) portfolio
-                    financial trends, (ii) Cat DDO policy program and
+                    essential dimensions related to DBF Cat DDOs: (i) portfolio
+                    financial trends, (ii) DBF Cat DDO policy program and
                     DRM-related reforms supported through past operations, and
-                    (iii) Cat DDO disbursement triggers' definition and use.
+                    (iii) DBF Cat DDO disbursement triggers' definition and use.
                   </DescriptionText>
                 </DescriptionContainer>
               </ContentContainer>

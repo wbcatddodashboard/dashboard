@@ -25,17 +25,17 @@ export function CatDDOTabs() {
   const tabs = [
     {
       id: 'portfolio',
-      label: <TabText>Cat DDO Portfolio</TabText>,
+      label: <TabText>DBF Cat DDO Portfolio</TabText>,
       content: <PortfolioContent />,
     },
     {
       id: 'policy',
-      label: <TabText>Cat DDO Policy Program</TabText>,
+      label: <TabText>DBF Cat DDO Policy Program</TabText>,
       content: <PolicyProgramContent />,
     },
     {
       id: 'triggers',
-      label: <TabText>Cat DDO Disbursement Triggers</TabText>,
+      label: <TabText>DBF Cat DDO Disbursement Triggers</TabText>,
       content: <DisbursementTriggersContent />,
     },
   ];

@@ -17,7 +17,7 @@ export function StatusChart() {
   return (
     <ChartContainer>
       <ChartHeader>
-        <ChartTitle>Number of Cat DDOs by Status</ChartTitle>
+        <ChartTitle>Number of DBF Cat DDOs by Status</ChartTitle>
       </ChartHeader>
       <ChartWrapper>
         <ClientOnlyChart width={285} height={389}>
