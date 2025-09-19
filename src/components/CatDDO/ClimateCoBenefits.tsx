@@ -22,19 +22,19 @@ export const ClimateCoBenefits = () => {
         <ClimateContentWrapper>
           <ClimateBulletPointsContainer>
             <ClimateBulletPoint>
-              On average, DBF Cat DDO financing achieves{' '}
+              On average, DPF Cat DDO financing achieves{' '}
               <SemiboldText>63% climate co-benefits</SemiboldText>, driven
               predominantly by adaptation.
               <ClimateSubBulletPointsContainer>
                 <ClimateSubBulletPoint>
                   When implemented as standalone contingent-financing
-                  operations, DBF Cat DDOs are significantly more effective,
+                  operations, DPF Cat DDOs are significantly more effective,
                   achieving an average of{' '}
                   <SemiboldText>81% climate co-benefits</SemiboldText>.
                 </ClimateSubBulletPoint>
                 <ClimateSubBulletPoint>
                   In comparison, operations attain only{' '}
-                  <SemiboldText>36%</SemiboldText> when integrating a DBF DBF
+                  <SemiboldText>36%</SemiboldText> when integrating a DPF DPF
                   Cat DDO into a DPO ("mixed DPO") that combines upfront budget
                   support with catastrophe-contingent financing.
                 </ClimateSubBulletPoint>
