@@ -85,7 +85,11 @@ export function useFigmaSelect({
       return selected[0].label;
     }
 
-    return `${selected.length} ${placeholder.toLowerCase()} selected`;
+    const pluralPlaceholder =
+      placeholder.toLowerCase() === 'country'
+        ? 'countries'
+        : placeholder.toLowerCase();
+    return `${selected.length} ${pluralPlaceholder} selected`;
   };
 
   const handleToggleDropdown = () => {

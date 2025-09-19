@@ -18,7 +18,7 @@ export function RegionChart() {
   return (
     <ChartContainer>
       <ChartHeader>
-        <ChartTitle>Number of Cat DDOs by Region</ChartTitle>
+        <ChartTitle>Number of DBF Cat DDOs by Region</ChartTitle>
       </ChartHeader>
       <ChartWrapper>
         <ClientOnlyChart width={681} height={385}>

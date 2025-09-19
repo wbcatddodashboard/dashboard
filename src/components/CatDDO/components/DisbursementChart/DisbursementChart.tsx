@@ -20,7 +20,7 @@ export function DisbursementChart() {
     <ChartContainer>
       <ChartHeader>
         <ChartTitle>
-          Cat DDO disbursements (in million US$) per funding source
+          DBF Cat DDO disbursements (in million US$) per funding source
         </ChartTitle>
       </ChartHeader>
       <ChartWrapper>
