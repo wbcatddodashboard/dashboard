@@ -15,7 +15,7 @@ export const OverViewCatDDO = () => {
     <OverViewWrapper>
       <OverViewContainer>
         <OverViewTitle>
-          Financial overview of DBF Cat DDOs per funding source (US$ million)
+          Financial overview of DPF Cat DDOs per funding source (US$ million)
         </OverViewTitle>
 
         <ContentWrapper>
@@ -23,7 +23,7 @@ export const OverViewCatDDO = () => {
 
           <BulletPointsContainer>
             <BulletPoint>
-              DBF Cat DDOs have disbursed a total of{' '}
+              DPF Cat DDOs have disbursed a total of{' '}
               <SemiboldText>US$4.9 billion.</SemiboldText>
             </BulletPoint>
             <BulletPoint>
@@ -37,11 +37,11 @@ export const OverViewCatDDO = () => {
             <BulletPoint>
               While IBRD countries account for larger undisbursed commitments{' '}
               <SemiboldText>(76% against 24% for IDA countries)</SemiboldText>,
-              there has been a notable increase in the use of DBF Cat DDOs to
+              there has been a notable increase in the use of DPF Cat DDOs to
               support IDA countries since 2018.
             </BulletPoint>
             <BulletPoint>
-              <SemiboldText>10 DBF Cat DDOs</SemiboldText> totaling US are under
+              <SemiboldText>10 DPF Cat DDOs</SemiboldText> totaling US are under
               preparation in IDA countries, compared to{' '}
               <SemiboldText>5</SemiboldText>{' '}
               <SemiboldText>operations amounting</SemiboldText> to US for IBRD

@@ -85,14 +85,14 @@ export const PolicyProgramContent = () => {
         <DescriptionContainer>
           <DescriptionText>
             To analyze trends and distribution patterns in policy reforms
-            supported by DBF Cat DDOs, Prior Actions were classified according
+            supported by DPF Cat DDOs, Prior Actions were classified according
             to the World Bank's DRM framework. Originally proposed by{' '}
             <LinkText href={WORLD_BANK_DOCUMENT_URL}>
               Ghesquiere et al. (2012)
             </LinkText>{' '}
             and fully aligned with the Sendai Framework for DRR, this framework
             comprises six pillars that reflect the key areas of engagement
-            typically supported through DBF Cat DDOs. Where relevant, the
+            typically supported through DPF Cat DDOs. Where relevant, the
             pillars are further disaggregated into sub-pillars to provide
             greater analytical granularity.
           </DescriptionText>
