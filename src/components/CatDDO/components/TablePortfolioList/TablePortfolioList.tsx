@@ -134,7 +134,7 @@ export function TablePortfolioList({
     {
       id: 'disastersTriggered',
       key: 'disastersTriggered',
-      label: 'Disasters that have triggered the DBF Cat DDO',
+      label: 'Disasters that have triggered the DPF Cat DDO',
       width: 320,
       sortable: true,
       render: (v: string) => <TableCellText>{v}</TableCellText>,

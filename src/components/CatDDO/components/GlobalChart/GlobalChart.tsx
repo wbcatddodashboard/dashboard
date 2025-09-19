@@ -34,7 +34,7 @@ export function GlobalChart() {
             width={1058}
             height={385}
             xAxisLabel="Fiscal Year"
-            yAxisLabel="Number of DBF Cat DDOs"
+            yAxisLabel="Number of DPF Cat DDOs"
             orientation="vertical"
             showLegend
             showGrid

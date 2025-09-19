@@ -30,14 +30,14 @@ export const PortfolioContent = () => {
     <PortfolioWrapper>
       <PortfolioContainer>
         <PortfolioTitle>
-          Overview of the evolution and composition of the DBF Cat DDO portfolio
+          Overview of the evolution and composition of the DPF Cat DDO portfolio
         </PortfolioTitle>
         <PortfolioDescription>
           <When condition={statsLoading || metadataLoading}>
             Loading portfolio information...
           </When>
           <When condition={!statsLoading && !metadataLoading}>
-            As of {formattedDate}, {totalApproved} DBF Cat DDOs have been
+            As of {formattedDate}, {totalApproved} DPF Cat DDOs have been
             approved in {totalCountries} countries, with {totalClosed} of these
             operations having already been closed.
           </When>

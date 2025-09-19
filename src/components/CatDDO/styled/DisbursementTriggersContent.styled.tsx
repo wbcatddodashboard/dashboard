@@ -31,7 +31,7 @@ export function TitleSection({ children }: ChildrenProps) {
   return (
     <div className="flex items-center gap-3 flex-shrink-0">
       <div className="font-['Inter:Semi_Bold',_sans-serif] font-semibold text-[#295e84] text-[20px] sm:text-[24px] tracking-[-0.18px] leading-tight">
-        DBF Cat DDO Disbursement Triggers Content
+        DPF Cat DDO Disbursement Triggers Content
       </div>
       {children}
     </div>
