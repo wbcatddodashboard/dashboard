@@ -26,7 +26,7 @@ export function DashboardHero() {
       <HeroWrapper>
         <TextContentSection>
           <TitleSection>
-            <DashboardTitle>DBF Cat DDO Dashboard</DashboardTitle>
+            <DashboardTitle>DPF Cat DDO Dashboard</DashboardTitle>
           </TitleSection>
 
           <DescriptionSection>

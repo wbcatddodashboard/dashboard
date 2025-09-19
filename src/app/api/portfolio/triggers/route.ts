@@ -77,8 +77,8 @@ export async function GET(request: Request) {
         .toString()
         .trim(),
       disastersTriggered: (
-        r['Disasters that have triggered the DBF Cat DDO '] ??
-        r['Disasters that have triggered the DBF Cat DDO'] ??
+        r['Disasters that have triggered the DPF Cat DDO '] ??
+        r['Disasters that have triggered the DPF Cat DDO'] ??
         ''
       )
         .toString()
