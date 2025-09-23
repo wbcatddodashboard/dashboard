@@ -29,8 +29,13 @@ import {
   LoadingMessage,
   ErrorMessage,
 } from './Sidebar.styled';
-import { ResetFiltersButton, UnderstandingDataButton } from './SidebarButtons';
+import {
+  ResetFiltersButton,
+  UnderstandingDataButton,
+  AboutButton,
+} from './SidebarButtons';
 import DRMPolicyPillarsModal from '../DRMPolicyPillarsModal';
+import WelcomeModal from '../WelcomeModal';
 import Collapse, {
   CollapseTrigger,
   CollapseContent,
@@ -47,6 +52,9 @@ function Sidebar({ className }: SidebarProps) {
     handleUnderstandingData,
     isDRMModalOpen,
     handleCloseDRMModal,
+    handleAbout,
+    isWelcomeModalOpen,
+    handleCloseWelcomeModal,
   } = useSidebar();
 
   return (
@@ -150,6 +158,9 @@ function Sidebar({ className }: SidebarProps) {
               Understanding the Data
             </UnderstandingDataButton>
           </ButtonContainer>
+          <ButtonContainer>
+            <AboutButton onClick={handleAbout}>About</AboutButton>
+          </ButtonContainer>
         </ActionButtonsContainer>
       </SidebarContent>
       <SidebarBorder />
@@ -157,6 +168,11 @@ function Sidebar({ className }: SidebarProps) {
       <DRMPolicyPillarsModal
         isOpen={isDRMModalOpen}
         onClose={handleCloseDRMModal}
+      />
+
+      <WelcomeModal
+        isOpen={isWelcomeModalOpen}
+        onClose={handleCloseWelcomeModal}
       />
     </SidebarContainer>
   );
