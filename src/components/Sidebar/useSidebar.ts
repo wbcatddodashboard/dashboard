@@ -22,6 +22,7 @@ export const useSidebar = () => {
   const { activeTab } = useTab();
   const [filterSections, setFilterSections] = useState<FilterSection[]>([]);
   const [isDRMModalOpen, setIsDRMModalOpen] = useState(false);
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
 
   useEffect(() => {
     if (filterData) {
@@ -184,6 +185,14 @@ export const useSidebar = () => {
     setIsDRMModalOpen(false);
   }, []);
 
+  const handleAbout = useCallback(() => {
+    setIsWelcomeModalOpen(true);
+  }, []);
+
+  const handleCloseWelcomeModal = useCallback(() => {
+    setIsWelcomeModalOpen(false);
+  }, []);
+
   return {
     filterSections,
     isLoading,
@@ -193,5 +202,8 @@ export const useSidebar = () => {
     handleUnderstandingData,
     isDRMModalOpen,
     handleCloseDRMModal,
+    handleAbout,
+    isWelcomeModalOpen,
+    handleCloseWelcomeModal,
   };
 };
