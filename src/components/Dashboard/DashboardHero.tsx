@@ -38,6 +38,12 @@ export function DashboardHero() {
               supporting institutional and policy reforms that strengthen
               disaster risk management and enhance resilience.
             </DescriptionParagraph>
+            <DescriptionParagraph>
+              The dashboard has been developed with the financial support from
+              the Japan-World Bank Program for Mainstreaming Disaster Risk
+              Management (DRM) in Developing Countries managed by GFDRR Tokyo
+              Hub under the URL Disaster Risk Management GSG.
+            </DescriptionParagraph>
             <DescriptionParagraphLast>
               <span>
                 Designed to support knowledge generation and internal
