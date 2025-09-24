@@ -17,7 +17,7 @@ export function MainDashboardSection({ children }: ChildrenProps) {
 }
 
 export function DashboardInnerContainer({ children }: ChildrenProps) {
-  return <div className="max-w-7xl mx-auto px-8">{children}</div>;
+  return <div className="max-w-7xl mx-auto px-4">{children}</div>;
 }
 
 export function HeroWrapper({ children }: ChildrenProps) {
@@ -30,7 +30,7 @@ export function HeroWrapper({ children }: ChildrenProps) {
 
 export function TextContentSection({ children }: ChildrenProps) {
   return (
-    <div className="flex-1 lg:flex-[0_0_50%] p-8 lg:p-16 flex flex-col justify-center">
+    <div className="flex-1 lg:flex-[0_0_50%] py-8 px-4 lg:py-16 lg:px-6 flex flex-col justify-center">
       {children}
     </div>
   );
