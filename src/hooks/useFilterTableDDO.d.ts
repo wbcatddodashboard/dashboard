@@ -4,6 +4,7 @@ export interface FilterConfig {
   key: string;
   property: string;
   placeholder: string;
+  pluralPlaceholder?: string;
 }
 
 export interface UseFilterTableDDOProps {
