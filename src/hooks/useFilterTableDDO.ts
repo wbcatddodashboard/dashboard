@@ -12,7 +12,7 @@ import { useFilters } from '@/contexts/FilterContext';
 export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
   const [inputValue, setInputValue] = useState('');
   const [filterValue, setFilterValue] = useState('');
-  const { filters, updateFilter } = useFilters();
+  const { filters, updateFilter, clearFilters } = useFilters();
 
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, Option[]>
@@ -30,6 +30,21 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
     () => debounce((value: string) => setFilterValue(value), 300),
     [setFilterValue]
   );
+
+  const resetAllFilters = useCallback(() => {
+    setInputValue('');
+    setFilterValue('');
+    clearFilters();
+    setSelectedFilters(
+      FILTER_CONFIG.reduce(
+        (acc, config) => {
+          acc[config.key] = [];
+          return acc;
+        },
+        {} as Record<string, Option[]>
+      )
+    );
+  }, [clearFilters]);
 
   const createOptions = useCallback(
     (
@@ -280,24 +295,12 @@ export function useFilterTableDDO({ rows }: UseFilterTableDDOProps) {
     updateFilter('countries', []);
   }, [updateFilter]);
 
-  const resetAllFilters = useCallback(() => {
-    setInputValue('');
-    setFilterValue('');
-    updateFilter('countries', []);
-    setSelectedFilters(
-      FILTER_CONFIG.reduce(
-        (acc, config) => {
-          acc[config.key] = [];
-          return acc;
-        },
-        {} as Record<string, Option[]>
-      )
-    );
-  }, [updateFilter]);
-
   const hasActiveFilters =
     filterValue.trim() ||
     filters.countries?.length ||
+    filters.regions?.length ||
+    filters.statuses?.length ||
+    filters.pillars?.length ||
     Object.values(selectedFilters).some((filter) => filter?.length);
 
   const getFilterCounts = useCallback(() => {

@@ -18,7 +18,7 @@ const eslintConfig = [
     },
     rules: {
       'prettier/prettier': 'error',
-      'linebreak-style': ['error', 'unix'],
+      'linebreak-style': 'off', // Allow both LF and CRLF for cross-platform compatibility
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       'react/no-unescaped-entities': [
