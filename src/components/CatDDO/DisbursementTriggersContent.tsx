@@ -139,6 +139,7 @@ export const DisbursementTriggersContent = () => {
                 selected={selectedFilters[config.key] ?? []}
                 onChange={(options) => setFilter(config.key, options)}
                 placeholder={config.placeholder}
+                pluralPlaceholder={config.pluralPlaceholder}
               />
             ))}
           </AdditionalFiltersRow>

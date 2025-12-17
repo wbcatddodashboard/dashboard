@@ -11,14 +11,16 @@ export async function GET(request: Request) {
     const portfolio = loadPortfolioFiltered(filters);
 
     const activeClosed = portfolio.filter((row) =>
-      ['Active', 'Closed'].includes(row.Status || '')
+      ['Active', 'Closed'].includes((row.Status || '').toString().trim())
     );
 
     const groupedData = new Map<string, Map<string, number>>();
 
     for (const row of activeClosed) {
-      const fiscalYear = row['Fiscal Year'] || '';
-      const globalPractice = row['Global Practice'] || 'Unknown';
+      const fiscalYear = (row['Fiscal Year'] || '').toString().trim();
+      const globalPractice = (row['Global Practice'] || 'Unknown')
+        .toString()
+        .trim();
 
       if (!groupedData.has(fiscalYear)) {
         groupedData.set(fiscalYear, new Map());

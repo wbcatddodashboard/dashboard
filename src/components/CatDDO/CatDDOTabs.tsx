@@ -3,6 +3,7 @@ import { useTab } from '@/contexts/TabContext';
 import { PortfolioContent } from './PortfolioContent';
 import { PolicyProgramContent } from './PolicyProgramContent';
 import { DisbursementTriggersContent } from './DisbursementTriggersContent';
+import { PortfolioDataContent } from './PortfolioDataContent';
 import {
   TabTextContainer,
   TabsWrapper,
@@ -37,6 +38,11 @@ export function CatDDOTabs() {
       id: 'triggers',
       label: <TabText>DPF Cat DDO Disbursement Triggers</TabText>,
       content: <DisbursementTriggersContent />,
+    },
+    {
+      id: 'portfoliodata',
+      label: <TabText>Portfolio Data</TabText>,
+      content: <PortfolioDataContent />,
     },
   ];
 

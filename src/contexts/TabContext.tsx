@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-export type TabId = 'portfolio' | 'policy' | 'triggers';
+export type TabId = 'portfolio' | 'policy' | 'triggers' | 'portfoliodata';
 
 interface TabContextType {
   activeTab: TabId;

@@ -24,6 +24,7 @@ export const TablePriorActions = ({
       key: 'projectNumber',
       label: 'P#',
       width: '10%',
+      sortable: true,
       render: (value: string, row: PriorAction) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
@@ -33,6 +34,7 @@ export const TablePriorActions = ({
       key: 'country',
       label: 'Country',
       width: '15%',
+      sortable: true,
       render: (value: string, row: PriorAction) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
@@ -42,6 +44,7 @@ export const TablePriorActions = ({
       key: 'drmPillar',
       label: 'DRM Pillar',
       width: '20%',
+      sortable: true,
       render: (value: string, row: PriorAction) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
@@ -51,6 +54,7 @@ export const TablePriorActions = ({
       key: 'priorAction',
       label: 'Prior Action',
       width: '27.5%',
+      sortable: true,
       render: (value: string, row: PriorAction) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
@@ -60,6 +64,7 @@ export const TablePriorActions = ({
       key: 'resultIndicator',
       label: 'Result Indicator',
       width: '27.5%',
+      sortable: true,
       render: (value: string, row: PriorAction) => (
         <TableCellText isTotal={row.isTotal}>{value}</TableCellText>
       ),
@@ -89,7 +94,12 @@ export const TablePriorActions = ({
   return (
     <TablePriorActionsContainer>
       <TablePriorActionsWrapper_Container>
-        <TablePriorActionsWrapper data={rows} columns={columns} rowKey="id" />
+        <TablePriorActionsWrapper
+          data={rows}
+          columns={columns}
+          rowKey="id"
+          sorting={{ multiple: false }}
+        />
       </TablePriorActionsWrapper_Container>
     </TablePriorActionsContainer>
   );

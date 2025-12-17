@@ -107,6 +107,7 @@ export const PriorActionsResultIndicators = () => {
                   selected={selectedCountryFilter ?? []}
                   onChange={setCountryFilter}
                   placeholder="Country"
+                  pluralPlaceholder="countries"
                 />
               </PriorActionsFilterSelect>
 
@@ -116,6 +117,7 @@ export const PriorActionsResultIndicators = () => {
                   selected={selectedDrmPillarFilter ?? []}
                   onChange={setDrmPillarFilter}
                   placeholder="DRM Pillars"
+                  pluralPlaceholder="DRM Pillars"
                 />
               </PriorActionsFilterSelect>
             </div>

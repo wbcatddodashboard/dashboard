@@ -27,6 +27,7 @@ export function TablePortfolioList({
       label: 'Project ID',
       width: 90,
       sortable: true,
+      fixed: 'left' as const,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
@@ -35,6 +36,7 @@ export function TablePortfolioList({
       label: 'Country',
       width: 120,
       sortable: true,
+      fixed: 'left' as const,
       render: (v: string) => <TableCellText>{v}</TableCellText>,
     },
     {
