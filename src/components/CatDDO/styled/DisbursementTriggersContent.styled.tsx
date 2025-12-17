@@ -27,11 +27,15 @@ export function TitleAndFiltersRow({ children }: ChildrenProps) {
   );
 }
 
-export function TitleSection({ children }: ChildrenProps) {
+interface TitleSectionProps extends ChildrenProps {
+  title?: string;
+}
+
+export function TitleSection({ children, title }: TitleSectionProps) {
   return (
     <div className="flex items-center gap-3 flex-shrink-0">
       <div className="font-['Inter:Semi_Bold',_sans-serif] font-semibold text-[#295e84] text-[20px] sm:text-[24px] tracking-[-0.18px] leading-tight">
-        DPF Cat DDO Disbursement Triggers Content
+        {title ?? 'DPF Cat DDO Disbursement Triggers Content'}
       </div>
       {children}
     </div>

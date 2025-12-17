@@ -43,7 +43,7 @@ export function SortIcon({ direction }: SortIconProps) {
 
 export function TableFundingContainer({ children }: ChildrenProps) {
   return (
-    <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start p-0 relative w-full min-w-0 overflow-x-auto">
+    <div className="box-border content-stretch flex flex-col gap-2 justify-start p-0 relative w-full min-w-0 overflow-x-auto">
       {children}
     </div>
   );

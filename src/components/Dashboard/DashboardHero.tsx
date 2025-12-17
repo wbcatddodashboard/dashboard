@@ -44,17 +44,16 @@ export function DashboardHero() {
               Management (DRM) in Developing Countries managed by GFDRR Tokyo
               Hub under the URL Disaster Risk Management GSG.
             </DescriptionParagraph>
-            <DescriptionParagraphLast>
+            <DescriptionParagraph>
               <span>
                 Designed to support knowledge generation and internal
                 monitoring, this dashboard visualizes portfolio-level trends,
-                core statistics, and patterns of policy reform from Cat
-                DDOs.{' '}
+                core statistics, and patterns of policy reform from Cat DDOs.
               </span>
-              <BoldText>
-                Data last updated: {formattedDate}. The data will be updated at
-                least semi-annually.
-              </BoldText>
+            </DescriptionParagraph>
+            <DescriptionParagraphLast>
+              <BoldText>Data last updated: {formattedDate}.</BoldText> The data
+              will be updated at least semi-annually.
             </DescriptionParagraphLast>
           </DescriptionSection>
         </TextContentSection>
