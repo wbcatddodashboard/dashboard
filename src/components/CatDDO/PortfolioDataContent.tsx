@@ -30,23 +30,8 @@ import { FigmaSelect } from './components';
 import { useCSVDownloader } from '@/hooks/useCSVDownloader';
 import { useFilterTableDDO } from '@/hooks/useFilterTableDDO';
 
-interface PortfolioDataRow {
-  id: string;
-  projectId: string;
-  country: string;
-  projectName: string;
-  fiscalYear: string;
-  status: string;
-  region: string;
-  financier: string;
-  operationType: string;
-  globalPractice: string;
-  activationForCovid?: string;
-  disastersTriggered?: string;
-  commitmentCatDDO: string;
-  disbursements: string;
-  undisbursed: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type PortfolioDataRow = Record<string, any>;
 
 export const PortfolioDataContent = () => {
   // Get global filters from sidebar
@@ -54,6 +39,8 @@ export const PortfolioDataContent = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [rows, setRows] = useState<PortfolioDataRow[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [columns, setColumns] = useState<TableColumn<any>[]>([]);
   const [showMoreFilters, setShowMoreFilters] = useState(false);
 
   // Use the hook for filter logic
@@ -80,34 +67,72 @@ export const PortfolioDataContent = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        // Build API URL with global sidebar filters
-        const apiUrl = buildApiUrl('/api/portfolio/list', globalFilters);
+        // Build API URL with global sidebar filters - calling the DEDICATED FULL-LIST endpoint
+        const apiUrl = buildApiUrl('/api/portfolio/full-list', globalFilters);
         const response = await fetch(apiUrl);
         const data = await response.json();
 
         if (data.data) {
-          // Transform data and add financial columns
-          const transformedRows: PortfolioDataRow[] = data.data.map(
+          const rawData = data.data;
+
+          // Augment data for Hook compatibility (mapping CSV keys to hook expected keys)
+          const augmentedRows: PortfolioDataRow[] = rawData.map(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (item: any, index: number) => ({
-              id: item.id || `row-${index}`,
-              projectId: item.projectId || '',
-              country: item.country || '',
-              projectName: item.projectName || '',
-              fiscalYear: item.fiscalYear || '',
-              status: item.status || '',
-              region: item.region || '',
-              financier: item.financier || '',
-              operationType: item.operationType || '',
-              globalPractice: item.globalPractice || '',
-              activationForCovid: item.activationForCovid || '',
-              commitmentCatDDO: '', // Will be populated from full dataset if needed
-              disbursements: '', // Will be populated from full dataset if needed
-              undisbursed: '', // Will be populated from full dataset if needed
+            (item: any) => ({
+              ...item,
+              projectId: item['P#'],
+              country: item['Country'],
+              projectName: item['Description'],
+              fiscalYear: item['Fiscal Year'],
+              status: item['Status'],
+              region: item['Region'],
+              financier: item['Source'],
+              globalPractice: item['Global Practice'],
+              operationType: item['Standalone/Mixed'],
+              activationForCovid:
+                item['Activation for COVID'] || item['Activation for COVID '],
             })
           );
 
-          setRows(transformedRows);
+          setRows(augmentedRows);
+
+          // Generate dynamic columns from the first row's keys (excluding mapped keys and ID)
+          if (rawData.length > 0) {
+            const firstRow = rawData[0];
+            const dynamicCols = Object.keys(firstRow)
+              .filter((k) => !['id', 'PDO', 'Description'].includes(k))
+              .map((key, index) => {
+                const sampleVal = rawData.find(
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (r: any) => r[key] && r[key].toString().trim() !== ''
+                )?.[key];
+                const isNumericCol =
+                  sampleVal &&
+                  /^-?\d+(?:\.\d+)?$/.test(sampleVal.toString().trim()) &&
+                  !/(?:\b(?:year|fy|id|code)\b)|p\#/i.test(key);
+
+                return {
+                  id: key,
+                  key: key,
+                  label: key,
+                  width: 150,
+                  sortable: true,
+                  fixed: index < 2 ? ('left' as const) : undefined,
+                  align: isNumericCol ? ('right' as const) : ('left' as const),
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  render: (v: any) => (
+                    <TableCellText>
+                      {isNumericCol &&
+                      !isNaN(Number(v)) &&
+                      v.toString().trim() !== ''
+                        ? Number(v).toLocaleString('en-US')
+                        : v}
+                    </TableCellText>
+                  ),
+                };
+              });
+            setColumns(dynamicCols);
+          }
         }
       } catch (error) {
         console.error('Error fetching portfolio data:', error);
@@ -120,94 +145,23 @@ export const PortfolioDataContent = () => {
   }, [globalFilters]); // Refetch when sidebar filters change
 
   const handleDownloadCSV = () => {
-    if (!filteredRows?.length) return;
+    if (!filteredRows?.length || !columns.length) return;
 
-    const csvData = filteredRows.map((row) => ({
-      'Project ID': row.projectId,
-      Country: row.country,
-      'Project Name': row.projectName,
-      'Fiscal Year': row.fiscalYear,
-      Status: row.status,
-      Region: row.region,
-      'Project Financier': row.financier,
-      'Operation Type': row.operationType,
-    }));
+    // Export based on visible columns
+    const csvData = filteredRows.map((row) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const exportRow: Record<string, any> = {};
+      columns.forEach((col) => {
+        if (col.key) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          exportRow[col.label as string] = (row as any)[col.key as string];
+        }
+      });
+      return exportRow;
+    });
 
     downloadCSV(csvData, 'portfolio-data');
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const columns: TableColumn<any>[] = [
-    {
-      id: 'projectId',
-      key: 'projectId',
-      label: 'Project ID',
-      width: 100,
-      sortable: true,
-      render: (v: string) => <TableCellText>{v}</TableCellText>,
-    },
-    {
-      id: 'country',
-      key: 'country',
-      label: 'Country',
-      width: 140,
-      sortable: true,
-      render: (v: string) => <TableCellText>{v}</TableCellText>,
-    },
-    {
-      id: 'projectName',
-      key: 'projectName',
-      label: 'Project Name',
-      width: 300,
-      sortable: true,
-      render: (v: string) => <TableCellText>{v}</TableCellText>,
-    },
-    {
-      id: 'fiscalYear',
-      key: 'fiscalYear',
-      label: 'Fiscal Year',
-      width: 100,
-      align: 'center',
-      sortable: true,
-      render: (v: string) => <TableCellText>{v}</TableCellText>,
-    },
-    {
-      id: 'status',
-      key: 'status',
-      label: 'Status',
-      width: 100,
-      align: 'center',
-      sortable: true,
-      render: (v: string) => <TableCellText>{v}</TableCellText>,
-    },
-    {
-      id: 'region',
-      key: 'region',
-      label: 'Region',
-      width: 100,
-      align: 'center',
-      sortable: true,
-      render: (v: string) => <TableCellText>{v}</TableCellText>,
-    },
-    {
-      id: 'financier',
-      key: 'financier',
-      label: 'Financier',
-      width: 120,
-      align: 'center',
-      sortable: true,
-      render: (v: string) => <TableCellText>{v}</TableCellText>,
-    },
-    {
-      id: 'operationType',
-      key: 'operationType',
-      label: 'Operation Type',
-      width: 140,
-      align: 'center',
-      sortable: true,
-      render: (v: string) => <TableCellText>{v}</TableCellText>,
-    },
-  ];
 
   return (
     <DisbursementTriggersContainer>
