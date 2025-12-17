@@ -212,7 +212,7 @@ export const PortfolioDataContent = () => {
   return (
     <DisbursementTriggersContainer>
       <TitleAndFiltersRow>
-        <TitleSection>
+        <TitleSection title="DPF Cat DDO Portfolio Data">
           <DownloadButtonTrigger
             onClick={handleDownloadCSV}
             disabled={isLoading || !filteredRows?.length}
