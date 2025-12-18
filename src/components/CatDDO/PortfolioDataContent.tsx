@@ -172,6 +172,7 @@ export const PortfolioDataContent = () => {
           <DownloadButtonTrigger
             onClick={() => setShowColumnExplanations(true)}
             disabled={isLoading}
+            title="Column Explanations"
           >
             <Image
               src="/info-icon-figma.svg"
@@ -182,6 +183,7 @@ export const PortfolioDataContent = () => {
           <DownloadButtonTrigger
             onClick={handleDownloadCSV}
             disabled={isLoading || !filteredRows?.length}
+            title="Download CSV"
           >
             <Image
               src="/download-icon.svg"
