@@ -54,17 +54,19 @@ export function DownloadButtonTrigger({
   children,
   onClick,
   disabled,
+  title = 'Download CSV',
 }: {
   children: ReactNode;
   onClick: () => void;
   disabled?: boolean;
+  title?: string;
 }) {
   return (
     <Button
       onClick={onClick}
       disabled={disabled}
       className="p-2 hover:bg-gray-100 rounded-md transition-colors duration-200 cursor-pointer bg-transparent border-none"
-      title="Download CSV"
+      title={title}
     >
       {children}
     </Button>

@@ -81,6 +81,7 @@ export const DisbursementTriggersContent = () => {
           <DownloadButtonTrigger
             onClick={handleDownloadCSV}
             disabled={isLoading || !filteredRows?.length}
+            title="Download CSV"
           >
             <Image
               src="/download-icon.svg"
