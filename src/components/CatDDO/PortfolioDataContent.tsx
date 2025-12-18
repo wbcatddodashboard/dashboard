@@ -29,6 +29,7 @@ import {
 import { FigmaSelect } from './components';
 import { useCSVDownloader } from '@/hooks/useCSVDownloader';
 import { useFilterTableDDO } from '@/hooks/useFilterTableDDO';
+import { ColumnExplanationsModal } from './components/ColumnExplanationsModal';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PortfolioDataRow = Record<string, any>;
@@ -42,6 +43,7 @@ export const PortfolioDataContent = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [columns, setColumns] = useState<TableColumn<any>[]>([]);
   const [showMoreFilters, setShowMoreFilters] = useState(false);
+  const [showColumnExplanations, setShowColumnExplanations] = useState(false);
 
   // Use the hook for filter logic
   const {
@@ -168,6 +170,16 @@ export const PortfolioDataContent = () => {
       <TitleAndFiltersRow>
         <TitleSection title="DPF Cat DDO Portfolio Data">
           <DownloadButtonTrigger
+            onClick={() => setShowColumnExplanations(true)}
+            disabled={isLoading}
+          >
+            <Image
+              src="/info-icon-figma.svg"
+              alt="Column Explanations"
+              className="w-5 h-5"
+            />
+          </DownloadButtonTrigger>
+          <DownloadButtonTrigger
             onClick={handleDownloadCSV}
             disabled={isLoading || !filteredRows?.length}
           >
@@ -276,6 +288,12 @@ export const PortfolioDataContent = () => {
           />
         </TableFundingContainer>
       )}
+
+      {/* Column Explanations Modal */}
+      <ColumnExplanationsModal
+        isOpen={showColumnExplanations}
+        onClose={() => setShowColumnExplanations(false)}
+      />
     </DisbursementTriggersContainer>
   );
 };
