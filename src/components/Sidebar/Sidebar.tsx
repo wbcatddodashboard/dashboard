@@ -146,23 +146,23 @@ function Sidebar({ className }: SidebarProps) {
             );
           })}
         </When>
-
-        <ActionButtonsContainer>
-          <ButtonContainer>
-            <ResetFiltersButton onClick={handleResetFilters}>
-              Reset Filters
-            </ResetFiltersButton>
-          </ButtonContainer>
-          <ButtonContainer>
-            <UnderstandingDataButton onClick={handleUnderstandingData}>
-              Understanding the Data
-            </UnderstandingDataButton>
-          </ButtonContainer>
-          <ButtonContainer>
-            <AboutButton onClick={handleAbout}>About</AboutButton>
-          </ButtonContainer>
-        </ActionButtonsContainer>
       </SidebarContent>
+
+      <ActionButtonsContainer>
+        <ButtonContainer>
+          <ResetFiltersButton onClick={handleResetFilters}>
+            Reset Filters
+          </ResetFiltersButton>
+        </ButtonContainer>
+        <ButtonContainer>
+          <UnderstandingDataButton onClick={handleUnderstandingData}>
+            Understanding the Data
+          </UnderstandingDataButton>
+        </ButtonContainer>
+        <ButtonContainer>
+          <AboutButton onClick={handleAbout}>About</AboutButton>
+        </ButtonContainer>
+      </ActionButtonsContainer>
       <SidebarBorder />
 
       <DRMPolicyPillarsModal
