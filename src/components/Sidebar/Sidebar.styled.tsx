@@ -16,6 +16,9 @@ export function SidebarContainer({
     'relative',
     'w-64',
     'flex-shrink-0',
+    'flex',
+    'flex-col',
+    'h-full',
     className
   );
 
@@ -33,7 +36,9 @@ export function SidebarContent({ children }: ChildrenProps) {
     'justify-start',
     'p-[16px]',
     'relative',
-    'h-full',
+    'relative',
+    'flex-grow',
+    'min-h-0',
     'overflow-y-auto',
     'scrollbar-thin',
     'scrollbar-thumb-gray-300',
@@ -273,7 +278,8 @@ export function ActionButtonsContainer({ children }: ChildrenProps) {
     'gap-3',
     'items-start',
     'justify-start',
-    'p-0',
+    'p-[16px]',
+    'pt-0',
     'relative',
     'shrink-0',
     'w-full'
