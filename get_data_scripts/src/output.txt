@@ -1,0 +1,29 @@
+=== Summary ===
+Portfolio: 72 projects
+Prior Actions: 58 projects
+Triggers: 72 projects
+Climate Cobenefits: 68 projects
+
+=== In Portfolio but NOT in Prior Actions ===
+Count: 14
+['P181256', 'P181432', 'P181603', 'P502565', 'P503960', 'P505490', 'P505784', 'P506285', 'P507259', 'P507760', 'P507912', 'P507916', 'P509413', 'P510158']
+
+=== In Prior Actions but NOT in Portfolio ===
+Count: 0
+[]
+
+=== In Portfolio but NOT in Triggers ===
+Count: 0
+[]
+
+=== In Triggers but NOT in Portfolio ===
+Count: 0
+[]
+
+=== In Portfolio but NOT in Climate Cobenefits ===
+Count: 4
+['P111926', 'P112544', 'P113084', 'P510158']
+
+=== In Climate Cobenefits but NOT in Portfolio ===
+Count: 0
+[]
