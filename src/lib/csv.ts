@@ -9,7 +9,9 @@ export function getDataDir(): string {
 export type CsvRecord = Record<string, string>;
 
 export function readCsvAsObjects(csvAbsolutePath: string): CsvRecord[] {
-  const fileContent = fs.readFileSync(csvAbsolutePath, 'utf8');
+  // Read with latin1 encoding to handle special characters (like Spanish accents) correctly
+  // The CSV files are saved in Windows-1252/latin1 encoding from Excel
+  const fileContent = fs.readFileSync(csvAbsolutePath, 'latin1');
   const records = parse(fileContent, {
     columns: (header: string[]) =>
       header.map((h) => (h ?? '').toString().trim()),
