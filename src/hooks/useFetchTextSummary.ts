@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useFilters } from '@/contexts/FilterContext';
-import { buildApiUrl } from '@/lib/api-utils';
 
 interface TextSummaryNumbers {
   numActiveClosed: number;
@@ -37,7 +35,6 @@ interface TextSummaryResponse {
 }
 
 export function useFetchTextSummary() {
-  const { filters } = useFilters();
   const [data, setData] = useState<TextSummaryResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>('');
@@ -48,8 +45,8 @@ export function useFetchTextSummary() {
         setIsLoading(true);
         setError('');
 
-        const url = buildApiUrl('/api/portfolio/text-summary', filters);
-        const response = await fetch(url);
+        // Fetch without filters - always shows full portfolio stats
+        const response = await fetch('/api/portfolio/text-summary');
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -70,7 +67,7 @@ export function useFetchTextSummary() {
     }
 
     fetchData();
-  }, [filters]);
+  }, []); // No dependencies - only fetch once on mount
 
   return { data, isLoading, error };
 }
