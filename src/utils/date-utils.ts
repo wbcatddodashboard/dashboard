@@ -13,9 +13,9 @@ export function formatLastUpdate(
     return 'Loading...';
   }
 
-  const day = metadata.Update_Day.padStart(2, '0');
-  const month = metadata.Update_Month.substring(0, 3);
+  const day = metadata.Update_Day;
+  const month = metadata.Update_Month;
   const year = metadata.Update_Year;
 
-  return `${day} ${month} ${year}`;
+  return `${month} ${day}, ${year}`;
 }
