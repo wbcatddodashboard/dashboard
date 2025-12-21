@@ -3,6 +3,7 @@ Compare P# in Cat_DDO_Portfolio.csv with P# in:
 - Cat_DDO_Prior_Actions.csv
 - Cat_DDO_Triggers.csv  
 - Climate_cobenefits.csv
+- gender_merged.csv
 """
 
 import csv
@@ -10,6 +11,7 @@ import os
 
 # Path to data directory
 DATA_DIR = r'C:\Users\jqnmu\OneDrive\World_Bank_DRM\wbcatddodashboard\src\data'
+GENDER_DIR = r'C:\Users\jqnmu\OneDrive\World_Bank_DRM\wbcatddodashboard\get_data_scripts\data\gender'
 
 
 def read_pids_from_csv(filepath, column_name):
@@ -44,6 +46,9 @@ def main():
     ccb_pids = read_pids_from_csv(
         os.path.join(DATA_DIR, 'Climate_cobenefits.csv'), 'Project ID'
     )
+    gender_pids = read_pids_from_csv(
+        os.path.join(GENDER_DIR, 'gender_merged.csv'), 'P#'
+    )
 
     # Summary
     print('=== Summary ===')
@@ -51,6 +56,7 @@ def main():
     print(f'Prior Actions: {len(prior_actions_pids)} projects')
     print(f'Triggers: {len(triggers_pids)} projects')
     print(f'Climate Cobenefits: {len(ccb_pids)} projects')
+    print(f'Gender: {len(gender_pids)} projects')
 
     # Comparisons
     print('\n=== In Portfolio but NOT in Prior Actions ===')
@@ -80,6 +86,16 @@ def main():
 
     print('\n=== In Climate Cobenefits but NOT in Portfolio ===')
     diff = ccb_pids - portfolio_pids
+    print(f'Count: {len(diff)}')
+    print(sorted(diff))
+
+    print('\n=== In Portfolio but NOT in Gender ===')
+    diff = portfolio_pids - gender_pids
+    print(f'Count: {len(diff)}')
+    print(sorted(diff))
+
+    print('\n=== In Gender but NOT in Portfolio ===')
+    diff = gender_pids - portfolio_pids
     print(f'Count: {len(diff)}')
     print(sorted(diff))
 
