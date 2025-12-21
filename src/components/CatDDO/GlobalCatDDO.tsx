@@ -51,7 +51,7 @@ export const GlobalCatDDO = () => {
                     'Loading...'
                   ) : (
                     <>
-                      Of the{' '}
+                      Across the portfolio, of the{' '}
                       <SemiboldText>
                         US${formatNumber(mixedAllCommit)} million
                       </SemiboldText>{' '}
