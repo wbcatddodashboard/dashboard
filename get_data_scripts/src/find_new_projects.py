@@ -110,7 +110,6 @@ def main():
     new_projects = []
     for pid, p in candidates.items():
         if pid not in existing_ids:
-            title = str(p.get("project_name", "")).lower()
             prodline = str(p.get("prodline", "")).lower()
             lendinginstr = str(p.get("lendinginstr", "")).lower()
             
