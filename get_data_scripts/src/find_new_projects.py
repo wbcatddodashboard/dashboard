@@ -111,8 +111,6 @@ def main():
     for pid, p in candidates.items():
         if pid not in existing_ids:
             title = str(p.get("project_name", "")).lower()
-            abstract_data = p.get("project_abstract", {})
-            abstract = str(abstract_data.get("cdata", "") if isinstance(abstract_data, dict) else abstract_data).lower()
             prodline = str(p.get("prodline", "")).lower()
             lendinginstr = str(p.get("lendinginstr", "")).lower()
             
