@@ -34,8 +34,15 @@ def merge_gender_files(
         # Read file, skipping metadata rows
         df = pd.read_excel(file, skiprows=[0, 1, 3], header=0)
         df = df.dropna(how='all')
-                
-        reference_columns = list(df.columns)
+
+        current_columns = list(df.columns)
+        if reference_columns is None:
+            reference_columns = current_columns
+        elif current_columns != reference_columns:
+            raise ValueError(
+                f"Header mismatch in file {file.name}. "
+                f"Expected columns: {reference_columns}, got: {current_columns}"
+            )
         dataframes.append(df)
         print(f"  {file.name}: {len(df)} rows")
     
