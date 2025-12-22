@@ -110,7 +110,6 @@ def main():
     new_projects = []
     for pid, p in candidates.items():
         if pid not in existing_ids:
-            lendinginstr = str(p.get("lendinginstr", "")).lower()
             
             # Filter for Active status and 2025 approval year
             status = p.get("status", "")
