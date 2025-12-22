@@ -3,7 +3,6 @@ import os
 import requests
 import pandas as pd
 import time
-from datetime import datetime
 
 # Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
