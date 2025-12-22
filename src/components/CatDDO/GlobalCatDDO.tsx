@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { GlobalChart } from './components/GlobalChart';
 import {
@@ -11,8 +13,23 @@ import {
   GlobalSubBulletPoint,
 } from './styled/GlobalCatDDO.styled';
 import { SemiboldText } from './styled/OverViewCatDDO.styled';
+import { useFetchTextSummary } from '@/hooks/useFetchTextSummary';
 
 export const GlobalCatDDO = () => {
+  const { data, isLoading } = useFetchTextSummary();
+
+  // Format number with commas for display (no decimals)
+  const formatNumber = (num: number): string => {
+    return Math.round(num).toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+  };
+
+  // Get the commitment values from the API data, with fallback
+  const mixedAllCommit = data?.numbers?.mixedAllCommit ?? 0;
+  const mixedCatCommit = data?.numbers?.mixedCatCommit ?? 0;
+
   return (
     <GlobalWrapper>
       <GlobalContainer>
@@ -30,10 +47,22 @@ export const GlobalCatDDO = () => {
               single operation.
               <GlobalSubBulletPointsContainer>
                 <GlobalSubBulletPoint>
-                  Of the <SemiboldText>US$796 million</SemiboldText> committed
-                  to DPOs combining upfront budget support with the DPF Cat DDO
-                  instrument, <SemiboldText>US$250 million</SemiboldText> has
-                  been allocated specifically to DPF Cat DDOs.
+                  {isLoading ? (
+                    'Loading...'
+                  ) : (
+                    <>
+                      Across the portfolio, of the{' '}
+                      <SemiboldText>
+                        US${formatNumber(mixedAllCommit)} million
+                      </SemiboldText>{' '}
+                      committed to DPOs combining upfront budget support with
+                      the DPF Cat DDO instrument,{' '}
+                      <SemiboldText>
+                        US${formatNumber(mixedCatCommit)} million
+                      </SemiboldText>{' '}
+                      has been allocated specifically to DPF Cat DDOs.
+                    </>
+                  )}
                 </GlobalSubBulletPoint>
                 <GlobalSubBulletPoint>
                   This shift is reflected in the growing number of DPF Cat DDOs
