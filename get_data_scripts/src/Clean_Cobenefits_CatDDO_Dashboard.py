@@ -1,7 +1,6 @@
 #%%
 '''This opens the file downloaded from the One Target Map Dashboards, and extracts the small part to be shared for the Cat DDO dashboard.'''
 
-import os
 import pandas as pd
 
 # Configuration
