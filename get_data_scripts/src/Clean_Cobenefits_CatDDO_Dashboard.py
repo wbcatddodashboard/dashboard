@@ -14,9 +14,9 @@ df = pd.read_csv('get_data_scripts/data/climate-cobenefits/project_details_compl
 df = df.loc[(df['Project ID'].isin(Cat_DDO_list)) & (df['Project Assessed'] == 'Assessed')] # Filter relevant operations
 
 # Create percentages
-df['Adaptation CCB %'] = 100 * df['Net IDA/IBRD Adaptation ($M)'] / df['Total IDA/IBRD Commitment ($M)'] 
-df['Mitigation CCB %'] = 100 * df['Net IDA/IBRD Mitigation ($M)'] / df['Total IDA/IBRD Commitment ($M)']
-df['Total CCB %'] = df['Adaptation CCB %'] + df['Mitigation CCB %']
+df['Adaptation CCB %'] = round(100 * df['Net IDA/IBRD Adaptation ($M)'] / df['Total IDA/IBRD Commitment ($M)'], 2)
+df['Mitigation CCB %'] = round(100 * df['Net IDA/IBRD Mitigation ($M)'] / df['Total IDA/IBRD Commitment ($M)'], 2)
+df['Total CCB %'] = round(df['Adaptation CCB %'] + df['Mitigation CCB %'], 2)
 
 cols = ['Project ID', 'Country', 'FY', 'Adaptation CCB %', 'Mitigation CCB %', 'Total CCB %']
 df = df[cols]

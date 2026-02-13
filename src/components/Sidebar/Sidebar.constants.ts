@@ -8,7 +8,7 @@ export const REGION_LABELS: Record<string, string> = {
   EAP: 'East Asia & Pacific (EAP)',
   ECA: 'Europe & Central Asia (ECA)',
   LCR: 'Latin America & Caribbean (LCR)',
-  MNA: 'Middle East & North Africa (MNA)',
+  MNA: 'Middle East, North Africa, Afghanistan & Pakistan (MNA)',
   NA: 'North America',
   SAR: 'South Asia (SAR)',
 };
