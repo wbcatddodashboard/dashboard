@@ -71,7 +71,7 @@ export const PORTFOLIO_DATA_COLUMN_EXPLANATIONS: ColumnExplanation[] = [
   {
     columnName: 'Global Practice',
     explanation:
-      'World Bank Global Practice responsible for the project (e.g., Urban Resilience and Land, Macroeconomics Trade and Investment)',
+      'World Bank Global Practice responsible for the project (e.g., Urban Resilience and Land, Economic Policy)',
   },
   {
     columnName: 'Renewal (times)',
