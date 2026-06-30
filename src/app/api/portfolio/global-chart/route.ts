@@ -36,7 +36,7 @@ export async function GET(request: Request) {
 
         const allDepartments = [
           'Urban, Resilience and Land',
-          'Macroeconomics, Trade and Investment',
+          'Economic Policy',
           'Environment, Natural Resources & the Blue Economy',
           'Finance, Competitiveness and Innovation',
           'Governance',
@@ -63,8 +63,8 @@ export async function GET(request: Request) {
         color: '#295e84',
       },
       {
-        key: 'Macroeconomics, Trade and Investment',
-        label: 'Macroeconomics, Trade and Investment',
+        key: 'Economic Policy',
+        label: 'Economic Policy',
         color: '#9d4449',
       },
       {
