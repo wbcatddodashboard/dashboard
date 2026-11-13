@@ -27,10 +27,11 @@ All sources below are public and need no login, except the two marked **internal
 | **Which operations exist** (new rows) | World Bank Documents & Reports API | Search for Cat DDO documents, see "Finding new operations" below. `find_new_projects.py` uses the Projects API, which is stale for recent operations (it still lists Jamaica P507259 as "Pipeline, $0"). |
 | P#, Country, ISO3, Region, Description, PDO, Global Practice, Approval Date, Closing Date | [Project page](https://projects.worldbank.org/en/projects-operations/project-detail/P507259) and Program Document | Copy by hand. ISO3 and SIDS from the country. |
 | Fiscal Year, Status | Approval date (WB fiscal year runs Jul–Jun) and loan status in Finances One | `Closed` once every Cat DDO loan is fully disbursed, cancelled or past closing. |
-| Source, Commitment (All), Commitment (Cat DDO only), Cat DDO Comm - IBRD/IDA | **Finances One** loan data (below) | Each Cat DDO is its own loan/credit number under the P#. Its `original_principal_amount` is the Cat DDO commitment; the other loans under the same P# are the upfront DPF. |
+| Source, Commitment (All), Commitment (Cat DDO only), Cat DDO Comm - IBRD/IDA | **Finances One** loan data (below) | Each Cat DDO is its own loan/credit number under the P#. Its `original_principal_amount` is the Cat DDO commitment; the other loans under the same P# are upfront DPF, supplemental or "scalable" financing paid out right away. **Money columns count only the Cat DDO loan.** Front-end fees (e.g. US$0.5M on a US$100M loan) are not drawdowns. |
 | `FYxx Cat DDO Disb.` (one column per year) | **Finances One historical snapshots** | FY disbursement = `disbursed_amount` on 30 June of that FY minus 30 June of the year before. Monthly history exists from April 2011; keep earlier years as they are. |
 | Disbursements - Cat DDO Cum. (+ IBRD / IDA), CAT DDO Undisbursed (+ IBRD / IDA), % Undisbursed | **Finances One latest snapshot** | `disbursed_amount` and `undisbursed_amount` of the Cat DDO loan(s). For closed operations the dashboard puts the cancelled remainder in "Undisbursed"; keep that convention. |
-| Outcomes, Bank Performance, Relevance of Prior Actions, Achievement of Objectives, Quality at Entry/Supervision, Risk to Development Outcome, Borrower Performance | **IEG World Bank Project Performance Ratings** | Only for closed operations with an IEG review (ICRR). |
+| Outcomes, Bank Performance, Quality at Entry/Supervision | **IEG World Bank Project Performance Ratings** | **Always IEG's rating**, never the World Bank team's own ICR rating. IEG supersedes the ICR, and a PPAR supersedes the ICR Review (ICRR). In an ICR Review document, read the "IEG" column of the ratings table, not the "ICR" column. |
+| Relevance of Prior Actions, Achievement of Objectives, Risk to Development Outcome, Borrower Performance | ICR Review (ICRR) document | Not in IEG's dataset. Take them from the IEG column / text of the ICR Review. |
 | ICR | Documents API | `Yes` once an "Implementation Completion and Results Report" exists. |
 | Generation, Renewal (times), Standalone/Mixed, Activation for COVID, Cofinancing, Note | Program Document, ISRs, renewal letters | By hand. "Mixed" = the operation also has an upfront DPF tranche. |
 | Trigger from Loan/Financing Agreements, Link to Financing or Loan Agreement | Loan/Financing Agreement (Documents API, type "Loan Agreement" / "Financing Agreement") | Copy the drawdown condition from the agreement's schedule. |
@@ -68,34 +69,22 @@ IDA amounts are recorded in SDR and converted to US$ every month, so a $20M IDA 
   `https://search.worldbank.org/api/v3/wds?format=json&rows=100&qterm="Catastrophe Deferred Drawdown"&strdate=2026-07-01&fl=docdt,display_title,projectid,docty&sort=docdt&order=desc`
   Repeat with `qterm="Cat DDO"`. A new operation shows up as a "Program Document", "Project Paper" (additional financing) or "Minutes"/"Record of Approval". Ignore operations with a plain "Deferred Drawdown Option" (DDO) that is not a *Catastrophe* DDO, e.g. Peru P506131.
 
-## What changed since the last update (30 June 2026 data)
+## Last update: data as of 31 October 2026 (applied 13 November 2026)
 
-Found while checking these sources on 13 November 2026. None of this is in the dashboard yet.
+Every change was reviewed one by one against its source before it was applied.
 
-**New Cat DDO operations approved**
-- **Mexico P512359**, Disaster and Climate Resilience DPL with a Cat DDO, approved 21 Oct 2026 (FY27).
-- **Grenada P512523**, First Competitiveness and Resilience DPC with a Cat DDO, approved 30 Jun 2026 (FY26).
+- **New operations:** Mexico P512359 (US$500M standalone, Board-approved 21 Oct 2026, FY27) and Grenada P512523 (US$20M Cat DDO in a US$52M credit, approved 30 Jun 2026, FY26), with their prior actions.
+- **Drawdowns after 30 June 2026 (FY27 column):** Colombia P181256 US$200M (earthquake, Aug 2026); El Salvador P509413 US$99.5M (drought, Oct 2026); Romania P502111 US$50.9M (extreme weather, Aug 2026); Marshall Islands P504373 US$11.0M (El Niño and dengue, Oct 2026); Nepal P181344 US$8.5M (floods, Sep 2026).
+- **Ratings:** 7 operations changed from the team's ICR rating to IEG's.
+- **Not Cat DDO money, so left out of every column including "Commitment (All)":** scalable or supplemental financing approved after a disaster is immediate budget support, not a deferred Cat DDO. This applies to Colombia's US$200M (IBRD K076, Sep 2026), Marshall Islands' US$9M (E672, Jun 2026) and Jamaica's US$42M (IBRD 9962, Mar 2026; Jamaica's total corrected from 234M to 192M).
+- **Triggers:** "Disasters that have triggered the Cat DDO" is filled in only when a World Bank document confirms the event (e.g. Jamaica: Hurricane Melissa, per the Mar 2026 Scalable Financing document). Also confirmed and added: Bhutan P500536 (floods and landslides, Oct 2025, per its May 2026 progress report) and Tonga P172742 (volcanic eruption and tsunami, Jan 2022, per its 2022 Supplemental Financing paper). Left blank until a World Bank document confirms the event: El Salvador P509413 (drawn Oct 2026), Panama P174191 (Nov 2024), Philippines P180585 (Nov 2025), Somalia P509222 (Apr 2026), Tuvalu P170558 (Feb 2020), Cabo Verde P176148 (Aug 2025), Solomon Islands P178676 (May 2026).
+- **Fixed:** Cabo Verde P160628 FY20 disbursement set to the nominal US$10,000,000 (it held the IDA part converted at a later exchange rate).
+- **Next time, check:** whether Samoa P514213, Philippines P518644, Morocco P517767, Chad P513427 or Cabo Verde P516432 get approved with a Cat DDO (all at concept or appraisal on 13 Nov 2026); Mexico's legal agreement, trigger text and climate co-benefits once published; Gender Tagged for Mexico and Grenada (internal source only); the disaster behind El Salvador's drawdown.
 
-**Additional Cat DDO financing on existing operations**
-- **Jamaica P507259**: a second $42M IBRD loan (9962-JM, project paper March 2026), already fully disbursed by 31 Mar 2026. The dashboard shows only the first $42M.
-- **Marshall Islands P504373**: project paper May 2026; Finances One now shows a third credit (IDAE6720, $9M) under this P#. Check whether it is Cat DDO or DPF money.
-
-**Drawdowns after 30 June 2026 (go in the FY27 column)**
-- **El Salvador P509413**: Cat DDO loan IBRD 9855 ($100M) fully drawn by Oct 2026. Dashboard shows $0 disbursed.
-- **Romania P502111**: $346.2M → $397.1M disbursed by Oct 2026.
-- **Nepal P181344**: $139.4M → $147.9M disbursed by Sep 2026.
-- **Marshall Islands P504373**: Cat DDO credit IDAE3420 ($12M) $11.0M disbursed by Oct 2026.
-
-**New IEG reviews (ICRRs) to take ratings from**
-- Colombia P176650 (Oct 2026), Honduras P177001 (Oct 2026), Nepal P166788 (May 2026).
-
-**In preparation (pipeline), check whether they include a Cat DDO**
-- Samoa P514213 (appraisal, Oct 2026), Philippines P518644 (concept, Jul 2026), Morocco P517767 (concept, Jul 2026).
-
-**Useful background:** IEG evaluation *Managing Disaster-Related Fiscal Risks in a Shock-Prone World: Insights from the Cat DDO* (P181771, June 2026).
+Background: IEG evaluation *Managing Disaster-Related Fiscal Risks in a Shock-Prone World: Insights from the Cat DDO* (P181771, June 2026).
 
 ## Before you push
 
-- `Last_FY` in `Cat_DDO_Metadata.csv` controls the last year shown in the disbursement chart. FY27 started on 1 July 2026; switch to `FY27` once you have FY27 disbursements (El Salvador, Romania, Nepal, Marshall Islands above).
+- `Last_FY` in `Cat_DDO_Metadata.csv` controls the last year shown in the disbursement chart (now `FY27`, a partial year).
 - Run `npm test`. The data checks fail if a column is missing, a P# is duplicated, a status or fiscal year is misspelled, an amount isn't a number, or IBRD + IDA don't add up to the totals.
 - Raw downloads that are not for public disclosure (One Target Map export, Gender Tag tracker) must not be committed: this repository is public.
