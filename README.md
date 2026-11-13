@@ -14,7 +14,7 @@ Instructions for updating the CSVs within the GitHub repository assigned. Please
 4. Push the changes to the main branch: git push origin main
    a. Both Commit and Push can be done through the interface, no need for command line.
 5. Wait 5m for the deployment to complete (Check the status in Vercel dashboard.)
-6. Review changes (Visit the live site https://dashboard-rho-liard-46.vercel.app/ to confirm the updates from the CSV files are applied.). Check for any errors or broken functionality: If needed, inspect logs in Vercel or GitHub Actions.
+6. Review changes (Visit the live site https://www.wbcatddodashboard.org/ to confirm the updates from the CSV files are applied.). Check for any errors or broken functionality: If needed, inspect logs in Vercel or GitHub Actions.
 
 Notes:
 
@@ -24,6 +24,7 @@ Notes:
 • As the file is not for public disclosure, put it in "Internal_data" folder, then clean it to keep only columns and rows that are relevant using the "Clean_Cobenefits_CatDDO_Dashbord.py" file.
 • NOT DRM data should be removed from PAs
 • Only keep Active and closed operations
+• Domain: wbcatddodashboard.org is registered at GoDaddy and points to Vercel (A record @ → 216.198.79.1, CNAME www → the Vercel value shown in Vercel > dashboard > Settings > Domains). The bare domain redirects to www. The Vercel URL https://dashboard-rho-liard-46.vercel.app/ also still works.
 
 ---
 
