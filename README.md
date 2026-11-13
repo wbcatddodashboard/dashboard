@@ -2,7 +2,7 @@ Updating Data
 
 Instructions for updating the CSVs within the GitHub repository assigned. Please note that changes in data structure - through the addition or removal of columns or fields - will nullify the process.
 
-1. Log in to the GitHub account: ‘wbcatddodashboard’. To login into Vercel, login using GitHub credentials, not email
+1. Sign in to GitHub and Vercel with an account that has access to this project (ask the maintainer if you need access).
 2. Upload the new CSV files. Make sure they are in the correct directory that the project expects (src/data):
    • 'Cat_DDO_Portfolio.csv'
    • 'Cat_DDO_Prior_Actions.csv'

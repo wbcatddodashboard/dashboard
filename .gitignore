@@ -42,3 +42,7 @@ next-env.d.ts
 
 #cursor
 .cursorrules
+
+# internal exports (not for public disclosure)
+Internal_data/
+get_data_scripts/data/climate-cobenefits/project_details_complete_unfiltered*.csv
